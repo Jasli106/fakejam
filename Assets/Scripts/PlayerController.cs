@@ -16,19 +16,20 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Vector2 movement = Vector2.zero;
-        if (Input.GetKeyDown(KeyCode.W)) {
+        if (Input.GetKey(KeyCode.W)) {
             movement += Vector2.up;
         }
-        if (Input.GetKeyDown(KeyCode.S)) {
+        if (Input.GetKey(KeyCode.S)) {
             movement += Vector2.down;
         }
-        if (Input.GetKeyDown(KeyCode.D)) {
+        if (Input.GetKey(KeyCode.D)) {
             movement += Vector2.right;
         }
-        if (Input.GetKeyDown(KeyCode.A)) {
+        if (Input.GetKey(KeyCode.A)) {
             movement += Vector2.left;
         }
 
+        movement.Normalize();
         rb.velocity = speed * movement;
     }
 
