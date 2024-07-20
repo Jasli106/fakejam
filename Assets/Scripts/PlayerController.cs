@@ -2,26 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    [HideInInspector] public Vector2 position = Vector2.zero;
-    [HideInInspector] public float speed = 2;
+    [SerializeField] float speed = 2;
+    Rigidbody2D rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.W)) {
-            position.y += speed;
+        Vector2 movement = Vector2.zero;
+        if (Input.GetKeyDown(KeyCode.W)) {
+            movement += Vector2.up;
         }
-        if(Input.GetKeyDown(KeyCode.S)) {
-            position.y -= speed;
+        if (Input.GetKeyDown(KeyCode.S)) {
+            movement += Vector2.down;
         }
-        if(Input.GetKeyDown(KeyCode.D)) {
-            position.x += speed;
+        if (Input.GetKeyDown(KeyCode.D)) {
+            movement += Vector2.right;
         }
-        if(Input.GetKeyDown(KeyCode.A)) {
-            position.x -= speed;
+        if (Input.GetKeyDown(KeyCode.A)) {
+            movement += Vector2.left;
         }
-        transform.position = position;
+
+        rb.velocity = speed * movement;
     }
 
 
