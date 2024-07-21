@@ -20,9 +20,10 @@ public class ObjectPlacer : MonoBehaviour
     {
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-        float x = Mathf.Round(mouseWorldPosition.x);
-        float y = Mathf.Round(mouseWorldPosition.y);
-        return new Vector3(x, y, 0);
+        return TileObject.Round(mouseWorldPosition);
+        //float x = Mathf.Round(mouseWorldPosition.x);
+        //float y = Mathf.Round(mouseWorldPosition.y);
+        //return new Vector3(x, y, 0);
     }
 
     void SetGhostEnabled(bool value)
