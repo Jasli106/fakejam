@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,7 +52,17 @@ public class InventoryManager : MonoBehaviour
         {
             ToggleInventory();
         }
+        HandleScrollInput();
     }
+    void HandleScrollInput()
+    {
+        float scrollDelta = Input.mouseScrollDelta.y;
+        int newIndex = selectedSlotIndex + (int)Mathf.Sign(scrollDelta);
+        newIndex += hotbarSlots.Count();
+        newIndex %= hotbarSlots.Count();
+        SelectSlot(newIndex);
+    }
+
 
     // Hotbar
     void SelectSlot(int idx)

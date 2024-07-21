@@ -32,6 +32,11 @@ public class ObjectPlacer : MonoBehaviour
         ghostPlacementRenderer.enabled = ghostEnabled;
     }
 
+    void SetGhostSprite(Sprite sprite)
+    {
+        ghostPlacementRenderer.sprite = sprite;
+    }
+
     private void Update()
     {
         if (ghostEnabled)

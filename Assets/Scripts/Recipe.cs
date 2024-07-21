@@ -21,14 +21,14 @@ public class Recipe
     public static List<Recipe> list = new List<Recipe>()
     {
         new Recipe (
-            "furnace",
+            "Furnace",
             new List<(string, float)>(),
             new List<Item>() {
-                new Item("iron ore sand", 1),
-                new Item("oak charcoal", 1)
+                new Item("Iron Ore Sand", 1),
+                new Item("Oak Charcoal", 1)
             },
             new List<Item>() {
-                new Item("iron bloom", 1)
+                new Item("Iron Bloom", 1)
             }
         )
     };
