@@ -8,7 +8,7 @@ public abstract class TileObject : MonoBehaviour
 
     public static TileObject GetTileAtPosition(Vector2 position)
     {
-        if (objectPositions.TryGetValue(position, out TileObject tile) {
+        if (objectPositions.TryGetValue(position, out TileObject tile)) {
             return tile;
         }
         else
@@ -28,7 +28,7 @@ public abstract class TileObject : MonoBehaviour
         List<(TileObject, Vector2)> neighbors = new();
         foreach (Vector2 dir in directions)
         {
-            if (objectPositions.TryGetValue(position, out TileObject neighbor) {
+            if (objectPositions.TryGetValue(position, out TileObject neighbor)) {
                 neighbors.Add((neighbor, dir));
             }
         }
@@ -46,7 +46,7 @@ public abstract class TileObject : MonoBehaviour
 
     }
 
-    public void Update(TileObject object, Vector2 direction)
+    public void Update(TileObject tobject, Vector2 direction)
     {
         
     }
