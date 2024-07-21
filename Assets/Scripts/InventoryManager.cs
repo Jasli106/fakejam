@@ -15,6 +15,7 @@ public class InventoryManager : MonoBehaviour
         if(itemSelected != null)
         {
             inventoryItemImg.sprite = itemSelected.sprite;
+            inventoryItemImg.color = new Color(1, 1, 1, 1);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 canvas.transform as RectTransform,
                 Input.mousePosition,
@@ -24,13 +25,7 @@ public class InventoryManager : MonoBehaviour
             inventoryItemImg.rectTransform.localPosition = localPoint;
         } else
         {
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-               canvas.transform as RectTransform,
-               Input.mousePosition,
-               canvas.worldCamera,
-               out Vector2 localPoint);
-
-            inventoryItemImg.rectTransform.localPosition = localPoint;
+            inventoryItemImg.color = new Color(1, 1, 1, 0);
         }
     }
 }
