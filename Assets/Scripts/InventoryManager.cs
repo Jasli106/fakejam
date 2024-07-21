@@ -57,7 +57,8 @@ public class InventoryManager : MonoBehaviour
     void HandleScrollInput()
     {
         float scrollDelta = Input.mouseScrollDelta.y;
-        int newIndex = selectedSlotIndex + (int)Mathf.Sign(scrollDelta);
+        if (scrollDelta == 0) return;
+        int newIndex = selectedSlotIndex - (int)Mathf.Sign(scrollDelta);
         newIndex += hotbarSlots.Count();
         newIndex %= hotbarSlots.Count();
         SelectSlot(newIndex);
