@@ -9,6 +9,7 @@ public class InventoryManager : MonoBehaviour
     public static Item itemPickedUp = null;
     public static bool inventoryOpen = false;
 
+    public GameObject expandedInventory;
     public Image inventoryItemImg;
     public Canvas canvas;
 
@@ -46,6 +47,10 @@ public class InventoryManager : MonoBehaviour
                 SelectSlot(i);
             }
         }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            ToggleInventory();
+        }
     }
 
     // Hotbar
@@ -53,6 +58,7 @@ public class InventoryManager : MonoBehaviour
     {
         DeselectSlot(selectedSlotIndex);
         itemSelected = hotbarSlots[idx].currItem;
+        hotbarSlots[idx].selected = true;
         selectedSlotIndex = idx;
 
         // Highlight
@@ -62,9 +68,16 @@ public class InventoryManager : MonoBehaviour
 
     void DeselectSlot(int idx)
     {
+        hotbarSlots[idx].selected = false;
         Image img = hotbarSlots[idx].GetComponent<Image>();
         img.color = img.color = img.color = new Color(1, 1, 1);
     }
 
+    // Open/close inventory
+    void ToggleInventory()
+    {
+        inventoryOpen = !inventoryOpen;
+        expandedInventory.SetActive(inventoryOpen);
+    }
 
 }
