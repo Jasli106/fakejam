@@ -27,16 +27,9 @@ public class Item
 
     public int AddItems(int quantity)
     {
-        int sum = amount + quantity;
-        int remainder = 0;
-        if(sum > maxAmount)
-        {
-            remainder = sum - maxAmount;
-            amount = maxAmount;
-        } else
-        {
-            amount = sum;
-        }
+        int amountAdded = Mathf.Min(maxAmount - amount, quantity);
+        amount += amountAdded;
+        int remainder = quantity - amountAdded;
         return remainder;
     }
 
@@ -48,5 +41,41 @@ public class Item
             return true;
         }
         return false;
+    }
+    
+    public static bool operator ==(Item item1, Item item2)
+    {
+        if (ReferenceEquals(item1, item2))
+        {
+            return true;
+        }
+
+        if ((object)item1 == null || (object)item2 == null)
+        {
+            return false;
+        }
+
+        return item1.name == item2.name;
+    }
+
+    public static bool operator !=(Item item1, Item item2)
+    {
+        return !(item1 == item2);
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        Item item = (Item)obj;
+        return name == item.name;
+    }
+
+    public override int GetHashCode()
+    {
+        return name.GetHashCode();
     }
 }
