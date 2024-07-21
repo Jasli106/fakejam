@@ -34,8 +34,8 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
             // Swap items
             Item tempItem = currItem;
-            currItem = InventoryManager.itemSelected;
-            InventoryManager.itemSelected = tempItem;
+            currItem = InventoryManager.itemPickedUp;
+            InventoryManager.itemPickedUp = tempItem;
             if(currItem == null)
             {
                 itemDisplay.color = new Color(1, 1, 1, 0);
@@ -49,10 +49,10 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             img.color = new Color(0.7f, 0.7f, 0.7f);
 
-            if(InventoryManager.itemSelected == null)
+            if(InventoryManager.itemPickedUp == null)
             {
                 // Pick up one
-                InventoryManager.itemSelected = new Item(currItem.name, 1);
+                InventoryManager.itemPickedUp = new Item(currItem.name, 1);
                 currItem.RemoveItem();
                 if(currItem.amount == 0)
                 {
@@ -61,35 +61,35 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 }
             } else
             {
-                if(InventoryManager.itemSelected.name == currItem.name) // Same item in slot
+                if(InventoryManager.itemPickedUp.name == currItem.name) // Same item in slot
                 {
                     // Try to put down one
                     int remainder = currItem.AddItems(1);
                     if(remainder <= 0)
                     {
-                        InventoryManager.itemSelected.RemoveItem();
-                        if (InventoryManager.itemSelected.amount == 0)
+                        InventoryManager.itemPickedUp.RemoveItem();
+                        if (InventoryManager.itemPickedUp.amount == 0)
                         {
-                            InventoryManager.itemSelected = null;
+                            InventoryManager.itemPickedUp = null;
                         }
                     }
                 }
                 else if(currItem == null) // No item in slot
                 {
                     // Put down one
-                    currItem = new Item(InventoryManager.itemSelected.name, 1);
-                    InventoryManager.itemSelected.RemoveItem();
-                    if (InventoryManager.itemSelected.amount == 0)
+                    currItem = new Item(InventoryManager.itemPickedUp.name, 1);
+                    InventoryManager.itemPickedUp.RemoveItem();
+                    if (InventoryManager.itemPickedUp.amount == 0)
                     {
-                        InventoryManager.itemSelected = null;
+                        InventoryManager.itemPickedUp = null;
                     }
                 }
                 else
                 {
                     // Swap items
                     Item tempItem = currItem;
-                    currItem = InventoryManager.itemSelected;
-                    InventoryManager.itemSelected = tempItem;
+                    currItem = InventoryManager.itemPickedUp;
+                    InventoryManager.itemPickedUp = tempItem;
                     if (currItem == null)
                     {
                         itemDisplay.color = new Color(1, 1, 1, 0);
