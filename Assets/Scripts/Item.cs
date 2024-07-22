@@ -1,27 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item
+public class Item : ICloneable
 {
     public static string itemFolder = "Items/";
     public static int maxAmount = 99;
 
-    public string name = "Unnamed Item";
-    public int amount = 1;
+    public string type = "";
+    public int amount = 0;
 
     public Sprite sprite;
 
-    public Item(string name, int amount)
+    public Item(string type, int amount)
     {
-        this.name = name;
+        this.type = type;
         this.amount = amount;
         this.sprite = GetSprite();
     }
 
     public Sprite GetSprite()
     {
-        sprite = Resources.Load<Sprite>(itemFolder + name + ".png");
+        if (amount == 0) return null;
+        sprite = Resources.Load<Sprite>(itemFolder + type + ".png");
         return sprite;
     }
 
@@ -33,6 +35,15 @@ public class Item
         return remainder;
     }
 
+    public void AddItems(Item other)
+    {
+        if (amount == 0)
+        {
+            type = other.type;
+        }
+        other.amount = AddItems(other.amount);
+    }
+
     public bool RemoveItem()
     {
         if (amount > 0)
@@ -42,40 +53,9 @@ public class Item
         }
         return false;
     }
-    
-    public static bool operator ==(Item item1, Item item2)
+
+    public object Clone()
     {
-        if (ReferenceEquals(item1, item2))
-        {
-            return true;
-        }
-
-        if ((object)item1 == null || (object)item2 == null)
-        {
-            return false;
-        }
-
-        return item1.name == item2.name;
-    }
-
-    public static bool operator !=(Item item1, Item item2)
-    {
-        return !(item1 == item2);
-    }
-
-    public override bool Equals(object obj)
-    {
-        if (obj == null || GetType() != obj.GetType())
-        {
-            return false;
-        }
-
-        Item item = (Item)obj;
-        return name == item.name;
-    }
-
-    public override int GetHashCode()
-    {
-        return name.GetHashCode();
+        return new Item(this.type, this.amount);
     }
 }

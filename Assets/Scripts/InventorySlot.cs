@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-    public Item currItem = null;
+    public Item currItem = new Item("", 0);
     public bool selected = false;
 
     [SerializeField] Image itemDisplay;
@@ -56,7 +56,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 if (InventoryManager.itemPickedUp == null)
                 {
                     // Pick up one
-                    InventoryManager.itemPickedUp = new Item(currItem.name, 1);
+                    InventoryManager.itemPickedUp = new Item(currItem.type, 1);
                     currItem.RemoveItem();
                     if (currItem.amount == 0)
                     {
@@ -66,7 +66,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 }
                 else
                 {
-                    if (InventoryManager.itemPickedUp.name == currItem.name) // Same item in slot
+                    if (InventoryManager.itemPickedUp.type == currItem.type) // Same item in slot
                     {
                         // Try to put down one
                         int remainder = currItem.AddItems(1);
@@ -82,7 +82,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                     else if (currItem == null) // No item in slot
                     {
                         // Put down one
-                        currItem = new Item(InventoryManager.itemPickedUp.name, 1);
+                        currItem = new Item(InventoryManager.itemPickedUp.type, 1);
                         InventoryManager.itemPickedUp.RemoveItem();
                         if (InventoryManager.itemPickedUp.amount == 0)
                         {
