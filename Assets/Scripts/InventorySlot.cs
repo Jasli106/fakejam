@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.EventSystems;
 
 public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
@@ -10,6 +11,8 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [HideInInspector] public bool selected = false;
 
     [SerializeField] Image itemDisplay;
+    [SerializeField] TextMeshProUGUI quantityDisplay;
+    [SerializeField] bool outputOnly = false;
     private Image img;
 
     void Start()
@@ -26,10 +29,12 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (currItem == null)
         {
             itemDisplay.color = new Color(1, 1, 1, 0);
+            quantityDisplay.text = "";
         } else
         {
             itemDisplay.color = new Color(1, 1, 1, 1);
             itemDisplay.sprite = currItem.sprite;
+            quantityDisplay.text = currItem.amount.ToString();
         }
     }
 
@@ -47,19 +52,38 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             {
                 img.color = new Color(0.7f, 0.7f, 0.7f);
 
-                // Swap items
-                Item tempItem = currItem;
-                if(currItem != null)
-                {
-                    Debug.Log(tempItem.type);
-                    Debug.Log("Slot item: " + currItem.type);
+                if (outputOnly) {
+                    if (currItem == null || (InventoryManager.itemPickedUp != null && currItem.type != InventoryManager.itemPickedUp.type))
+                    {
+                        return;
+                    } else
+                    {
+                        int remainder = InventoryManager.itemPickedUp.AddItems(currItem.amount);
+                        currItem.amount = remainder;
+                        if(remainder <= 0)
+                        {
+                            currItem = null;
+                        }
+                    }
                 }
-                if(InventoryManager.itemPickedUp != null)
+
+                
+                if(currItem != null && InventoryManager.itemPickedUp != null && currItem.type == InventoryManager.itemPickedUp.type) // Consolidate items
                 {
-                    Debug.Log("Hand item: " + InventoryManager.itemPickedUp.type);
+                    int remainder = currItem.AddItems(InventoryManager.itemPickedUp.amount);
+                    InventoryManager.itemPickedUp.amount = remainder;
+                    if (remainder <= 0)
+                    {
+                        InventoryManager.itemPickedUp = null;
+                    }
                 }
-                currItem = InventoryManager.itemPickedUp;
-                InventoryManager.itemPickedUp = tempItem;
+                else // Swap items
+                {
+                    Item tempItem = currItem;
+                    currItem = InventoryManager.itemPickedUp;
+                    InventoryManager.itemPickedUp = tempItem;
+                }
+                
                 
                 if (currItem == null)
                 {
@@ -88,6 +112,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 }
                 else
                 {
+                    if (outputOnly) return;
                     if (InventoryManager.itemPickedUp.type == currItem.type) // Same item in slot
                     {
                         // Try to put down one
