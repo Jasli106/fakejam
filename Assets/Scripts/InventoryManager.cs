@@ -17,7 +17,7 @@ public class InventoryManager : MonoBehaviour
     public Image inventoryItemImg;
     public Canvas canvas;
 
-    [SerializeField] private List<InventorySlot> hotbarSlots;
+    public List<InventorySlot> hotbarSlots;
     private int selectedSlotIndex = 0;
 
     private void Awake()

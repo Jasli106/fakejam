@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
     public Item currItem = null;
-    public bool selected = false;
+    [HideInInspector] public bool selected = false;
 
     [SerializeField] Image itemDisplay;
     private Image img;
@@ -18,6 +18,18 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if(currItem == null)
         {
             itemDisplay.color = new Color(1, 1, 1, 0);
+        }
+    }
+
+    void Update()
+    {
+        if (currItem == null)
+        {
+            itemDisplay.color = new Color(1, 1, 1, 0);
+        } else
+        {
+            itemDisplay.color = new Color(1, 1, 1, 1);
+            itemDisplay.sprite = currItem.sprite;
         }
     }
 
@@ -37,8 +49,18 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
                 // Swap items
                 Item tempItem = currItem;
+                if(currItem != null)
+                {
+                    Debug.Log(tempItem.name);
+                    Debug.Log("Slot item: " + currItem.name);
+                }
+                if(InventoryManager.itemPickedUp != null)
+                {
+                    Debug.Log("Hand item: " + InventoryManager.itemPickedUp.name);
+                }
                 currItem = InventoryManager.itemPickedUp;
                 InventoryManager.itemPickedUp = tempItem;
+                
                 if (currItem == null)
                 {
                     itemDisplay.color = new Color(1, 1, 1, 0);

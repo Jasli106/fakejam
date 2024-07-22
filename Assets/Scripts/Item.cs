@@ -21,7 +21,7 @@ public class Item
 
     public Sprite GetSprite()
     {
-        sprite = Resources.Load<Sprite>(itemFolder + name + ".png");
+        sprite = Resources.Load<Sprite>(itemFolder + name);
         return sprite;
     }
 
