@@ -17,6 +17,9 @@ public class InventoryUIController : MonoBehaviour
         for (int slot = 0; slot < slots.Length; slot++)
         {
             slots[slot].item = other.items[slot];
+
+            //kinda gross tbh
+            slots[slot].GetComponentInChildren<ItemDisplayer>().Display();
         }
     }
 }
