@@ -27,6 +27,9 @@ public class Machine : TileObject
     Inventory input;
     Inventory output;
 
+    Recipe currentRecipe = null;
+    float timeOfRecipeStart = 0f;
+
     private void Awake()
     {
         input = new Inventory(type.inputSlots);
@@ -44,18 +47,37 @@ public class Machine : TileObject
 
     private void Update()
     {
+        if (currentRecipe != null ) { }
         CheckForInputs();
         Animate();
     }
 
     public void CheckForInputs()
     {
+        if (currentRecipe != null) return;
         foreach (Recipe recipe in recipes)
         {
-
+            bool containsInputs = input.ContainsItems(recipe.inputs);
+            if (containsInputs)
+            {
+                currentRecipe = recipe;
+                timeOfRecipeStart = Time.time;
+            }
         }
     }
 
+
+    public void FinishRecipe()
+    {
+        currentRecipe = null;
+        SetWorking(false);
+    }
+    public void StartRecipe(Recipe recipe)
+    {
+        currentRecipe = recipe;
+        timeOfRecipeStart = Time.time;
+        SetWorking(true);
+    }
     public void Animate()
     {
         float timeSinceStateChange = Time.time - timeOfStateChange;

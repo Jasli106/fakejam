@@ -4,7 +4,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryManager : MonoBehaviour
+
+public class InventoryManager : MonoBehaviour, DisplayItemHolder
 {
     public static InventoryManager instance = null;
 
@@ -22,16 +23,8 @@ public class InventoryManager : MonoBehaviour
 
 
     [SerializeField] ItemDisplayer pickedUpItemDisplayer;
-    private Item itemPickedUp = new Item();
-    public Item HeldItem
-    {
-        get { return itemPickedUp; }
-        set
-        {
-            itemPickedUp = value;
-            pickedUpItemDisplayer.item = value;
-        }
-    }
+
+    public Item itemPickedUp = new Item();
 
     public Canvas canvas;
 
@@ -99,7 +92,7 @@ public class InventoryManager : MonoBehaviour
     void SelectSlot(int idx)
     {
         DeselectSlot(selectedSlotIndex);
-        itemSelected = hotbarSlots[idx].GetItem();
+        itemSelected = hotbarSlots[idx].item;
         hotbarSlots[idx].selected = true;
         selectedSlotIndex = idx;
 
@@ -136,5 +129,10 @@ public class InventoryManager : MonoBehaviour
         pickedUpItemDisplayer.gameObject.SetActive(false);
         expandedInventory.SetActive(false);
         machineUI.SetActive(false);
+    }
+
+    public Item DisplayItem()
+    {
+        return itemPickedUp;
     }
 }

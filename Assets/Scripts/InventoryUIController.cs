@@ -16,7 +16,7 @@ public class InventoryUIController : MonoBehaviour
         }
         for (int slot = 0; slot < slots.Length; slot++)
         {
-            slots[slot].SetItem(other.items[slot]);
+            slots[slot].item = other.items[slot];
         }
     }
 }

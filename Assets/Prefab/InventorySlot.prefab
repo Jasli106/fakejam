@@ -89,6 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46d7bfca0fd44d1abad858a88053706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item:
+    type: 
+    amount: 0
   selected: 0
   img: {fileID: 8655795599179949952}
   itemDisplay: {fileID: 1401528009761937295}
@@ -184,6 +187,10 @@ PrefabInstance:
     - target: {fileID: 3516843670853518079, guid: bc7c18ace1f3e454b84fa30711f6b796, type: 3}
       propertyPath: m_Name
       value: ItemDisplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 5346022168712152362, guid: bc7c18ace1f3e454b84fa30711f6b796, type: 3}
+      propertyPath: m_Maskable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

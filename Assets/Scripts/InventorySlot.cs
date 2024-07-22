@@ -5,26 +5,15 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, DisplayItemHolder
 {
-    private Item item = new Item();
+    public Item item = new Item();
     [HideInInspector] public bool selected = false;
 
     [SerializeField] Image img;
     [SerializeField] ItemDisplayer itemDisplay;
     [SerializeField] bool outputOnly = false;
 
-
-    public void SetItem(Item item)
-    {
-        this.item = item;
-        itemDisplay.item = item;
-    }
-
-    public Item GetItem()
-    {
-        return item;
-    }
 
     // Controls
     /*
@@ -37,13 +26,13 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (outputOnly)
         {
             if (item.Empty()) return;
-            if (!InventoryManager.instance.HeldItem.Empty() && item.type != InventoryManager.instance.HeldItem.type) return;
-            InventoryManager.instance.HeldItem.AddItems(item);
+            if (!InventoryManager.instance.itemPickedUp.Empty() && item.type != InventoryManager.instance.itemPickedUp.type) return;
+            InventoryManager.instance.itemPickedUp.AddItems(item);
             return;
         }
 
 
-        bool consolidated = item.AddItems(InventoryManager.instance.HeldItem);
+        bool consolidated = item.AddItems(InventoryManager.instance.itemPickedUp);
         if (!consolidated) //Swap
         {
             SwapWithHeldItem();
@@ -53,21 +42,21 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void SwapWithHeldItem()
     {
         Item tempItem = item;
-        SetItem(InventoryManager.instance.HeldItem);
-        InventoryManager.instance.HeldItem = tempItem;
+        item = InventoryManager.instance.itemPickedUp;
+        InventoryManager.instance.itemPickedUp = tempItem;
     }
     public void RightClick()
     {
-        if (InventoryManager.instance.HeldItem.Empty())
+        if (InventoryManager.instance.itemPickedUp.Empty())
         {
             // Pick up one
-            InventoryManager.instance.HeldItem.AddOneItem(item);
+            InventoryManager.instance.itemPickedUp.AddOneItem(item);
             return;
         }
 
         if (outputOnly) return;
 
-        bool consolidated = item.AddOneItem(InventoryManager.instance.HeldItem);
+        bool consolidated = item.AddOneItem(InventoryManager.instance.itemPickedUp);
         if (!consolidated)
         {
             SwapWithHeldItem();
@@ -118,5 +107,10 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             img.color = new Color(1, 1, 1);
         }
+    }
+
+    public Item DisplayItem()
+    {
+        return item;
     }
 }

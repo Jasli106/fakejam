@@ -4,15 +4,26 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
+
+public interface DisplayItemHolder
+{
+    public Item DisplayItem();
+}
+
 public class ItemDisplayer : MonoBehaviour
 {
-    public Item item = new Item();
+    DisplayItemHolder itemHolder;
     [SerializeField] Image itemDisplay;
     [SerializeField] TextMeshProUGUI quantityDisplay;
 
+    private void Awake()
+    {
+        itemHolder = GetComponentInParent<DisplayItemHolder>();
+    }
+
     public void Display()
     {
-        if (item.Empty())
+        if (itemHolder.DisplayItem().Empty())
         {
             itemDisplay.color = new Color(1, 1, 1, 0);
             quantityDisplay.text = "";
@@ -20,8 +31,8 @@ public class ItemDisplayer : MonoBehaviour
         else
         {
             itemDisplay.color = new Color(1, 1, 1, 1);
-            itemDisplay.sprite = item.LoadSprite();
-            quantityDisplay.text = item.amount.ToString();
+            itemDisplay.sprite = itemHolder.DisplayItem().LoadSprite();
+            quantityDisplay.text = itemHolder.DisplayItem().amount.ToString();
         }
     }
 

@@ -23,7 +23,7 @@ public class Inventory : ICloneable
     {
         foreach (var slot in slots)
         {
-            items.Add(slot.GetItem());
+            items.Add(slot.item);
         }
     }
 

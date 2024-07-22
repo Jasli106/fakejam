@@ -2376,6 +2376,7 @@ RectTransform:
   m_Children:
   - {fileID: 777466983}
   - {fileID: 120339129}
+  - {fileID: 1299492934}
   m_Father: {fileID: 626226074}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2400,6 +2401,9 @@ MonoBehaviour:
   machineIn: {fileID: 193427650}
   machineOut: {fileID: 1792081874}
   pickedUpItemDisplayer: {fileID: 1299492935}
+  itemPickedUp:
+    type: 
+    amount: 0
   canvas: {fileID: 626226073}
   hotbarSlots:
   - {fileID: 1483405802}
@@ -4735,10 +4739,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 354403181}
   - {fileID: 2033874810}
   - {fileID: 1461828962}
-  - {fileID: 1299492934}
+  - {fileID: 354403181}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10634,7 +10637,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 626226074}
+    m_TransformParent: {fileID: 354403181}
     m_Modifications:
     - target: {fileID: 227230082761699000, guid: bc7c18ace1f3e454b84fa30711f6b796, type: 3}
       propertyPath: m_Pivot.x
@@ -10686,15 +10689,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 227230082761699000, guid: bc7c18ace1f3e454b84fa30711f6b796, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 227230082761699000, guid: bc7c18ace1f3e454b84fa30711f6b796, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 227230082761699000, guid: bc7c18ace1f3e454b84fa30711f6b796, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 227230082761699000, guid: bc7c18ace1f3e454b84fa30711f6b796, type: 3}
       propertyPath: m_AnchoredPosition.x
