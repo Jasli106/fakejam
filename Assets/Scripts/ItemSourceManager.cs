@@ -22,7 +22,7 @@ public class ItemSourceManager : MonoBehaviour
             {
                 if(slot.currItem != null)
                 {
-                    if (slot.currItem.name == itemName && slot.currItem.amount < Item.maxAmount)
+                    if (slot.currItem.type == itemName && slot.currItem.amount < Item.maxAmount)
                     {
                         return slot;
                     }
@@ -32,7 +32,7 @@ public class ItemSourceManager : MonoBehaviour
             {
                 if (slot.currItem != null)
                 {
-                    if (slot.currItem.name == itemName && slot.currItem.amount < Item.maxAmount)
+                    if (slot.currItem.type == itemName && slot.currItem.amount < Item.maxAmount)
                     {
                         return slot;
                     }
