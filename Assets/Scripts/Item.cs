@@ -20,6 +20,15 @@ public class Item : ICloneable
         this.amount = amount;
     }
 
+    public override string ToString()
+    {
+        if (Empty())
+        {
+            return "Empty";
+        }
+        return $"{amount} {type}";
+    }
+
     public Sprite LoadSprite()
     {
         //NOTE PROBABLY HORRIBLY INEFFICIENT COMPUTATIONALLY

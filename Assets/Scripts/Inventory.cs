@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using UnityEditor.UIElements;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
+using static UnityEditor.Rendering.CameraUI;
 
 public class Inventory : ICloneable
 {
@@ -39,6 +42,18 @@ public class Inventory : ICloneable
         }
     }
 
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        foreach (var item in items)
+        {
+            sb.AppendLine(item.ToString());
+        }
+
+        return sb.ToString();
+    }
+
     public int Slots()
     {
         return items.Count;
@@ -50,7 +65,15 @@ public class Inventory : ICloneable
 
         foreach (Item item in list)
         {
-            dict[item.type] = item.amount;
+            if (item.Empty()) continue;
+            if (dict.ContainsKey(item.type))
+            {
+                dict[item.type] += item.amount;
+            }
+            else
+            {
+                dict[item.type] = item.amount;
+            }
         }
 
         return dict;
@@ -59,13 +82,24 @@ public class Inventory : ICloneable
     public bool InsertPossible(List<Item> inserts)
     {
         Inventory clone = (Inventory)Clone();
-        return clone.InsertItems(inserts);
+        foreach (Item insert in inserts)
+        {
+            if (clone.InsertItem(insert) != 0)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public int InsertItem(Item insert)
+    public int InsertItem(Item insert, bool useItem = false)
     {
         foreach (Item slot in items)
         {
+            if (!useItem)
+            {
+                insert = (Item)insert.Clone();
+            }
             slot.AddItems(insert);
             if (insert.Empty())
             {
@@ -75,17 +109,12 @@ public class Inventory : ICloneable
         return insert.amount;
     }
 
-    public bool InsertItems(List<Item> inserts)
+    public void InsertItems(List<Item> inserts, bool useItem = false)
     {
-        bool success = true;
         foreach (Item insert in inserts)
         {
-            if (InsertItem(insert) != 0)
-            {
-                success = false;
-            }
+            InsertItem(insert, useItem);
         }
-        return success;
     }
 
     public bool ContainsItems(List<Item> reqs)
@@ -107,7 +136,7 @@ public class Inventory : ICloneable
     public void RemoveItems(List<Item> reqs)
     {
         Dictionary<string, int> requirements = ListToDict(reqs);
-        for (int i = items.Count; i >= 0; i--)
+        for (int i = items.Count - 1; i >= 0; i--)
         {
             if (!requirements.ContainsKey(items[i].type)) {
                 continue;

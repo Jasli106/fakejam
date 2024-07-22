@@ -47,8 +47,14 @@ public class Machine : TileObject
 
     private void Update()
     {
-        if (currentRecipe != null ) { }
+        if (currentRecipe != null && Time.time - timeOfRecipeStart >= currentRecipe.time) {
+            FinishRecipe();
+        }
         CheckForInputs();
+        if (currentRecipe == null)
+        {
+            SetWorking(false);
+        }
         Animate();
     }
 
@@ -60,20 +66,23 @@ public class Machine : TileObject
             bool containsInputs = input.ContainsItems(recipe.inputs);
             if (containsInputs)
             {
-                currentRecipe = recipe;
-                timeOfRecipeStart = Time.time;
+                bool containsOutputRoom = output.InsertPossible(recipe.outputs);
+                if (containsOutputRoom)
+                {
+                    StartRecipe(recipe);
+                }
             }
         }
     }
 
-
     public void FinishRecipe()
     {
+        output.InsertItems(currentRecipe.outputs, false);
         currentRecipe = null;
-        SetWorking(false);
     }
     public void StartRecipe(Recipe recipe)
     {
+        input.RemoveItems(recipe.inputs);
         currentRecipe = recipe;
         timeOfRecipeStart = Time.time;
         SetWorking(true);
@@ -82,7 +91,7 @@ public class Machine : TileObject
     {
         float timeSinceStateChange = Time.time - timeOfStateChange;
         int frame = (int)(timeSinceStateChange * fps);
-        if (working)
+        if (!working)
         {
             sr.sprite = type.idle[frame % type.idle.Length];
         }
