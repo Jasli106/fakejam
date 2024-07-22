@@ -35,16 +35,10 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         bool consolidated = item.AddItems(InventoryManager.instance.itemPickedUp);
         if (!consolidated) //Swap
         {
-            SwapWithHeldItem();
+            item.Swap(InventoryManager.instance.itemPickedUp);
         }
     }
 
-    public void SwapWithHeldItem()
-    {
-        Item tempItem = item;
-        item = InventoryManager.instance.itemPickedUp;
-        InventoryManager.instance.itemPickedUp = tempItem;
-    }
     public void RightClick()
     {
         if (InventoryManager.instance.itemPickedUp.Empty())
@@ -59,7 +53,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         bool consolidated = item.AddOneItem(InventoryManager.instance.itemPickedUp);
         if (!consolidated)
         {
-            SwapWithHeldItem();
+            item.Swap(InventoryManager.instance.itemPickedUp);
         }
     }
     public void OnPointerDown(PointerEventData eventData)

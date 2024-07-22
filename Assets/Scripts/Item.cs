@@ -69,6 +69,15 @@ public class Item : ICloneable
         return true;
     }
 
+    public void Swap(Item other)
+    {
+        Item temp = (Item)other.Clone();
+        other.type = type;
+        other.amount = amount;
+        this.type = temp.type;
+        this.amount = temp.amount;
+    }
+
     public bool AddOneItem(Item other)
     {
         if (other.Empty()) return false;
