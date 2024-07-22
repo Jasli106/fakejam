@@ -8,6 +8,8 @@ public class Inventory : ICloneable
 {
     public List<Item> items = new List<Item>();
 
+
+    public Inventory() { }
     public Inventory(List<InventorySlot> slots)
     {
         foreach (var slot in slots)
