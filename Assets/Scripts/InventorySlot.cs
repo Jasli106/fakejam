@@ -51,12 +51,12 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 Item tempItem = currItem;
                 if(currItem != null)
                 {
-                    Debug.Log(tempItem.name);
-                    Debug.Log("Slot item: " + currItem.name);
+                    Debug.Log(tempItem.type);
+                    Debug.Log("Slot item: " + currItem.type);
                 }
                 if(InventoryManager.itemPickedUp != null)
                 {
-                    Debug.Log("Hand item: " + InventoryManager.itemPickedUp.name);
+                    Debug.Log("Hand item: " + InventoryManager.itemPickedUp.type);
                 }
                 currItem = InventoryManager.itemPickedUp;
                 InventoryManager.itemPickedUp = tempItem;
@@ -78,7 +78,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 if (InventoryManager.itemPickedUp == null)
                 {
                     // Pick up one
-                    InventoryManager.itemPickedUp = new Item(currItem.name, 1);
+                    InventoryManager.itemPickedUp = new Item(currItem.type, 1);
                     currItem.RemoveItem();
                     if (currItem.amount == 0)
                     {
@@ -88,7 +88,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 }
                 else
                 {
-                    if (InventoryManager.itemPickedUp.name == currItem.name) // Same item in slot
+                    if (InventoryManager.itemPickedUp.type == currItem.type) // Same item in slot
                     {
                         // Try to put down one
                         int remainder = currItem.AddItems(1);
@@ -104,7 +104,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                     else if (currItem == null) // No item in slot
                     {
                         // Put down one
-                        currItem = new Item(InventoryManager.itemPickedUp.name, 1);
+                        currItem = new Item(InventoryManager.itemPickedUp.type, 1);
                         InventoryManager.itemPickedUp.RemoveItem();
                         if (InventoryManager.itemPickedUp.amount == 0)
                         {
