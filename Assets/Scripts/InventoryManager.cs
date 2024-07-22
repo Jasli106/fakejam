@@ -6,17 +6,29 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager instance = null;
+
     public static Item itemSelected = null;
     public static Item itemPickedUp = null;
     public static bool inventoryOpen = false;
 
     public GameObject expandedInventory;
+    public GameObject machineUI;
     public Image inventoryItemImg;
     public Canvas canvas;
 
     [SerializeField] private List<InventorySlot> hotbarSlots;
     private int selectedSlotIndex = 0;
 
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
     private void Start()
     {
         SelectSlot(0);
@@ -48,9 +60,16 @@ public class InventoryManager : MonoBehaviour
                 SelectSlot(i);
             }
         }
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            ToggleInventory();
+            if (inventoryOpen)
+            {
+                CloseInventory();
+            }
+            else
+            {
+                SetInventory(true);
+            }
         }
         HandleScrollInput();
     }
@@ -85,11 +104,21 @@ public class InventoryManager : MonoBehaviour
         img.color = img.color = img.color = new Color(1, 1, 1);
     }
 
-    // Open/close inventory
-    void ToggleInventory()
+    public void SetInventory(bool open) 
     {
-        inventoryOpen = !inventoryOpen;
-        expandedInventory.SetActive(inventoryOpen);
+        inventoryOpen = open;
+        expandedInventory.SetActive(open);
     }
 
+    public void SetMachineInventory(bool open)
+    {
+        SetInventory(open);
+        machineUI.SetActive(open);
+    }
+
+    public void CloseInventory()
+    {
+        SetInventory(false);
+        SetMachineInventory(false);
+    }
 }

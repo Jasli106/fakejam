@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(AnimationController))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 2;
     Rigidbody2D rb;
+    AnimationController animController;
+    Vector2 lastDirection = Vector2.down;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animController = GetComponent<AnimationController>();
     }
 
     void Update()
@@ -18,20 +22,48 @@ public class PlayerController : MonoBehaviour
         Vector2 movement = Vector2.zero;
         if (Input.GetKey(KeyCode.W)) {
             movement += Vector2.up;
+            animController.SetAnimationState("character_walk_up");
         }
         if (Input.GetKey(KeyCode.S)) {
             movement += Vector2.down;
+            animController.SetAnimationState("character_walk_down");
         }
         if (Input.GetKey(KeyCode.D)) {
             movement += Vector2.right;
+            animController.SetAnimationState("character_walk_right");
         }
         if (Input.GetKey(KeyCode.A)) {
             movement += Vector2.left;
+            animController.SetAnimationState("character_walk_left");
+        }
+
+        if (movement != Vector2.zero)
+        {
+            lastDirection = movement;
+        }
+        else
+        {
+            if (lastDirection.y > 0)
+            {
+                animController.SetAnimationState("character_idle_up");
+            }
+            else if (lastDirection.y < 0)
+            {
+                animController.SetAnimationState("character_idle_down");
+            }
+            else if (lastDirection.x > 0)
+            {
+                animController.SetAnimationState("character_idle_right");
+            }
+            else if (lastDirection.x < 0)
+            {
+                animController.SetAnimationState("character_idle_left");
+            }
         }
 
         movement.Normalize();
         rb.velocity = speed * movement;
+
+
     }
-
-
 }
