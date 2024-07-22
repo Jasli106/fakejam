@@ -10,12 +10,38 @@ public class Inventory : ICloneable
 
 
     public Inventory() { }
+
+    public Inventory(int slots)
+    {
+        for (int i = 0; i < slots; i++)
+        {
+            items.Add(new Item());
+        }
+    }
+
     public Inventory(List<InventorySlot> slots)
     {
         foreach (var slot in slots)
         {
-            items.Add(slot.currItem);
+            items.Add(slot.GetItem());
         }
+    }
+
+    public Inventory(Inventory i1, Inventory i2)
+    {
+        foreach (var item in i1.items)
+        {
+            items.Add(item);
+        }
+        foreach (var item in i2.items)
+        {
+            items.Add(item);
+        }
+    }
+
+    public int Slots()
+    {
+        return items.Count;
     }
 
     public Dictionary<string, int> ListToDict(List<Item> list)
@@ -41,7 +67,7 @@ public class Inventory : ICloneable
         foreach (Item slot in items)
         {
             slot.AddItems(insert);
-            if (insert.amount == 0)
+            if (insert.Empty())
             {
                 return 0;
             }

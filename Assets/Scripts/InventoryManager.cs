@@ -8,13 +8,31 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance = null;
 
-    public static Item itemSelected = null;
-    public static Item itemPickedUp = null;
+    public static Item itemSelected = new Item();
+
+
     public static bool inventoryOpen = false;
 
     public GameObject expandedInventory;
+
     public GameObject machineUI;
-    public Image inventoryItemImg;
+    public InventoryUIController machineIn;
+    public InventoryUIController machineOut;
+
+
+
+    [SerializeField] ItemDisplayer pickedUpItemDisplayer;
+    private Item itemPickedUp = new Item();
+    public Item HeldItem
+    {
+        get { return itemPickedUp; }
+        set
+        {
+            itemPickedUp = value;
+            pickedUpItemDisplayer.item = value;
+        }
+    }
+
     public Canvas canvas;
 
     public List<InventorySlot> hotbarSlots;
@@ -37,21 +55,14 @@ public class InventoryManager : MonoBehaviour
     // Render item selected image at mouse point
     private void Update()
     {
-        if(itemPickedUp != null)
-        {
-            inventoryItemImg.sprite = itemPickedUp.sprite;
-            inventoryItemImg.color = new Color(1, 1, 1, 1);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 canvas.transform as RectTransform,
                 Input.mousePosition,
                 canvas.worldCamera,
                 out Vector2 localPoint);
 
-            inventoryItemImg.rectTransform.localPosition = localPoint;
-        } else
-        {
-            inventoryItemImg.color = new Color(1, 1, 1, 0);
-        }
+        pickedUpItemDisplayer.gameObject.GetComponent<RectTransform>().localPosition = localPoint;
+
 
         for(int i=0; i<9; ++i)
         {
@@ -68,7 +79,7 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                SetInventory(true);
+                OpenInventory();
             }
         }
         HandleScrollInput();
@@ -88,7 +99,7 @@ public class InventoryManager : MonoBehaviour
     void SelectSlot(int idx)
     {
         DeselectSlot(selectedSlotIndex);
-        itemSelected = hotbarSlots[idx].currItem;
+        itemSelected = hotbarSlots[idx].GetItem();
         hotbarSlots[idx].selected = true;
         selectedSlotIndex = idx;
 
@@ -104,21 +115,26 @@ public class InventoryManager : MonoBehaviour
         img.color = img.color = img.color = new Color(1, 1, 1);
     }
 
-    public void SetInventory(bool open) 
+    public void OpenInventory() 
     {
-        inventoryOpen = open;
-        expandedInventory.SetActive(open);
+        inventoryOpen = true;
+        pickedUpItemDisplayer.gameObject.SetActive(true);
+        expandedInventory.SetActive(true);
     }
 
-    public void SetMachineInventory(bool open)
+    public void OpenMachineInventory(Inventory input, Inventory output)
     {
-        SetInventory(open);
-        machineUI.SetActive(open);
+        OpenInventory();
+        machineUI.SetActive(true);
+        machineIn.RepresentInventory(input);
+        machineOut.RepresentInventory(output);
     }
 
     public void CloseInventory()
     {
-        SetInventory(false);
-        SetMachineInventory(false);
+        inventoryOpen = false;
+        pickedUpItemDisplayer.gameObject.SetActive(false);
+        expandedInventory.SetActive(false);
+        machineUI.SetActive(false);
     }
 }

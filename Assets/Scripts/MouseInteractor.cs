@@ -17,11 +17,11 @@ public class MouseInteractor : MonoBehaviour
             
             if (clickDown)
             {
-                interactable.ClickDown();
+                interactable.ClickDown(this);
             }
             if (clickHeld)
             {
-                interactable.ClickHeld();
+                interactable.ClickHeld(this);
             }
         }
     }

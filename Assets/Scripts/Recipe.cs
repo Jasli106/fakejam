@@ -32,4 +32,17 @@ public class Recipe
             }
         )
     };
+
+    public static List<Recipe> MachineRecipes(MachineType machine)
+    {
+        List<Recipe> validRecipes = new List<Recipe>();
+        foreach (var recipe in list)
+        {
+            if (recipe.machine == machine.type)
+            {
+                validRecipes.Add(recipe);
+            }
+        }
+        return validRecipes;
+    }
 }

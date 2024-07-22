@@ -7,24 +7,14 @@ public class ItemSource : TileObject
 {
     public string resourceName;
 
-    public override void ClickDown()
+    public override void ClickDown(MouseInteractor mouse)
     {
-        CollectItems();
+        Inventory playerInventory = mouse.GetComponentInParent<PlayerInventory>().GetInventory();
+        CollectItems(playerInventory);
     }
 
-    public void CollectItems()
+    public void CollectItems(Inventory inventory)
     {
-        InventorySlot nextAvailableSlot = ItemSourceManager.FindAvailableInventorySlot(resourceName);
-        if(nextAvailableSlot != null)
-        {
-            if (nextAvailableSlot.currItem != null)
-            {
-                nextAvailableSlot.currItem.AddItems(1);
-            }
-            else
-            {
-                nextAvailableSlot.currItem = new Item(resourceName, 1);
-            }
-        }
+        inventory.InsertItem(new Item(resourceName, 1));
     }
 }

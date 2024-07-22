@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemSourceManager : MonoBehaviour
 {
-
+/*
     private static List<InventorySlot> playerInventorySlots = new List<InventorySlot>();
     private static List<InventorySlot> hotbarInventorySlots;
 
@@ -20,7 +20,7 @@ public class ItemSourceManager : MonoBehaviour
         {
             foreach (InventorySlot slot in hotbarInventorySlots)
             {
-                if(slot.currItem != null)
+                if(slot.item != null)
                 {
                     if (slot.currItem.type == itemName && slot.currItem.amount < Item.maxAmount)
                     {
@@ -30,7 +30,7 @@ public class ItemSourceManager : MonoBehaviour
             }
             foreach (InventorySlot slot in playerInventorySlots)
             {
-                if (slot.currItem != null)
+                if (slot.item != null)
                 {
                     if (slot.currItem.type == itemName && slot.currItem.amount < Item.maxAmount)
                     {
@@ -42,18 +42,19 @@ public class ItemSourceManager : MonoBehaviour
         
         foreach (InventorySlot slot in hotbarInventorySlots)
         {
-            if (slot.currItem == null)
+            if (slot.item == null)
             {
                 return slot;
             }
         }
         foreach (InventorySlot slot in playerInventorySlots)
         {
-            if (slot.currItem == null)
+            if (slot.item == null)
             {
                 return slot;
             }
         }
         return null;
     }
+*/
 }

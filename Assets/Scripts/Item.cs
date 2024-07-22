@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Item : ICloneable
 {
     public static string itemFolder = "Items/";
@@ -11,23 +12,35 @@ public class Item : ICloneable
     public string type = "";
     public int amount = 0;
 
-    public Sprite sprite;
+    public Item() { }
 
     public Item(string type, int amount)
     {
         this.type = type;
         this.amount = amount;
-        this.sprite = GetSprite();
     }
 
-    public Sprite GetSprite()
+    public Sprite LoadSprite()
     {
-        if (amount == 0) return null;
-        sprite = Resources.Load<Sprite>(itemFolder + type);
-        return sprite;
+        //NOTE PROBABLY HORRIBLY INEFFICIENT COMPUTATIONALLY
+        if (Empty())
+        {
+            Debug.LogError("Loading a sprite from an empty item");
+        }
+        return Resources.Load<Sprite>(itemFolder + type);
     }
 
-    public int AddItems(int quantity)
+    public void SetType(string type)
+    {
+        this.type = type;
+    }
+
+    public bool Empty()
+    {
+        return amount == 0;
+    }
+
+    private int AddItems(int quantity)
     {
         int amountAdded = Mathf.Min(maxAmount - amount, quantity);
         amount += amountAdded;
@@ -35,23 +48,28 @@ public class Item : ICloneable
         return remainder;
     }
 
-    public void AddItems(Item other)
+    public bool AddItems(Item other)
     {
-        if (amount == 0)
+        if (other.Empty()) return false;
+        if (!Empty() && other.type != type) return false;
+        if (Empty())
         {
-            type = other.type;
+            SetType(other.type);
         }
         other.amount = AddItems(other.amount);
+        return true;
     }
 
-    public bool RemoveItem()
+    public bool AddOneItem(Item other)
     {
-        if (amount > 0)
+        if (other.Empty()) return false;
+        if (!Empty() && other.type != type) return false;
+        if (Empty())
         {
-            amount--;
-            return true;
+            SetType(other.type);
         }
-        return false;
+        other.amount = other.amount - 1 + AddItems(1);
+        return true;
     }
 
     public object Clone()

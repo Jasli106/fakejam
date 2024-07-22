@@ -145,6 +145,6 @@ public abstract class TileObject : MonoBehaviour
 
     public virtual void TileUpdate(TileObject neighborObject, Vector2 direction) { }
 
-    public virtual void ClickDown() { }
-    public virtual void ClickHeld() { }
+    public virtual void ClickDown(MouseInteractor mouse) { }
+    public virtual void ClickHeld(MouseInteractor mouse) { }
 }

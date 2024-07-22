@@ -7,35 +7,23 @@ using UnityEngine.EventSystems;
 
 public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-    public Item currItem = null;
+    private Item item = new Item();
     [HideInInspector] public bool selected = false;
 
-    [SerializeField] Image itemDisplay;
-    [SerializeField] TextMeshProUGUI quantityDisplay;
+    [SerializeField] Image img;
+    [SerializeField] ItemDisplayer itemDisplay;
     [SerializeField] bool outputOnly = false;
-    private Image img;
 
-    void Start()
+
+    public void SetItem(Item item)
     {
-        img = GetComponent<Image>();
-        if(currItem == null)
-        {
-            itemDisplay.color = new Color(1, 1, 1, 0);
-        }
+        this.item = item;
+        itemDisplay.item = item;
     }
 
-    void Update()
+    public Item GetItem()
     {
-        if (currItem == null)
-        {
-            itemDisplay.color = new Color(1, 1, 1, 0);
-            quantityDisplay.text = "";
-        } else
-        {
-            itemDisplay.color = new Color(1, 1, 1, 1);
-            itemDisplay.sprite = currItem.sprite;
-            quantityDisplay.text = currItem.amount.ToString();
-        }
+        return item;
     }
 
     // Controls
@@ -44,154 +32,91 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
      * Right-click: pick up/put down 1
     */
 
+    public void LeftClick()
+    {
+        if (outputOnly)
+        {
+            if (item.Empty()) return;
+            if (!InventoryManager.instance.HeldItem.Empty() && item.type != InventoryManager.instance.HeldItem.type) return;
+            InventoryManager.instance.HeldItem.AddItems(item);
+            return;
+        }
+
+
+        bool consolidated = item.AddItems(InventoryManager.instance.HeldItem);
+        if (!consolidated) //Swap
+        {
+            SwapWithHeldItem();
+        }
+    }
+
+    public void SwapWithHeldItem()
+    {
+        Item tempItem = item;
+        SetItem(InventoryManager.instance.HeldItem);
+        InventoryManager.instance.HeldItem = tempItem;
+    }
+    public void RightClick()
+    {
+        if (InventoryManager.instance.HeldItem.Empty())
+        {
+            // Pick up one
+            InventoryManager.instance.HeldItem.AddOneItem(item);
+            return;
+        }
+
+        if (outputOnly) return;
+
+        bool consolidated = item.AddOneItem(InventoryManager.instance.HeldItem);
+        if (!consolidated)
+        {
+            SwapWithHeldItem();
+        }
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(InventoryManager.inventoryOpen)
+        if (!InventoryManager.inventoryOpen) return;
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (eventData.button == PointerEventData.InputButton.Left)
-            {
-                img.color = new Color(0.7f, 0.7f, 0.7f);
-
-                if (outputOnly) {
-                    if (currItem == null || (InventoryManager.itemPickedUp != null && currItem.type != InventoryManager.itemPickedUp.type))
-                    {
-                        return;
-                    } else
-                    {
-                        int remainder = InventoryManager.itemPickedUp.AddItems(currItem.amount);
-                        currItem.amount = remainder;
-                        if(remainder <= 0)
-                        {
-                            currItem = null;
-                        }
-                    }
-                }
-
-                
-                if(currItem != null && InventoryManager.itemPickedUp != null && currItem.type == InventoryManager.itemPickedUp.type) // Consolidate items
-                {
-                    int remainder = currItem.AddItems(InventoryManager.itemPickedUp.amount);
-                    InventoryManager.itemPickedUp.amount = remainder;
-                    if (remainder <= 0)
-                    {
-                        InventoryManager.itemPickedUp = null;
-                    }
-                }
-                else // Swap items
-                {
-                    Item tempItem = currItem;
-                    currItem = InventoryManager.itemPickedUp;
-                    InventoryManager.itemPickedUp = tempItem;
-                }
-                
-                
-                if (currItem == null)
-                {
-                    itemDisplay.color = new Color(1, 1, 1, 0);
-                }
-                else
-                {
-                    itemDisplay.sprite = currItem.sprite;
-                    itemDisplay.color = new Color(1, 1, 1, 1);
-                }
-            }
-            else if (eventData.button == PointerEventData.InputButton.Right)
-            {
-                img.color = new Color(0.7f, 0.7f, 0.7f);
-
-                if (InventoryManager.itemPickedUp == null)
-                {
-                    // Pick up one
-                    InventoryManager.itemPickedUp = new Item(currItem.type, 1);
-                    currItem.RemoveItem();
-                    if (currItem.amount == 0)
-                    {
-                        currItem = null;
-                        itemDisplay.color = new Color(1, 1, 1, 0);
-                    }
-                }
-                else
-                {
-                    if (outputOnly) return;
-                    if (InventoryManager.itemPickedUp.type == currItem.type) // Same item in slot
-                    {
-                        // Try to put down one
-                        int remainder = currItem.AddItems(1);
-                        if (remainder <= 0)
-                        {
-                            InventoryManager.itemPickedUp.RemoveItem();
-                            if (InventoryManager.itemPickedUp.amount == 0)
-                            {
-                                InventoryManager.itemPickedUp = null;
-                            }
-                        }
-                    }
-                    else if (currItem == null) // No item in slot
-                    {
-                        // Put down one
-                        currItem = new Item(InventoryManager.itemPickedUp.type, 1);
-                        InventoryManager.itemPickedUp.RemoveItem();
-                        if (InventoryManager.itemPickedUp.amount == 0)
-                        {
-                            InventoryManager.itemPickedUp = null;
-                        }
-                    }
-                    else
-                    {
-                        // Swap items
-                        Item tempItem = currItem;
-                        currItem = InventoryManager.itemPickedUp;
-                        InventoryManager.itemPickedUp = tempItem;
-                        if (currItem == null)
-                        {
-                            itemDisplay.color = new Color(1, 1, 1, 0);
-                        }
-                        else
-                        {
-                            itemDisplay.sprite = currItem.sprite;
-                            itemDisplay.color = new Color(1, 1, 1, 1);
-                        }
-                    }
-                }
-            }
+            img.color = new Color(0.7f, 0.7f, 0.7f);
+            LeftClick();
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            img.color = new Color(0.7f, 0.7f, 0.7f);
+            RightClick();
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if(InventoryManager.inventoryOpen)
-        {
-            if(selected)
-            {
-                img.color = new Color(0.8f, 0.8f, 0.8f);
-            } else
-            {
-                img.color = new Color(1, 1, 1);
-            }
-            
-        }
-    }
-    
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (InventoryManager.inventoryOpen)
+        if (!InventoryManager.inventoryOpen) return;
+        if (selected)
         {
             img.color = new Color(0.8f, 0.8f, 0.8f);
         }
+        else
+        {
+            img.color = new Color(1, 1, 1);
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!InventoryManager.inventoryOpen) return;
+        img.color = new Color(0.8f, 0.8f, 0.8f);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (InventoryManager.inventoryOpen)
+        if (!InventoryManager.inventoryOpen) return;
+        if (selected)
         {
-            if (selected)
-            {
-                img.color = new Color(0.8f, 0.8f, 0.8f);
-            }
-            else
-            {
-                img.color = new Color(1, 1, 1);
-            }
+            img.color = new Color(0.8f, 0.8f, 0.8f);
+        }
+        else
+        {
+            img.color = new Color(1, 1, 1);
         }
     }
 }

@@ -8,6 +8,8 @@ using UnityEngine;
 public class MachineType
 {
     public string type = "Untyped Machine";
+    public int inputSlots = 9;
+    public int outputSlots = 9;
     public Sprite[] idle;
     public Sprite[] working;
 }
@@ -21,10 +23,16 @@ public class Machine : TileObject
     float timeOfStateChange = 0;
     bool working = false;
     SpriteRenderer sr;
+    List<Recipe> recipes;
+    Inventory input;
+    Inventory output;
 
     private void Awake()
     {
+        input = new Inventory(type.inputSlots);
+        output = new Inventory(type.outputSlots);
         sr = GetComponent<SpriteRenderer>();
+        recipes = Recipe.MachineRecipes(type);
     }
 
     private void SetWorking(bool value)
@@ -35,6 +43,20 @@ public class Machine : TileObject
     }
 
     private void Update()
+    {
+        CheckForInputs();
+        Animate();
+    }
+
+    public void CheckForInputs()
+    {
+        foreach (Recipe recipe in recipes)
+        {
+
+        }
+    }
+
+    public void Animate()
     {
         float timeSinceStateChange = Time.time - timeOfStateChange;
         int frame = (int)(timeSinceStateChange * fps);
@@ -48,8 +70,8 @@ public class Machine : TileObject
         }
     }
 
-    public override void ClickDown()
+    public override void ClickDown(MouseInteractor mouse)
     {
-        InventoryManager.instance.SetMachineInventory(true);
+        InventoryManager.instance.OpenMachineInventory(input, output);
     }
 }
