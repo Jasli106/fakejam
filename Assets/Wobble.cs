@@ -5,16 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class Wave
 {
-    public float amplitude = 0;
-    public float period = 1;
-    public float offset = 0;
-
-    public Wave(float amplitude, float period, float offset)
-    {
-        this.amplitude = amplitude;
-        this.period = period;
-        this.offset = offset;
-    }
+    public float amplitude = 0f;
+    public float period = 1f;
+    public float offset = 0f;
 
     public float Evaluate(float t)
     {
@@ -23,6 +16,7 @@ public class Wave
 }
 public class Wobble : MonoBehaviour
 {
+    public Transform transformToWobble = null;
     public Wave xPos;
     public Wave yPos;
     public Wave zPos;
@@ -33,11 +27,22 @@ public class Wobble : MonoBehaviour
     public Wave yScale;
     public Wave zScale;
 
+    float timeOfWobbleStart = 0f;
+
+    private void OnEnable()
+    {
+        timeOfWobbleStart = Time.time;
+    }
+
     void Update()
     {
-        float t = Time.time;
-        transform.localPosition = new Vector3(xPos.Evaluate(t), yPos.Evaluate(t), zPos.Evaluate(t));
-        transform.localRotation = Quaternion.Euler(new Vector3(xRot.Evaluate(t), yRot.Evaluate(t), zRot.Evaluate(t)));
-        transform.localScale = new Vector3(Mathf.Exp(xScale.Evaluate(t)), Mathf.Exp(yScale.Evaluate(t)), Mathf.Exp(zScale.Evaluate(t)));
+        if (transformToWobble == null)
+        {
+            transformToWobble = transform;
+        }
+        float t = Time.time - timeOfWobbleStart;
+        transformToWobble.localPosition = new Vector3(xPos.Evaluate(t), yPos.Evaluate(t), zPos.Evaluate(t));
+        transformToWobble.localRotation = Quaternion.Euler(new Vector3(xRot.Evaluate(t), yRot.Evaluate(t), zRot.Evaluate(t)));
+        transformToWobble.localScale = new Vector3(Mathf.Exp(xScale.Evaluate(t)), Mathf.Exp(yScale.Evaluate(t)), Mathf.Exp(zScale.Evaluate(t)));
     }
 }

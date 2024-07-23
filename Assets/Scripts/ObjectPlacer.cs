@@ -56,8 +56,9 @@ public class ObjectPlacer : MonoBehaviour
         if (currentPrefab == prefab) return;
         currentPrefab = prefab;
         InstantiatePrefab(currentPrefab);
-        SetGhostSprite(instantiation.GetComponent<SpriteRenderer>().sprite);
-        bounds = instantiation.GetComponent<TileObject>().GetBoundingBox();
+        TileObject obj = instantiation.GetComponent<TileObject>();
+        SetGhostSprite(obj.spriteRenderer.sprite);
+        bounds = obj.GetBoundingBox();
     }
 
     public void InstantiatePrefab(GameObject prefab)

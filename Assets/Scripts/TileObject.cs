@@ -83,6 +83,8 @@ public abstract class TileObject : MonoBehaviour
 {
     [SerializeField] GameObject floorItem;
     [SerializeField] string itemName = "";
+    [SerializeField] GameObject breakingEffect;
+    public SpriteRenderer spriteRenderer;
 
     public static Dictionary<Vector2, TileObject> objectPositions = new Dictionary <Vector2, TileObject>();
     BoundingBox boundingBox = BoundingBox.singleTile;
@@ -184,6 +186,12 @@ public abstract class TileObject : MonoBehaviour
         {
             neighbor.Item1.TileUpdate(this, -neighbor.Item2);
         }
+    }
+
+    public void SetBreaking(bool breaking)
+    {
+        if (breakingEffect == null) return;
+        breakingEffect.SetActive(breaking);
     }
 
     public virtual void TileUpdate(TileObject neighborObject, Vector2 direction) { }

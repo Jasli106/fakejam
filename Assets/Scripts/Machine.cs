@@ -15,14 +15,12 @@ public class MachineType
 }
 
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class Machine : TileObject
 {
     public static readonly float fps = 8f;
     [SerializeField] MachineType type;
     float timeOfStateChange = 0;
     bool working = false;
-    SpriteRenderer sr;
     List<Recipe> recipes;
     Inventory input;
     Inventory output;
@@ -32,11 +30,11 @@ public class Machine : TileObject
 
     [SerializeField] GameObject[] enabledWhileWorking;
 
+
     private void Awake()
     {
         input = new Inventory(type.inputSlots);
         output = new Inventory(type.outputSlots);
-        sr = GetComponent<SpriteRenderer>();
         recipes = Recipe.MachineRecipes(type);
     }
 
@@ -110,11 +108,11 @@ public class Machine : TileObject
         int frame = (int)(timeSinceStateChange * fps);
         if (!working)
         {
-            sr.sprite = type.idle[frame % type.idle.Length];
+            spriteRenderer.sprite = type.idle[frame % type.idle.Length];
         }
         else
         {
-            sr.sprite = type.working[frame % type.working.Length];
+            spriteRenderer.sprite = type.working[frame % type.working.Length];
         }
     }
 

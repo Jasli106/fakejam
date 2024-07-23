@@ -12,7 +12,6 @@ public class TileBreaker : MonoBehaviour
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
         Vector2 tilePosition = TileObject.Round(mouseWorldPosition);
-        Debug.Log($"pos is {tilePosition}");
         if (!TileObject.objectPositions.ContainsKey(tilePosition)) return null;
         return TileObject.objectPositions[tilePosition];
     }
@@ -32,25 +31,49 @@ public class TileBreaker : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButton(1))
+        if (!Input.GetMouseButton(1))
         {
-            TileObject previouslyBreaking = currentlyBreaking;
-            currentlyBreaking = ObjectToBreak();
-            Debug.Log(currentlyBreaking == null);
-            if (previouslyBreaking != currentlyBreaking)
-            {
-                breakStartTime = Time.time;
-            }
-            Debug.Log(BreakProgress());
-            if (BreakProgress() >= 1)
-            {
-                currentlyBreaking.Break();
-                currentlyBreaking = null;
-            }
+            StopBreaking();
+            return;
         }
-        else
+
+        TileObject newBreakTarget = ObjectToBreak();
+
+
+        if (newBreakTarget == null)
         {
+            StopBreaking();
+            return;
+        }
+
+        if (newBreakTarget != currentlyBreaking)
+        {
+            StopBreaking();
+            StartBreaking(newBreakTarget);
+        }
+
+        if (BreakProgress() >= 1)
+        {
+            currentlyBreaking.Break();
+            currentlyBreaking = null;
             breakStartTime = Mathf.Infinity;
         }
+    }
+
+    public void StopBreaking()
+    {
+        if (currentlyBreaking != null)
+        {
+            currentlyBreaking.SetBreaking(false);
+            currentlyBreaking = null;
+        }
+        breakStartTime = Mathf.Infinity;
+    }
+
+    public void StartBreaking(TileObject obj)
+    {
+        currentlyBreaking = obj;
+        currentlyBreaking.SetBreaking(true);
+        breakStartTime = Time.time;
     }
 }
