@@ -144,31 +144,35 @@ public abstract class TileObject : MonoBehaviour
         return GetNeighbors(boundingBox);
     }
 
-    public void Place(Vector2 position)
+    public virtual void Place(Vector2 position)
     {
         boundingBox = new BoundingBox(boundingBox, Round(transform.position));
         foreach (Vector2 pos in boundingBox.Positions())
         {
             objectPositions[pos] = this;
-            Debug.Log(pos);
         }
         UpdateSelf();
-        UpdateNeighbors();
+        UpdateNeighbors(false);
     }
 
-    public void Break()
+    public virtual void Remove()
     {
         foreach (Vector2 pos in boundingBox.Positions())
         {
             objectPositions.Remove(pos);
         }
+        UpdateNeighbors(true);
+    }
+
+    public void Break()
+    {
+        Remove();
         if (itemName != "")
         {
             GameObject drop = Instantiate(floorItem);
             drop.transform.position = boundingBox.Center();
             drop.GetComponent<FloorItem>().SetItem(new Item(itemName, 1));
         }
-        UpdateNeighbors();
         Destroy(gameObject);
     }
 
@@ -176,15 +180,15 @@ public abstract class TileObject : MonoBehaviour
     {
         foreach (var neighbor in GetNeighbors())
         {
-            TileUpdate(neighbor.Item1, neighbor.Item2);
+            TileUpdate(neighbor.Item1, neighbor.Item2, false);
         }
     }
 
-    public void UpdateNeighbors()
+    public void UpdateNeighbors(bool removed)
     {
         foreach (var neighbor in GetNeighbors())
         {
-            neighbor.Item1.TileUpdate(this, -neighbor.Item2);
+            neighbor.Item1.TileUpdate(this, -neighbor.Item2, removed);
         }
     }
 
@@ -194,7 +198,7 @@ public abstract class TileObject : MonoBehaviour
         breakingEffect.SetActive(breaking);
     }
 
-    public virtual void TileUpdate(TileObject neighborObject, Vector2 direction) { }
+    public virtual void TileUpdate(TileObject neighborObject, Vector2 direction, bool neighborRemoved) { }
 
     public virtual void ClickDown(MouseInteractor mouse) { }
     public virtual void ClickHeld(MouseInteractor mouse) { }

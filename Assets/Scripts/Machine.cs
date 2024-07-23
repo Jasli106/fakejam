@@ -14,8 +14,18 @@ public class MachineType
     public Sprite[] working;
 }
 
+public interface InputInventory
+{
+    public Inventory GetInputInventory();
+}
 
-public class Machine : TileObject
+public interface OutputInventory
+{
+    public Inventory GetOutputInventory();
+}
+
+
+public class Machine : TileObject, InputInventory, OutputInventory
 {
     public static readonly float fps = 8f;
     [SerializeField] MachineType type;
@@ -119,5 +129,15 @@ public class Machine : TileObject
     public override void ClickDown(MouseInteractor mouse)
     {
         InventoryManager.instance.OpenMachineInventory(input, output, this);
+    }
+
+    public Inventory GetInputInventory()
+    {
+        return input;
+    }
+
+    public Inventory GetOutputInventory()
+    {
+        return output;
     }
 }

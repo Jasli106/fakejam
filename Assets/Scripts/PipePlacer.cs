@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PipePlacer : MonoBehaviour
 {
-    public bool pipeMode = false;
+/*    public bool pipeMode = false;
 
     [SerializeField] GameObject pipePrefab;
     private Vector3 lastPipePos;
@@ -114,5 +114,5 @@ public class PipePlacer : MonoBehaviour
         }
 
         return Quaternion.identity;
-    }
+    }*/
 }

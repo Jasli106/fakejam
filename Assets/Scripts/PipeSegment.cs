@@ -2,60 +2,268 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PipeSegment : TileObject
-{
-    public enum PypeType
+
+[System.Serializable]
+public class PipeSprites {
+    public Sprite none;
+    public Sprite up;
+    public Sprite left;
+    public Sprite down;
+    public Sprite right;
+    public Sprite upLeft;
+    public Sprite leftDown;
+    public Sprite downRight;
+    public Sprite rightUp;
+    public Sprite upDown;
+    public Sprite leftRight;
+    public Sprite exceptUp;
+    public Sprite exceptLeft;
+    public Sprite exceptDown;
+    public Sprite exceptRight;
+    public Sprite fourWay;
+
+    public Sprite GetSprite(bool upConnected, bool downConnected, bool leftConnected, bool rightConnected)
     {
-        Straight,
-        Bent,
-        Tri,
-        Quad
-    }
+        int bitmask = (upConnected ? 1 : 0) | (downConnected ? 2 : 0) | (leftConnected ? 4 : 0) | (rightConnected ? 8 : 0);
 
-    [SerializeField] Sprite straight;
-    [SerializeField] Sprite bent;
-    [SerializeField] Sprite tri;
-    [SerializeField] Sprite quad;
-
-    [SerializeField] SpriteRenderer sr;
-
-    public PypeType type;
-    public Quaternion rotation;
-
-    public void SetPipeType(PypeType pipeTipe)
-    {
-        type = pipeTipe;
-
-        switch (pipeTipe)
+        switch (bitmask)
         {
-            case PypeType.Straight:
-                sr.sprite = straight;
-                break;
-            case PypeType.Bent:
-                sr.sprite = bent;
-                break;
-            case PypeType.Tri:
-                sr.sprite = tri;
-                break;
-            case PypeType.Quad:
-                sr.sprite = quad;
-                break;
-            default:
-                sr.sprite = straight;
-                break;
+            case 0: return none;
+            case 1: return up;
+            case 2: return down;
+            case 3: return upDown;
+            case 4: return left;
+            case 5: return upLeft;
+            case 6: return leftDown;
+            case 8: return right;
+            case 9: return rightUp;
+            case 10: return downRight;
+            case 12: return leftRight;
+            case 7: return exceptRight;
+            case 11: return exceptLeft;
+            case 13: return exceptDown;
+            case 14: return exceptUp;
+            case 15: return fourWay;
+            default: return none;
+        }
+    }
+}
+
+public enum PipeConnection
+{
+    OtherPipe,
+    Disconnected,
+    Pull,
+    Push
+}
+
+public class PipeSystem
+{
+    public List<PipeSegment> segments;
+    public List<OutputInventory> inputs = new List<OutputInventory>(); // output from inventory into pipe system
+    public List<InputInventory> outputs = new List<InputInventory>(); // input to inventory frome pipe system
+
+    public PipeSystem(PipeSegment root)
+    {
+        List<PipeSegment> queue = new List<PipeSegment>() { root };
+        segments = new List<PipeSegment>();
+
+        AddSegment(root);
+
+        while (queue.Count > 0)
+        {
+            PipeSegment current = queue[0];
+            queue.RemoveAt(0);
+
+            foreach (PipeSegment neighbor in current.PipeConnections())
+            {
+                if (!neighbor.BFSExplored)
+                {
+                    queue.Add(neighbor);
+                    AddSegment(neighbor);
+                }
+            }
         }
     }
 
-    public void SetRotation(Quaternion rot)
+    public void AddSegment(PipeSegment segment)
     {
-        rotation = rot;
-        transform.rotation = rot;
+        segment.BFSExplored = true;
+        segments.Add(segment);
+        inputs.AddRange(segment.Inputs());
+        outputs.AddRange(segment.Outputs());
+        segment.system = this;
     }
 
-    public void SetFlipped(bool isFlipped)
+    public void RemarkAsUnexplored()
     {
-        //sr.flipX = isFlipped;
-        sr.flipY = isFlipped;
+        foreach (PipeSegment segment in segments)
+        {
+            segment.BFSExplored = false;
+        }
     }
 
+}
+public class PipeSegment : TileObject
+{
+    PipeConnection upConnection = PipeConnection.Disconnected;
+    PipeConnection downConnection = PipeConnection.Disconnected;
+    PipeConnection leftConnection = PipeConnection.Disconnected;
+    PipeConnection rightConnection = PipeConnection.Disconnected;
+
+    TileObject upTile = null;
+    TileObject downTile = null;
+    TileObject leftTile = null;
+    TileObject rightTile = null;
+
+    [HideInInspector] public PipeSystem system = null;
+    [HideInInspector] public bool BFSExplored = false;
+
+    [SerializeField] PipeSprites pipeSprites;
+
+    List<InputInventory> outputs = new List<InputInventory>();
+    List<OutputInventory> inputs = new List<OutputInventory>();
+    public List<PipeSegment> PipeConnections()
+    {
+        List<PipeSegment> connections = new List<PipeSegment>();
+        if (upConnection == PipeConnection.OtherPipe && upTile is PipeSegment upPipe) connections.Add(upPipe);
+        if (downConnection == PipeConnection.OtherPipe && downTile is PipeSegment downPipe) connections.Add(downPipe);
+        if (leftConnection == PipeConnection.OtherPipe && leftTile is PipeSegment leftPipe) connections.Add(leftPipe);
+        if (rightConnection == PipeConnection.OtherPipe && rightTile is PipeSegment rightPipe) connections.Add(rightPipe);
+        return connections;
+    }
+
+
+    public List<InputInventory> Outputs()
+    {
+        return outputs;
+    }
+
+    public List<OutputInventory> Inputs()
+    {
+        return inputs;
+    }
+
+    public void UpdateSystemNewConnection()
+    {
+        PipeSystem pipeSystem = new PipeSystem(this);
+        pipeSystem.RemarkAsUnexplored();
+    }
+
+    public void UpdateSystemRemoveConnection()
+    {
+        List<PipeSystem> pipeSystems = new List<PipeSystem>();
+        foreach (PipeSegment neighbor in PipeConnections())
+        {
+            if (neighbor.BFSExplored) continue;
+            pipeSystems.Add(new PipeSystem(neighbor));
+        }
+        foreach (PipeSystem system in pipeSystems)
+        {
+            system.RemarkAsUnexplored();
+        }
+    }
+
+    private void UpdateSprite()
+    {
+        bool upConnected = upConnection != PipeConnection.Disconnected && upTile != null;
+        bool downConnected = downConnection != PipeConnection.Disconnected && downTile != null;
+        bool leftConnected = leftConnection != PipeConnection.Disconnected && leftTile != null;
+        bool rightConnected = rightConnection != PipeConnection.Disconnected && rightTile != null;
+        spriteRenderer.sprite = pipeSprites.GetSprite(upConnected, downConnected, leftConnected, rightConnected);
+    }
+
+    public void SetDirectionTile(Vector2 direction, TileObject neighbor)
+    {
+        if (direction == Vector2.up)
+        {
+            upTile = neighbor;
+        }
+        else if (direction == Vector2.down)
+        {
+            downTile = neighbor;
+        }
+        else if (direction == Vector2.left)
+        {
+            leftTile = neighbor;
+        }
+        else if (direction == Vector2.right)
+        {
+            rightTile = neighbor;
+        }
+        else
+        {
+            Debug.LogError($"{direction} is not a valid direction.");
+        }
+    }
+
+    public void SetDirectionConnection(Vector2 direction, PipeConnection state)
+    {
+        if (direction == Vector2.up)
+        {
+            upConnection = state;
+        }
+        else if (direction == Vector2.down)
+        {
+            downConnection = state;
+        }
+        else if (direction == Vector2.left)
+        {
+            leftConnection = state;
+        }
+        else if (direction == Vector2.right)
+        {
+            rightConnection = state;
+        }
+        else
+        {
+            Debug.LogError($"{direction} is not a valid direction.");
+        }
+        UpdateSprite();
+    }
+
+    public override void TileUpdate(TileObject tile, Vector2 direction, bool neighborRemoved)
+    {
+        if (neighborRemoved)
+        {
+            SetDirectionTile(direction, null);
+            SetDirectionConnection(direction, PipeConnection.Disconnected);
+            return;
+        }
+
+        SetDirectionTile(direction, tile);
+
+        if (tile is PipeSegment other)
+        {
+            SetDirectionConnection(direction, PipeConnection.OtherPipe); // temp for now
+            return;
+        }
+
+        if (tile is InputInventory inInv)
+        {
+            SetDirectionConnection(direction, PipeConnection.Push);
+            outputs.Add(inInv);
+        }
+        else if (tile is OutputInventory outInv)
+        {
+            SetDirectionConnection(direction, PipeConnection.Pull);
+            inputs.Add(outInv);
+        }
+    }
+
+    public override void Place(Vector2 position)
+    {
+        base.Place(position);
+        UpdateSystemNewConnection();
+    }
+
+    public override void Remove()
+    {
+        base.Remove();
+        upConnection = PipeConnection.Disconnected;
+        downConnection = PipeConnection.Disconnected;
+        leftConnection = PipeConnection.Disconnected;
+        rightConnection = PipeConnection.Disconnected;
+        UpdateSystemRemoveConnection();
+    }
 }
