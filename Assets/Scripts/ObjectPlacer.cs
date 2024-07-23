@@ -10,6 +10,8 @@ public class ObjectPlacer : MonoBehaviour
     BoundingBox bounds = BoundingBox.singleTile;
     GameObject currentPrefab = null;
     GameObject instantiation = null;
+    [SerializeField] Color canPlace = new Color(1f, 1f, 1f, 0.6f);
+    [SerializeField] Color cantPlace = new Color(1f, 0.7f, 0.7f, 0.7f);
 
     private void Awake()
     {
@@ -38,8 +40,8 @@ public class ObjectPlacer : MonoBehaviour
         bool placeable = Placeable(transform.position);
         if (placeable)
         {
-            ghostPlacementRenderer.color = new Color(1f,1f,1f,0.6f);
-            if (Input.GetMouseButtonDown(0))
+            ghostPlacementRenderer.color = canPlace;
+            if (Input.GetMouseButton(0))
             {
                 (new Item()).AddOneItem(InventoryManager.itemSelected); // Remove one item from selected slot
                 PlaceObject(transform.position);
@@ -47,7 +49,7 @@ public class ObjectPlacer : MonoBehaviour
         }
         else
         {
-            ghostPlacementRenderer.color = new Color(1f, 0.7f, 0.7f, 0.6f);
+            ghostPlacementRenderer.color = cantPlace;
         }
     }
 
