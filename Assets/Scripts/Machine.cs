@@ -30,6 +30,8 @@ public class Machine : TileObject
     Recipe currentRecipe = null;
     float timeOfRecipeStart = 0f;
 
+    [SerializeField] GameObject[] enabledWhileWorking;
+
     private void Awake()
     {
         input = new Inventory(type.inputSlots);
@@ -43,6 +45,10 @@ public class Machine : TileObject
         if (working == value) return;
         working = value;
         timeOfStateChange = Time.time;
+        foreach (GameObject go in enabledWhileWorking)
+        {
+            go.SetActive(value);
+        }
     }
 
     public float Progress()

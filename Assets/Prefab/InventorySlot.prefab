@@ -192,6 +192,10 @@ PrefabInstance:
       propertyPath: m_Maskable
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5443380690809246632, guid: bc7c18ace1f3e454b84fa30711f6b796, type: 3}
+      propertyPath: itemHolderObject
+      value: 
+      objectReference: {fileID: 2314691757793708043}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

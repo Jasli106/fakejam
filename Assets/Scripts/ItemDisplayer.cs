@@ -12,6 +12,7 @@ public interface DisplayItemHolder
 
 public class ItemDisplayer : MonoBehaviour
 {
+    [SerializeField] GameObject itemHolderObject;
     DisplayItemHolder itemHolder = null;
     [SerializeField] Image itemDisplay;
     [SerializeField] TextMeshProUGUI quantityDisplay;
@@ -19,7 +20,7 @@ public class ItemDisplayer : MonoBehaviour
     public void Display()
     {
         if (itemHolder == null) {
-            itemHolder = GetComponentInParent<DisplayItemHolder>();
+            itemHolder = itemHolderObject.GetComponent<DisplayItemHolder>();
         }
         if (itemHolder.DisplayItem().Empty())
         {
