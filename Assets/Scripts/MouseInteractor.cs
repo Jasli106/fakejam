@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum Edge
+{
+    Up,
+    Down,
+    Left,
+    Right,
+    None
+}
+
 public class MouseInteractor : MonoBehaviour
 {
     private void Update()
@@ -24,6 +33,25 @@ public class MouseInteractor : MonoBehaviour
                 interactable.ClickHeld(this);
             }
         }
+    }
+
+    Vector2 FractionalComponent(Vector2 vector)
+    {
+        return new Vector2(vector.x - Mathf.Floor(vector.x), vector.y - Mathf.Floor(vector.y));
+    }
+    private Edge MouseOnTileEdge(float edgeCornerSize)
+    {
+        Vector3 mouseScreenPosition = Input.mousePosition;
+        Vector2 mouseWorldPosition = (Vector2)Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        Vector2 mouseTilePosition = FractionalComponent(mouseWorldPosition);
+        float x = mouseTilePosition.x;
+        float y = mouseTilePosition.y;
+        Vector2 distanceToCorner = new Vector2(0.5f - Mathf.Abs(0.5f - x), 0.5f - Mathf.Abs(0.5f - y));
+        if (distanceToCorner.x < edgeCornerSize && distanceToCorner.y < edgeCornerSize) return Edge.None;
+        if (y < x && y < 1 - x) return Edge.Down;
+        if (y < x && y > 1 - x) return Edge.Right;
+        if (y > x && y < 1 - x) return Edge.Left;
+        return Edge.Up;
     }
 
     private TileObject CheckForInteractables()

@@ -7,6 +7,8 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] InventoryUIController hotbarUIController;
     [SerializeField] InventoryUIController hiddenUIController;
 
+    [SerializeField] List<Item> startingItems = new List<Item>();
+
     Inventory hotbar;
     Inventory hidden;
     Inventory total;
@@ -18,6 +20,8 @@ public class PlayerInventory : MonoBehaviour
         total = new Inventory(hotbar, hidden);
         hotbarUIController.RepresentInventory(hotbar);
         hiddenUIController.RepresentInventory(hidden);
+
+        total.InsertItems(startingItems);
     }
 
     public Inventory GetInventory()
