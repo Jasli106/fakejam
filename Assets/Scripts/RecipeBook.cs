@@ -45,4 +45,19 @@ public class RecipeBook : MonoBehaviour
             }
         }
     }
+
+    public void SearchItems(string searchText)
+    {
+        searchText = searchText.Replace(" ", "").ToLower();
+
+        if (string.IsNullOrEmpty(searchText))
+        {
+            PopulateItemDisplay(itemDB.items);
+        }
+        else
+        {
+            List<Item> searchedItems = itemDB.items.FindAll(item => item.type.Replace(" ", "").ToLower().Contains(searchText));
+            PopulateItemDisplay(searchedItems);
+        }
+    }
 }
