@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -25,6 +26,11 @@ public class BoundingBox // Centered around (0,0)
         this.left = b.left + (int)translation.x;
         this.bottom = b.bottom + (int)translation.y;
         this.right = b.right + (int)translation.x;
+    }
+
+    public Vector3 Center()
+    {
+        return new Vector3((left + right) / 2, (top + bottom) / 2, 0);
     }
 
     public List<Vector2> Positions()
@@ -75,9 +81,12 @@ public class BoundingBox // Centered around (0,0)
 
 public abstract class TileObject : MonoBehaviour
 {
+    [SerializeField] GameObject floorItem;
+    [SerializeField] string itemName = "";
+
     public static Dictionary<Vector2, TileObject> objectPositions = new Dictionary <Vector2, TileObject>();
     BoundingBox boundingBox = BoundingBox.singleTile;
-
+    public float breakTime = 1f;
     public BoundingBox GetBoundingBox()
     {
         return boundingBox;
@@ -139,9 +148,26 @@ public abstract class TileObject : MonoBehaviour
         foreach (Vector2 pos in boundingBox.Positions())
         {
             objectPositions[pos] = this;
+            Debug.Log(pos);
         }
         UpdateSelf();
         UpdateNeighbors();
+    }
+
+    public void Break()
+    {
+        foreach (Vector2 pos in boundingBox.Positions())
+        {
+            objectPositions.Remove(pos);
+        }
+        if (itemName != "")
+        {
+            GameObject drop = Instantiate(floorItem);
+            drop.transform.position = boundingBox.Center();
+            drop.GetComponent<FloorItem>().SetItem(new Item(itemName, 1));
+        }
+        UpdateNeighbors();
+        Destroy(gameObject);
     }
 
     public void UpdateSelf()

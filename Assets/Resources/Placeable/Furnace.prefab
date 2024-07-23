@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &407648532511046046
 Transform:
   m_ObjectHideFlags: 0
@@ -4981,6 +4981,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314692ccaaa89124bba74f6b2888ed98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floorItem: {fileID: 8007161449975433671, guid: 3103611f8d9156144a456f82a2b905be, type: 3}
+  itemName: Furnace
+  breakTime: 1
   type:
     type: Furnace
     inputSlots: 9
@@ -4990,3 +4993,5 @@ MonoBehaviour:
     working:
     - {fileID: 21300000, guid: dddaa75d1784df741a5e6802bfcebc47, type: 3}
     - {fileID: 21300000, guid: cdf0ef04738581a4686f49df7a156518, type: 3}
+  enabledWhileWorking:
+  - {fileID: 5408794257684661867}
