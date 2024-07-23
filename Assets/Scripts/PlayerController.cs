@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public Vector2 lastDirection = Vector2.down;
     public Vector2 currentPosition = Vector2.zero;
 
+    public bool movementEnabled = true;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,19 +24,19 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Vector2 movement = Vector2.zero;
-        if (Input.GetKey(KeyCode.W)) {
+        if (Input.GetKey(KeyCode.W) && movementEnabled) {
             movement += Vector2.up;
             animController.SetAnimationState("character_walk_up");
         }
-        if (Input.GetKey(KeyCode.S)) {
+        if (Input.GetKey(KeyCode.S) && movementEnabled) {
             movement += Vector2.down;
             animController.SetAnimationState("character_walk_down");
         }
-        if (Input.GetKey(KeyCode.D)) {
+        if (Input.GetKey(KeyCode.D) && movementEnabled) {
             movement += Vector2.right;
             animController.SetAnimationState("character_walk_right");
         }
-        if (Input.GetKey(KeyCode.A)) {
+        if (Input.GetKey(KeyCode.A) && movementEnabled) {
             movement += Vector2.left;
             animController.SetAnimationState("character_walk_left");
         }

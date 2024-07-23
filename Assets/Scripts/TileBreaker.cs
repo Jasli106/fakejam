@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TileBreaker : MonoBehaviour
 {
+    [SerializeField] PlayerController playerController;
     TileObject currentlyBreaking = null;
     float breakStartTime = Mathf.Infinity;
 
@@ -68,6 +69,7 @@ public class TileBreaker : MonoBehaviour
             currentlyBreaking = null;
         }
         breakStartTime = Mathf.Infinity;
+        playerController.movementEnabled = true;
     }
 
     public void StartBreaking(TileObject obj)
@@ -75,5 +77,6 @@ public class TileBreaker : MonoBehaviour
         currentlyBreaking = obj;
         currentlyBreaking.SetBreaking(true);
         breakStartTime = Time.time;
+        playerController.movementEnabled = false;
     }
 }
