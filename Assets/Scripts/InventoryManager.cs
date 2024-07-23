@@ -19,6 +19,10 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
     public GameObject machineUI;
     public InventoryUIController machineIn;
     public InventoryUIController machineOut;
+    public ProgressBar progressBar;
+    public Animator gearsAnim;
+
+    Machine currMachineOpen = null;
 
 
 
@@ -76,6 +80,18 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
             }
         }
         HandleScrollInput();
+
+        if(currMachineOpen != null)
+        {
+            if (currMachineOpen.Progress() == 0)
+            {
+                gearsAnim.enabled = false;
+            } else
+            {
+                gearsAnim.enabled = true;
+            }
+            progressBar.SetProgressBar(currMachineOpen.Progress());
+        }
     }
     void HandleScrollInput()
     {
@@ -115,12 +131,13 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
         expandedInventory.SetActive(true);
     }
 
-    public void OpenMachineInventory(Inventory input, Inventory output)
+    public void OpenMachineInventory(Inventory input, Inventory output, Machine machine)
     {
         OpenInventory();
         machineUI.SetActive(true);
         machineIn.RepresentInventory(input);
         machineOut.RepresentInventory(output);
+        currMachineOpen = machine;
     }
 
     public void CloseInventory()
@@ -128,7 +145,10 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
         inventoryOpen = false;
         pickedUpItemDisplayer.gameObject.SetActive(false);
         expandedInventory.SetActive(false);
+        gearsAnim.enabled = false;
+        progressBar.SetProgressBar(0);
         machineUI.SetActive(false);
+        currMachineOpen = null;
     }
 
     public Item DisplayItem()
