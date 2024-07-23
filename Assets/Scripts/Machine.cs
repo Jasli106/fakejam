@@ -45,9 +45,20 @@ public class Machine : TileObject
         timeOfStateChange = Time.time;
     }
 
+    public float Progress()
+    {
+        if (currentRecipe == null)
+        {
+            return 0;
+        }
+        return (Time.time - timeOfRecipeStart) / currentRecipe.time;
+    }
+
+
     private void Update()
     {
-        if (currentRecipe != null && Time.time - timeOfRecipeStart >= currentRecipe.time) {
+        //TODO: Multiple recipes started and completed per frame using deltaTime
+        if (Progress() >= 1) {
             FinishRecipe();
         }
         CheckForInputs();
