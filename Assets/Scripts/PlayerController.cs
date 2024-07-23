@@ -9,7 +9,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 2;
     Rigidbody2D rb;
     AnimationController animController;
-    Vector2 lastDirection = Vector2.down;
+
+    public Vector2 lastDirection = Vector2.down;
+    public Vector2 currentPosition = Vector2.zero;
 
     private void Awake()
     {
@@ -63,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
         movement.Normalize();
         rb.velocity = speed * movement;
-
+        currentPosition = rb.position;
 
     }
 }
