@@ -76,7 +76,12 @@ public class BoundingBox // Centered around (0,0)
 public abstract class TileObject : MonoBehaviour
 {
     public static Dictionary<Vector2, TileObject> objectPositions;
-    BoundingBox boundingBox;
+    BoundingBox boundingBox = BoundingBox.singleTile;
+
+    public BoundingBox GetBoundingBox()
+    {
+        return boundingBox;
+    }
 
     public static TileObject GetTileAtPosition(Vector2 position)
     {
@@ -97,6 +102,18 @@ public abstract class TileObject : MonoBehaviour
     public static bool PositionEmpty(Vector2 position)
     {
         return objectPositions.ContainsKey(position);
+    }
+
+    public static bool BoxEmpty(BoundingBox bb)
+    {
+        foreach (Vector2 pos in bb.Positions())
+        {
+            if (!PositionEmpty(pos))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static List<(TileObject, Vector2)> GetNeighbors(BoundingBox b)

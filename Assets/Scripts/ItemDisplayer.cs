@@ -12,17 +12,15 @@ public interface DisplayItemHolder
 
 public class ItemDisplayer : MonoBehaviour
 {
-    DisplayItemHolder itemHolder;
+    DisplayItemHolder itemHolder = null;
     [SerializeField] Image itemDisplay;
     [SerializeField] TextMeshProUGUI quantityDisplay;
 
-    private void Awake()
-    {
-        itemHolder = GetComponentInParent<DisplayItemHolder>();
-    }
-
     public void Display()
     {
+        if (itemHolder == null) {
+            itemHolder = GetComponentInParent<DisplayItemHolder>();
+        }
         if (itemHolder.DisplayItem().Empty())
         {
             itemDisplay.color = new Color(1, 1, 1, 0);

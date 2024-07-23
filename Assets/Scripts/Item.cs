@@ -7,6 +7,7 @@ using UnityEngine;
 public class Item : ICloneable
 {
     public static string itemFolder = "Items/";
+    public static string placementFolder = "Placeable/";
     public static int maxAmount = 99;
 
     public string type = "";
@@ -93,5 +94,11 @@ public class Item : ICloneable
     public object Clone()
     {
         return new Item(this.type, this.amount);
+    }
+
+    public GameObject Placement() 
+    {
+        if (Empty()) return null;
+        return Resources.Load<GameObject>(placementFolder + type);
     }
 }
