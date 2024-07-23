@@ -32,7 +32,7 @@ public class BoundingBox // Centered around (0,0)
         List<Vector2> result = new List<Vector2>();
         for (int x = left; x <= right; ++x)
         {
-            for (int y = bottom; x <= top; ++y)
+            for (int y = bottom; y <= top; ++y)
             {
                 result.Add(new Vector2(x, y));
             }
@@ -75,7 +75,7 @@ public class BoundingBox // Centered around (0,0)
 
 public abstract class TileObject : MonoBehaviour
 {
-    public static Dictionary<Vector2, TileObject> objectPositions;
+    public static Dictionary<Vector2, TileObject> objectPositions = new Dictionary <Vector2, TileObject>();
     BoundingBox boundingBox = BoundingBox.singleTile;
 
     public BoundingBox GetBoundingBox()
@@ -101,7 +101,7 @@ public abstract class TileObject : MonoBehaviour
 
     public static bool PositionEmpty(Vector2 position)
     {
-        return objectPositions.ContainsKey(position);
+        return !objectPositions.ContainsKey(position);
     }
 
     public static bool BoxEmpty(BoundingBox bb)

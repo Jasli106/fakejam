@@ -20,6 +20,7 @@ public class ObjectPlacer : MonoBehaviour
     {
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        mouseWorldPosition.z = 0;
         return TileObject.Round(mouseWorldPosition);
         //float x = Mathf.Round(mouseWorldPosition.x);
         //float y = Mathf.Round(mouseWorldPosition.y);
@@ -33,22 +34,21 @@ public class ObjectPlacer : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("frame!");
         transform.position = PlacementPosition();
         bool placeable = Placeable(transform.position);
-        /*
         if (placeable)
         {
-            ghostPlacementRenderer.color = Color.white;
+            ghostPlacementRenderer.color = new Color(1f,1f,1f,0.6f);
             if (Input.GetMouseButtonDown(0))
             {
+                (new Item()).AddOneItem(InventoryManager.itemSelected); // Remove one item from selected slot
                 PlaceObject(transform.position);
             }
         }
         else
         {
-            ghostPlacementRenderer.color = Color.red;
-        }*/
+            ghostPlacementRenderer.color = new Color(1f, 0.7f, 0.7f, 0.6f);
+        }
     }
 
     public void CreateGhost(GameObject prefab)
