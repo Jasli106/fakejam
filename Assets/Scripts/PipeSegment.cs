@@ -144,6 +144,11 @@ public class PipeSegment : TileObject
         return inputs;
     }
 
+    public void Awake()
+    {
+        UpdateSprite();
+    }
+
     public void UpdateSystemNewConnection()
     {
         PipeSystem pipeSystem = new PipeSystem(this);
