@@ -11014,7 +11014,7 @@ MonoBehaviour:
   breakingEffect: {fileID: 0}
   spriteRenderer: {fileID: 0}
   breakTime: 1
-  resourceName: Furnace
+  resourceName: Pipe
 --- !u!1 &1643263680
 GameObject:
   m_ObjectHideFlags: 0
