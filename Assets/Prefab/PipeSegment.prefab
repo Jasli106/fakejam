@@ -99,6 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37d0b8ad51c5404790903b0abb8d739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floorItem: {fileID: 0}
+  itemName: 
+  breakingEffect: {fileID: 0}
+  spriteRenderer: {fileID: 3182351048370263781}
+  breakTime: 1
   straight: {fileID: -1960250579, guid: 5e6ba375a968c734cbd8ba9365e14b4f, type: 3}
   bent: {fileID: 1884093320, guid: 5e6ba375a968c734cbd8ba9365e14b4f, type: 3}
   tri: {fileID: 20847794, guid: 5e6ba375a968c734cbd8ba9365e14b4f, type: 3}

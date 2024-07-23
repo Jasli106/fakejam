@@ -26,7 +26,6 @@ public class SetParticleColorFromSprite : MonoBehaviour
         Vector2 center = sprite.textureRect.center;
         Vector2 readPoint = center + sprite.textureRect.size * Random.Range(-0.2f, 0.2f);
         Color color = sprite.texture.GetPixel((int)readPoint.x, (int)readPoint.y);
-        Debug.Log(color);
 
         Gradient gradient = new Gradient();
         gradient.SetKeys(
