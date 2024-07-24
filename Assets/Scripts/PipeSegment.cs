@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -84,6 +85,24 @@ public class PipeSystem
                 }
             }
         }
+        PipeManager.instance.systems.Add(this);
+    }
+
+    bool enabled = true;
+    public void DisableSystem()
+    {
+        if (enabled == false) return;
+        enabled = false;
+        PipeManager.instance.systems.Remove(this);
+    }
+
+    public void Transfer()
+    {
+        List<Inventory> inputInventories = inputs.Select(inv => inv.GetOutputInventory()).ToList();
+        List<Inventory> outputInventories = outputs.Select(inv => inv.GetInputInventory()).ToList();
+        Inventory inInv = new Inventory(inputInventories);
+        Inventory outInv = new Inventory(outputInventories);
+        outInv.InsertItems(inInv.items, true);
     }
 
     public void AddSegment(PipeSegment segment)
@@ -92,6 +111,7 @@ public class PipeSystem
         segments.Add(segment);
         inputs.AddRange(segment.Inputs());
         outputs.AddRange(segment.Outputs());
+        if (segment.system != null) segment.system.DisableSystem();
         segment.system = this;
     }
 
