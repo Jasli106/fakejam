@@ -128,6 +128,7 @@ public class Machine : TileObject, InputInventory, OutputInventory
 
     public override void ClickDown(MouseInteractor mouse, bool firstClick)
     {
+        if (!firstClick) return;
         InventoryManager.instance.OpenMachineInventory(input, output, this);
     }
 
