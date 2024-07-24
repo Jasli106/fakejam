@@ -4845,6 +4845,7 @@ GameObject:
   - component: {fileID: 3761145654311121288}
   - component: {fileID: 4970814334208734186}
   - component: {fileID: 7741152857615020700}
+  - component: {fileID: 4107146688826823597}
   m_Layer: 6
   m_Name: Furnace
   m_TagString: Untagged
@@ -4944,6 +4945,18 @@ MonoBehaviour:
     - {fileID: 21300000, guid: cdf0ef04738581a4686f49df7a156518, type: 3}
   enabledWhileWorking:
   - {fileID: 5408794257684661867}
+--- !u!114 &4107146688826823597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6034711485301122163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe121551e53f9481999dc94c9005aa39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7736032289901203016
 GameObject:
   m_ObjectHideFlags: 0
@@ -5016,8 +5029,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1312187331
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: da1fb596b1cc12a41989a70cd10dc3d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
