@@ -14,6 +14,8 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] ItemDisplayer itemDisplay;
     [SerializeField] bool outputOnly = false;
 
+    private bool hovered = false;
+
 
     // Controls
     /*
@@ -30,7 +32,6 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             InventoryManager.instance.itemPickedUp.AddItems(item);
             return;
         }
-
 
         bool consolidated = item.AddItems(InventoryManager.instance.itemPickedUp);
         if (!consolidated) //Swap
@@ -88,6 +89,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (!InventoryManager.inventoryOpen) return;
         img.color = new Color(0.8f, 0.8f, 0.8f);
+        hovered = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -100,6 +102,28 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         else
         {
             img.color = new Color(1, 1, 1);
+        }
+        hovered = false;
+    }
+
+    void Update()
+    {
+        if(hovered)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                // Show recipes to create item
+                if (item.Empty()) return;
+                List<Recipe> recipes = Recipe.ItemOutRecipes(item.type);
+                RecipeBook.instance.DisplayRecipes(recipes);
+            }
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                // Show recipes that use item
+                if (item.Empty()) return;
+                List<Recipe> recipes = Recipe.ItemInRecipes(item.type);
+                RecipeBook.instance.DisplayRecipes(recipes);
+            }
         }
     }
 

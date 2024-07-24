@@ -7,11 +7,11 @@ public class Recipe
 {
     public string machine;
     public float time;
-    public List<(string, float)> costs;
+    public float costs;
     public List<Item> inputs;
     public List<Item> outputs;
 
-    public Recipe(string machine, float time, List<(string, float)> costs, List<Item> inputs, List<Item> outputs)
+    public Recipe(string machine, float time, float costs, List<Item> inputs, List<Item> outputs)
     {
         this.machine = machine;
         this.time = time;
@@ -25,7 +25,7 @@ public class Recipe
         new Recipe (
             "Furnace",
             3f,
-            new List<(string, float)>(),
+            0,
             new List<Item>() {
                 new Item("Iron Ore Sand", 1),
                 new Item("Oak Charcoal", 1)
@@ -37,7 +37,7 @@ public class Recipe
         new Recipe (
             "Furnace",
             3f,
-            new List<(string, float)>(),
+            0,
             new List<Item>() {
                 new Item("Charcoal", 1)
             },
@@ -55,6 +55,38 @@ public class Recipe
             if (recipe.machine == machine.type)
             {
                 validRecipes.Add(recipe);
+            }
+        }
+        return validRecipes;
+    }
+
+    public static List<Recipe> ItemInRecipes(string itemType)
+    {
+        List<Recipe> validRecipes = new List<Recipe>();
+        foreach (var recipe in list)
+        {
+            foreach(var item in recipe.inputs)
+            {
+                if (item.type == itemType)
+                {
+                    validRecipes.Add(recipe);
+                }
+            }
+        }
+        return validRecipes;
+    }
+
+    public static List<Recipe> ItemOutRecipes(string itemType)
+    {
+        List<Recipe> validRecipes = new List<Recipe>();
+        foreach (var recipe in list)
+        {
+            foreach (var item in recipe.outputs)
+            {
+                if (item.type == itemType)
+                {
+                    validRecipes.Add(recipe);
+                }
             }
         }
         return validRecipes;
