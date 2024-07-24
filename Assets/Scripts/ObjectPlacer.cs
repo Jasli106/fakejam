@@ -6,6 +6,8 @@ public class ObjectPlacer : MonoBehaviour
 {
     [SerializeField] float range = 5;
     [SerializeField] GameObject ghostRender;
+    [SerializeField] PlayerController playerController;
+    [SerializeField] LayerMask groundLayer;
     SpriteRenderer ghostPlacementRenderer;
     BoundingBox bounds = BoundingBox.singleTile;
     GameObject currentPrefab = null;
@@ -75,7 +77,10 @@ public class ObjectPlacer : MonoBehaviour
 
     public bool Placeable(Vector3 position)
     {
-        return TileObject.BoxEmpty(new BoundingBox(bounds, position));
+        bool canPlace = TileObject.BoxEmpty(new BoundingBox(bounds, position))
+            && (Physics2D.OverlapPoint(position, groundLayer) != null)
+            && (Vector2.Distance(position, playerController.currentPosition) <= range);
+        return canPlace;
     }
 
     public void PlaceObject(Vector3 position)
