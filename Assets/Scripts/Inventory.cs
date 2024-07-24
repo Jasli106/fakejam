@@ -11,7 +11,6 @@ public class Inventory : ICloneable
 {
     public List<Item> items = new List<Item>();
 
-
     public Inventory() { }
 
     public Inventory(int slots)
@@ -39,6 +38,17 @@ public class Inventory : ICloneable
         foreach (var item in i2.items)
         {
             items.Add(item);
+        }
+    }
+
+    public Inventory(List<Inventory> inventories)
+    {
+        foreach (var inv in inventories)
+        {
+            foreach (var item in inv.items)
+            {
+                items.Add(item);
+            }
         }
     }
 
