@@ -15,19 +15,55 @@ MonoBehaviour:
   items:
   - type: Charcoal
     amount: 1
+    locked: 0
+  - type: Clay
+    amount: 1
+    locked: 0
+  - type: Clay Furnace
+    amount: 1
+    locked: 0
+  - type: Copper Ore
+    amount: 1
+    locked: 0
+  - type: Crafter
+    amount: 1
+    locked: 0
   - type: Furnace
     amount: 1
+    locked: 0
   - type: Gear
     amount: 1
+    locked: 0
+  - type: Glass
+    amount: 1
+    locked: 0
   - type: Grit
     amount: 1
+    locked: 0
   - type: Ingot
     amount: 1
+    locked: 0
+  - type: Metal Press
+    amount: 1
+    locked: 0
   - type: Pipe
     amount: 1
+    locked: 0
   - type: Raw Ore
     amount: 1
+    locked: 0
+  - type: Sand
+    amount: 1
+    locked: 0
+  - type: Steam Engine
+    amount: 1
+    locked: 0
+  - type: Stone
+    amount: 1
+    locked: 0
   - type: Water
     amount: 1
+    locked: 0
   - type: Wood
     amount: 1
+    locked: 0

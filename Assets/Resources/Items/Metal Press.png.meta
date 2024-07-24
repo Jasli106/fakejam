@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 68cd0ea07524130478f7b82011f2120a
+guid: 186ba4b4d92544850a097b44f72924e6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -21,7 +21,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -97,85 +97,190 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Crafter_0
+      name: Metal Press_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.25, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12ca61f20001746a5844e80dbfdf37c2
+      internalID: 5553191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Metal Press_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.25, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46e8350eeecc64a7fabb1df23e7ff6c0
+      internalID: -781897702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Metal Press_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.25, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96dd9ed75e65a4395b131401ede12228
+      internalID: -575892129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Metal Press_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.25, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af2f26d2687354ad1abe4cc8eaea489c
+      internalID: 100463215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Metal Press_4
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.25, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9464eb1daccb54699ba0986846aa4fe2
+      internalID: 209779494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Metal Press_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.25, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2449728bf42d0410ba1547a4e5f5f95a
+      internalID: -1740688980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Metal Press_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 20
+        width: 32
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.4}
+      pivot: {x: 0.25, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: abe7392127d2e4d289c4bb4dbf04a37c
-      internalID: -1755499965
+      spriteID: abfff909f95314f5280555c08fa26db9
+      internalID: 1787138295
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crafter_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 20
-      alignment: 9
-      pivot: {x: 0.5, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 88a12555cd8a24f98a638b45dd26be6b
-      internalID: 673891905
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Crafter_2
+      name: Metal Press_7
       rect:
         serializedVersion: 2
         x: 32
         y: 0
-        width: 16
-        height: 20
+        width: 32
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.4}
+      pivot: {x: 0.25, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f89380149b7244f2a7a254778fc9ca7
-      internalID: -956354105
+      spriteID: 3e1ee40233a414794922cbab2183c711
+      internalID: -1714288798
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crafter_3
+      name: Metal Press_8
       rect:
         serializedVersion: 2
-        x: 48
+        x: 64
         y: 0
-        width: 16
-        height: 20
+        width: 32
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.4}
+      pivot: {x: 0.25, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5bd799ceffe564118a175064e81dcbc6
-      internalID: -1489903032
+      spriteID: 7233fb07a519643228b34e8572595bd0
+      internalID: 878729284
       vertices: []
       indices: 
       edges: []
@@ -191,10 +296,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Crafter_0: -1755499965
-      Crafter_1: 673891905
-      Crafter_2: -956354105
-      Crafter_3: -1489903032
+      Metal Press_0: 5553191
+      Metal Press_1: -781897702
+      Metal Press_2: -575892129
+      Metal Press_3: 100463215
+      Metal Press_4: 209779494
+      Metal Press_5: -1740688980
+      Metal Press_6: 1787138295
+      Metal Press_7: -1714288798
+      Metal Press_8: 878729284
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
