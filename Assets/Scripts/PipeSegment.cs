@@ -119,6 +119,11 @@ public class PipeSegment : TileObject
     [HideInInspector] public PipeSystem system = null;
     [HideInInspector] public bool BFSExplored = false;
 
+    [SerializeField] GameObject extratorUp;
+    [SerializeField] GameObject extratorDown;
+    [SerializeField] GameObject extratorLeft;
+    [SerializeField] GameObject extratorRight;
+
     [SerializeField] PipeSprites pipeSprites;
 
     List<InputInventory> outputs = new List<InputInventory>();
@@ -174,6 +179,11 @@ public class PipeSegment : TileObject
         bool leftConnected = leftConnection != PipeConnection.Disconnected && leftTile != null;
         bool rightConnected = rightConnection != PipeConnection.Disconnected && rightTile != null;
         spriteRenderer.sprite = pipeSprites.GetSprite(upConnected, downConnected, leftConnected, rightConnected);
+
+        extratorUp.SetActive(upConnection == PipeConnection.Pull);
+        extratorDown.SetActive(downConnection == PipeConnection.Pull);
+        extratorLeft.SetActive(leftConnection == PipeConnection.Pull);
+        extratorRight.SetActive(rightConnection == PipeConnection.Pull);
     }
 
     public void SetDirectionTile(Vector2 direction, TileObject neighbor)
