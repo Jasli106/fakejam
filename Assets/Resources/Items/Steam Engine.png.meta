@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 16cd96b140355204b854785dd3ac691f
+guid: 31a64479206d9426f9bb8fa0a4380224
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,43 +97,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Miner_0
+      name: Steam Engine_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.25, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d2ae42152bcd48dfbfa0b00db5f10f2
-      internalID: -1287407508
+      spriteID: 379b85c4a476d457aa71dd801a7a411d
+      internalID: -309893098
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Miner_1
+      name: Steam Engine_1
       rect:
         serializedVersion: 2
         x: 32
         y: 0
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.25, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e49b664bea0d4b5d8e79dce34f373ca
-      internalID: -481925805
+      spriteID: 7d0ed0e0628444e33b9647e580655900
+      internalID: 419322138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Steam Engine_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.25, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 115d6a153bb524b2dbe452f5b6d7f932
+      internalID: -879292092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Steam Engine_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.25, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0562d57d4aa1341218247bb3c53ea9c6
+      internalID: 1231004605
       vertices: []
       indices: 
       edges: []
@@ -149,8 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Miner_0: -1287407508
-      Miner_1: -481925805
+      Steam Engine_0: -309893098
+      Steam Engine_1: 419322138
+      Steam Engine_2: -879292092
+      Steam Engine_3: 1231004605
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
