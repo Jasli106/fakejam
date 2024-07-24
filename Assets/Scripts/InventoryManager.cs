@@ -26,7 +26,7 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
     public InventoryUIController chestInventory;
 
     Machine currMachineOpen = null;
-
+    Chest currChestOpen = null;
 
 
     [SerializeField] ItemDisplayer pickedUpItemDisplayer;
@@ -141,11 +141,13 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
         expandedInventory.SetActive(true);
     }
 
-    public void OpenChestInventory(Inventory inventory)
+    public void OpenChestInventory(Inventory inventory, Chest chest)
     {
         OpenInventory();
         chestUI.SetActive(true);
         chestInventory.RepresentInventory(inventory);
+        currChestOpen = chest;
+        chest.SetSpriteOpen(true);
     }
 
     public void OpenMachineInventory(Inventory input, Inventory output, Machine machine)
@@ -162,11 +164,16 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
         inventoryOpen = false;
         pickedUpItemDisplayer.gameObject.SetActive(false);
         expandedInventory.SetActive(false);
+
         gearsAnim.enabled = false;
         progressBar.SetProgressBar(0);
         machineUI.SetActive(false);
         currMachineOpen = null;
+
         chestUI.SetActive(false);
+        if (currChestOpen == null) return;
+        currChestOpen.SetSpriteOpen(false);
+        currChestOpen = null;
     }
 
     public Item DisplayItem()

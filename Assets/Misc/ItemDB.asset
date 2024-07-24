@@ -22,9 +22,6 @@ MonoBehaviour:
   - type: Clay Furnace
     amount: 1
     locked: 0
-  - type: Copper Ore
-    amount: 1
-    locked: 0
   - type: Crafter
     amount: 1
     locked: 0

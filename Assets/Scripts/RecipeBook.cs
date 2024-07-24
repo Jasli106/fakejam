@@ -29,11 +29,11 @@ public class RecipeBook : MonoBehaviour
     [SerializeField]
     private Image bookButton;
     [SerializeField]
-    private GameObject inventory;
-    [SerializeField]
-    private GameObject machineUI;
-    [SerializeField]
     private UIMovementDisabler disablePlayer;
+    [SerializeField]
+    private PlayerActionController disablePlayerAction;
+    [SerializeField]
+    private GameObject hotbar;
 
     public static RecipeBook instance = null;
 
@@ -63,6 +63,13 @@ public class RecipeBook : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleRecipeBook();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ToggleRecipeBook();
+            InventoryManager.instance.OpenInventory();
+            disablePlayer.SetInteractionEnabled(false);
         }
     }
 
@@ -228,10 +235,10 @@ public class RecipeBook : MonoBehaviour
 
     public void ToggleRecipeBook()
     {
+        InventoryManager.instance.CloseInventory();
+        hotbar.SetActive(gameObject.activeSelf);
+        disablePlayer.SetInteractionEnabled(gameObject.activeSelf);
         gameObject.SetActive(!gameObject.activeSelf);
-        disablePlayer.SetInteractionEnabled(!gameObject.activeSelf);
-        inventory.SetActive(!gameObject.activeSelf);
-        machineUI.SetActive(!gameObject.activeSelf);
         if(gameObject.activeSelf)
         {
             bookButton.sprite = openBook;
