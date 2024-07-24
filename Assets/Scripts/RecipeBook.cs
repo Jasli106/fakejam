@@ -22,10 +22,20 @@ public class RecipeBook : MonoBehaviour
     private TextMeshProUGUI timeLabel;
     [SerializeField]
     private TextMeshProUGUI energyLabel;
+    [SerializeField]
+    private Sprite closedBook;
+    [SerializeField]
+    private Sprite openBook;
+    [SerializeField]
+    private Image bookButton;
+    [SerializeField]
+    private GameObject inventory;
 
     public static RecipeBook instance = null;
 
-    private List<Recipe> currDisplayedRecipes = new List<Recipe>();
+    private List<(string, List<Recipe>)> currDisplayedRecipes = new List<(string, List<Recipe>)> ();
+    private int currMachineIdx = 0;
+    private int currRecipeIdx = 0;
 
     private void Awake()
     {
@@ -87,17 +97,28 @@ public class RecipeBook : MonoBehaviour
         }
     }
 
-    public void DisplayRecipes(List<Recipe> recipes)
+    public void DisplayRecipes(List<(string, List<Recipe>)> recipes)
     {
         currDisplayedRecipes = recipes;
         // Put in UI
         if (recipes.Count <= 0) return;
-        DisplayRecipe(recipes[0]);
+        DisplayRecipe(recipes[0].Item2[0]);
+        currRecipeIdx = 0;
 
     }
 
     private void DisplayRecipe(Recipe recipe)
     {
+        // Clear inputs and outputs
+        foreach(var slot in inputSlots)
+        {
+            slot.ClearDisplay();
+        }
+        foreach (var slot in outputSlots)
+        {
+            slot.ClearDisplay();
+        }
+
         // Display inputs and outputs
         int inSlotIdx = 0;
         foreach(var item in recipe.inputs)
@@ -123,6 +144,72 @@ public class RecipeBook : MonoBehaviour
         energyLabel.text = recipe.costs.ToString();
     }
 
+    public void DisplayNextRecipe()
+    {
+        if (currDisplayedRecipes.Count <= 0) return;
+        currRecipeIdx++;
+        if(currRecipeIdx >= currDisplayedRecipes[currMachineIdx].Item2.Count)
+        {
+            currMachineIdx++;
+            if (currMachineIdx >= currDisplayedRecipes.Count)
+            {
+                currMachineIdx = 0;
+            }
+            currRecipeIdx = 0;
+        }
+        DisplayRecipe(currDisplayedRecipes[currMachineIdx].Item2[currRecipeIdx]);
+    }
 
+    public void DisplayPreviousRecipe()
+    {
+        if (currDisplayedRecipes.Count <= 0) return;
+        currRecipeIdx--;
+        if (currRecipeIdx <= 0)
+        {
+            currMachineIdx--;
+            if (currMachineIdx <= 0)
+            {
+                currMachineIdx = currDisplayedRecipes.Count - 1;
+            }
+            currRecipeIdx = currDisplayedRecipes[currMachineIdx].Item2.Count - 1;
+        }
+        DisplayRecipe(currDisplayedRecipes[currMachineIdx].Item2[currRecipeIdx]);
+    }
 
+    public void DisplayNextMachine()
+    {
+        if (currDisplayedRecipes.Count <= 0) return;
+        currMachineIdx++;
+        if (currMachineIdx >= currDisplayedRecipes.Count)
+        {
+            currMachineIdx = 0;
+        }
+        currRecipeIdx = 0;
+        DisplayRecipe(currDisplayedRecipes[currMachineIdx].Item2[currRecipeIdx]);
+    }
+
+    public void DisplayPreviousMachine()
+    {
+        if (currDisplayedRecipes.Count <= 0) return;
+        currMachineIdx--;
+        if (currMachineIdx <= 0)
+        {
+            currMachineIdx = currDisplayedRecipes.Count - 1;
+        }
+        currRecipeIdx = currDisplayedRecipes[currMachineIdx].Item2.Count - 1;
+        DisplayRecipe(currDisplayedRecipes[currMachineIdx].Item2[currRecipeIdx]);
+    }
+
+    public void ToggleRecipeBook()
+    {
+        gameObject.SetActive(!gameObject.activeSelf);
+        inventory.SetActive(!gameObject.activeSelf);
+        if(gameObject.activeSelf)
+        {
+            bookButton.sprite = openBook;
+        } else
+        {
+            bookButton.sprite = closedBook;
+        }
+    }
 }

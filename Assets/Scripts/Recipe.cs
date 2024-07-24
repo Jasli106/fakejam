@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Recipe
@@ -44,6 +45,17 @@ public class Recipe
             new List<Item>() {
                 new Item("Water", 1)
             }
+        ),
+        new Recipe (
+            "Furnace",
+            3f,
+            0,
+            new List<Item>() {
+                new Item("Wood", 1)
+            },
+            new List<Item>() {
+                new Item("Water", 1)
+            }
         )
     };
 
@@ -60,7 +72,7 @@ public class Recipe
         return validRecipes;
     }
 
-    public static List<Recipe> ItemInRecipes(string itemType)
+    public static List<(string, List<Recipe>)> ItemInRecipes(string itemType)
     {
         List<Recipe> validRecipes = new List<Recipe>();
         foreach (var recipe in list)
@@ -73,10 +85,10 @@ public class Recipe
                 }
             }
         }
-        return validRecipes;
+        return validRecipes.GroupBy(recipe => recipe.machine).Select(group => (group.Key, group.ToList())).ToList();
     }
 
-    public static List<Recipe> ItemOutRecipes(string itemType)
+    public static List<(string, List<Recipe>)> ItemOutRecipes(string itemType)
     {
         List<Recipe> validRecipes = new List<Recipe>();
         foreach (var recipe in list)
@@ -89,6 +101,6 @@ public class Recipe
                 }
             }
         }
-        return validRecipes;
+        return validRecipes.GroupBy(recipe => recipe.machine).Select(group => (group.Key, group.ToList())).ToList();
     }
 }

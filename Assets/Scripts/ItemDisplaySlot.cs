@@ -18,7 +18,7 @@ public class ItemDisplaySlot : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         // Show recipes to create item
         if (item.Empty()) return;
-        List<Recipe> recipes = Recipe.ItemOutRecipes(item.type);
+        List<(string, List<Recipe>)> recipes = Recipe.ItemOutRecipes(item.type);
         RecipeBook.instance.DisplayRecipes(recipes);
 
     }
@@ -27,7 +27,7 @@ public class ItemDisplaySlot : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         // Show recipes that use item
         if (item.Empty()) return;
-        List<Recipe> recipes = Recipe.ItemInRecipes(item.type);
+        List<(string, List<Recipe>)> recipes = Recipe.ItemInRecipes(item.type);
         RecipeBook.instance.DisplayRecipes(recipes);
     }
 
@@ -49,7 +49,6 @@ public class ItemDisplaySlot : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (!InventoryManager.inventoryOpen) return;
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             img.color = new Color(0.7f, 0.7f, 0.7f);
@@ -95,5 +94,14 @@ public class ItemDisplaySlot : MonoBehaviour, IPointerEnterHandler, IPointerExit
             quantityDisplay.text = item.amount.ToString();
         }
         return item;
+    }
+
+    public void ClearDisplay()
+    {
+        itemDisplay.color = new Color(1, 1, 1, 0);
+        if (quantityDisplay != null)
+        {
+            quantityDisplay.text = "";
+        }
     }
 }
