@@ -30,6 +30,10 @@ public class RecipeBook : MonoBehaviour
     private Image bookButton;
     [SerializeField]
     private GameObject inventory;
+    [SerializeField]
+    private GameObject machineUI;
+    [SerializeField]
+    private UIMovementDisabler disablePlayer;
 
     public static RecipeBook instance = null;
 
@@ -45,12 +49,21 @@ public class RecipeBook : MonoBehaviour
             return;
         }
         instance = this;
+        gameObject.SetActive(false);
     }
 
     void Start()
     {
         machineImg.preserveAspect = true;
         PopulateItemDisplay(itemDB.items);
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleRecipeBook();
+        }
     }
 
     public void PopulateItemDisplay(List<Item> items)
@@ -109,15 +122,7 @@ public class RecipeBook : MonoBehaviour
 
     private void DisplayRecipe(Recipe recipe)
     {
-        // Clear inputs and outputs
-        foreach(var slot in inputSlots)
-        {
-            slot.ClearDisplay();
-        }
-        foreach (var slot in outputSlots)
-        {
-            slot.ClearDisplay();
-        }
+        ClearRecipeDisplay();
 
         // Display inputs and outputs
         int inSlotIdx = 0;
@@ -138,10 +143,31 @@ public class RecipeBook : MonoBehaviour
 
         // Display machine
         machineImg.sprite = Resources.Load<Sprite>(Item.itemFolder + recipe.machine);
+        machineImg.color = new Color(1, 1, 1, 1);
 
         // Display other info
         timeLabel.text = recipe.time.ToString();
         energyLabel.text = recipe.costs.ToString();
+    }
+
+    private void ClearRecipeDisplay()
+    {
+        // Clear inputs and outputs
+        foreach (var slot in inputSlots)
+        {
+            slot.ClearDisplay();
+        }
+        foreach (var slot in outputSlots)
+        {
+            slot.ClearDisplay();
+        }
+
+        // Clear machine display
+        machineImg.color = new Color(1, 1, 1, 0);
+
+        // Display other info
+        timeLabel.text = "0";
+        energyLabel.text = "0";
     }
 
     public void DisplayNextRecipe()
@@ -203,13 +229,17 @@ public class RecipeBook : MonoBehaviour
     public void ToggleRecipeBook()
     {
         gameObject.SetActive(!gameObject.activeSelf);
+        disablePlayer.SetInteractionEnabled(!gameObject.activeSelf);
         inventory.SetActive(!gameObject.activeSelf);
+        machineUI.SetActive(!gameObject.activeSelf);
         if(gameObject.activeSelf)
         {
             bookButton.sprite = openBook;
         } else
         {
             bookButton.sprite = closedBook;
+            ClearRecipeDisplay();
+            currDisplayedRecipes.Clear();
         }
     }
 }

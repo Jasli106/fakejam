@@ -17,15 +17,15 @@ public class UIMovementDisabler : MonoBehaviour
 
         if (inventoryOpened)
         {
-            SetMovementEnabled(false);
+            SetInteractionEnabled(false);
         }
         if (inventoryClosed)
         {
-            SetMovementEnabled(true);
+            SetInteractionEnabled(true);
         }
     }
 
-    public void SetMovementEnabled(bool value)
+    public void SetInteractionEnabled(bool value)
     {
         pc.movementEnabled = value;
         foreach (var obj in disable)

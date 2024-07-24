@@ -115,6 +115,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 // Show recipes to create item
                 if (item.Empty()) return;
                 List<(string, List<Recipe>)> recipes = Recipe.ItemOutRecipes(item.type);
+                RecipeBook.instance.ToggleRecipeBook();
                 RecipeBook.instance.DisplayRecipes(recipes);
             }
             if (Input.GetKeyDown(KeyCode.U))
@@ -122,6 +123,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 // Show recipes that use item
                 if (item.Empty()) return;
                 List<(string, List<Recipe>)> recipes = Recipe.ItemInRecipes(item.type);
+                RecipeBook.instance.ToggleRecipeBook();
                 RecipeBook.instance.DisplayRecipes(recipes);
             }
         }

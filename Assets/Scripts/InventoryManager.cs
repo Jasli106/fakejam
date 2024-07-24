@@ -79,6 +79,13 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
                 OpenInventory();
             }
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (inventoryOpen)
+            {
+                CloseInventory();
+            }
+        }
         HandleScrollInput();
 
         if(currMachineOpen != null)
