@@ -69,7 +69,7 @@ public class Ingredient
         }
     }
 
-    private Item Replace(Ingredient ingredient, List<string> types, List<string> replacement)
+    private static Item Replace(Ingredient ingredient, List<string> types, List<string> replacement)
     {
         Item i = new Item(ingredient.type, ingredient.amount);
         types.Zip(replacement, (t, r) => new { t, r })
@@ -78,7 +78,7 @@ public class Ingredient
         return i;
     }
 
-    private void AddOptionToDict(Ingredient ingredient, Dictionary<string, int> ingredients, List<string> types, List<List<Ingredient>> replacement)
+    private static void AddOptionToDict(Ingredient ingredient, Dictionary<string, int> ingredients, List<string> types, List<List<Ingredient>> replacement)
     {
         if (!ingredient.type.StartsWith("<") || !ingredient.type.EndsWith(">"))
         {
@@ -93,12 +93,12 @@ public class Ingredient
         }
     }
 
-    private List<Ingredient> DictToList(Dictionary<string, int> ingredients)
+    private static List<Ingredient> DictToList(Dictionary<string, int> ingredients)
     {
         return ingredients.Select(kvp => new Ingredient(kvp.Key, kvp.Value)).ToList();
     }
 
-    private void AddToDictValue(Dictionary<string, int> dict, string str, int val)
+    private static void AddToDictValue(Dictionary<string, int> dict, string str, int val)
     {
         if (dict.TryGetValue(str, out int existingValue))
         {
@@ -111,7 +111,7 @@ public class Ingredient
     }
 
 
-    private List<string> UniqueTypes(List<Ingredient> inputs, List<Ingredient> outputs)
+    private static List<string> UniqueTypes(List<Ingredient> inputs, List<Ingredient> outputs)
     {
         // Get all types in inputs and outputs
         HashSet<string> uniqueTypes = new HashSet<string>();
@@ -129,7 +129,7 @@ public class Ingredient
         return uniqueTypes.ToList();
     }
 
-    public List<Recipe> Convert(string machine, float time, float costs, List<Ingredient> inputs, List<Ingredient> outputs)
+    public static List<Recipe> Convert(string machine, float time, float costs, List<Ingredient> inputs, List<Ingredient> outputs)
     {
         List<Recipe> ret = new List<Recipe>();
         List<string> types = UniqueTypes(inputs, outputs);
@@ -159,10 +159,10 @@ public class Ingredient
         return ret;
     }
 
-    public List<Recipe> DoNameReplacements(string machine, float time, float costs, List<Ingredient> inputs, List<Ingredient> outputs)
+    public static List<Recipe> DoNameReplacements(string machine, float time, float costs, List<Ingredient> inputs, List<Ingredient> outputs)
     {
         List<Recipe> ret = new List<Recipe>();
-        
+
 
         List<string> types = UniqueTypes(inputs, outputs);
 
@@ -204,45 +204,29 @@ public class Recipe
         this.outputs = outputs;
     }
 
-
-
-    public static List<Recipe> list = new List<Recipe>()
+    public static List<Recipe> AllRecipes()
     {
-        new Recipe (
+        List<Recipe> allRecipes = new List<Recipe>();
+
+        allRecipes.AddRange(Ingredient.Convert(
             "Furnace",
             3f,
             0,
-            new List<Item>() {
-                new Item("Iron Ore Sand", 1),
-                new Item("Oak Charcoal", 1)
+            new List<Ingredient>() {
+                new Ingredient("<fuel>", 1),
+                new Ingredient("Wood", 5)
             },
-            new List<Item>() {
-                new Item("Iron Bloom", 1)
+            new List<Ingredient>() {
+                new Ingredient("Charcoal", 3)
             }
-        ),
-        new Recipe (
-            "Furnace",
-            3f,
-            0,
-            new List<Item>() {
-                new Item("Charcoal", 1)
-            },
-            new List<Item>() {
-                new Item("Water", 1)
-            }
-        ),
-        new Recipe (
-            "Furnace",
-            3f,
-            0,
-            new List<Item>() {
-                new Item("Wood", 1)
-            },
-            new List<Item>() {
-                new Item("Water", 1)
-            }
-        )
-    };
+        ));
+
+        return allRecipes;
+    }
+
+
+
+    public static List<Recipe> list = AllRecipes();
 
     public static List<Recipe> MachineRecipes(MachineType machine)
     {
@@ -262,7 +246,7 @@ public class Recipe
         List<Recipe> validRecipes = new List<Recipe>();
         foreach (var recipe in list)
         {
-            foreach(var item in recipe.inputs)
+            foreach (var item in recipe.inputs)
             {
                 if (item.type == itemType)
                 {
