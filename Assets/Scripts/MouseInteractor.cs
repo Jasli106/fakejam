@@ -29,7 +29,7 @@ public class MouseInteractor : MonoBehaviour
         {
             objectInteracting = CheckForInteractables();
             if (objectInteracting == null) return;
-            
+
             if (clickDown || previousInteractable != objectInteracting)
             {
                 objectInteracting.ClickDown(this, clickDown);
@@ -54,7 +54,7 @@ public class MouseInteractor : MonoBehaviour
     {
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector2 mouseWorldPosition = (Vector2)Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-        Vector2 mouseTilePosition = FractionalComponent(mouseWorldPosition);
+        Vector2 mouseTilePosition = FractionalComponent(mouseWorldPosition + 0.5f * Vector2.one);
         float x = mouseTilePosition.x;
         float y = mouseTilePosition.y;
         Vector2 distanceToCorner = new Vector2(0.5f - Mathf.Abs(0.5f - x), 0.5f - Mathf.Abs(0.5f - y));

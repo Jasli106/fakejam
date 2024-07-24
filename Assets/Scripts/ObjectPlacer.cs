@@ -81,7 +81,6 @@ public class ObjectPlacer : MonoBehaviour
     public void PlaceObject(Vector3 position)
     {
         instantiation.SetActive(true);
-        instantiation.transform.position = position;
         TileObject tileObject = instantiation.GetComponent<TileObject>();
         tileObject.Place(position);
         instantiation = null;

@@ -320,9 +320,10 @@ public class PipeSegment : TileObject
         UpdateSystemRemoveConnection();
     }
 
-    [SerializeField] float clickDownEdgeBuffer = 0.05f;
+    [SerializeField] float clickDownEdgeBuffer = 0.2f;
     [SerializeField] float clickDragEdgeBuffer = 0.25f;
-    public virtual void ClickDown(MouseInteractor mouse, bool firstClick) {
+    public override void ClickDown(MouseInteractor mouse, bool firstClick) {
+        if (!firstClick) return;
         float edgeBuffer = firstClick ? clickDownEdgeBuffer : clickDragEdgeBuffer;
         Edge edge = mouse.OnTileEdge(edgeBuffer);
         if (edge == Edge.None) return;

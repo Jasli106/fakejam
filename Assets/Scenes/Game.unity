@@ -7227,7 +7227,7 @@ MonoBehaviour:
   m_Priority: 7
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 1546035063}
+  m_Follow: {fileID: 1230386874}
   m_Lens:
     FieldOfView: 34
     OrthographicSize: 7
@@ -8660,6 +8660,10 @@ PrefabInstance:
       propertyPath: hotbarUIController
       value: 
       objectReference: {fileID: 75518047}
+    - target: {fileID: 6693492882806417161, guid: 8336627123fa0cb438fb3d345e54c5a5, type: 3}
+      propertyPath: startingItems.Array.data[0].amount
+      value: 990
+      objectReference: {fileID: 0}
     - target: {fileID: 7611448427290629128, guid: 8336627123fa0cb438fb3d345e54c5a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8705,6 +8709,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8336627123fa0cb438fb3d345e54c5a5, type: 3}
+--- !u!4 &1230386874 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7611448427290629128, guid: 8336627123fa0cb438fb3d345e54c5a5, type: 3}
+  m_PrefabInstance: {fileID: 1230386873}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1233039444
 GameObject:
   m_ObjectHideFlags: 0
