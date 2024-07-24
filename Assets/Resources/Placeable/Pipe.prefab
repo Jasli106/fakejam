@@ -104,7 +104,7 @@ MonoBehaviour:
   itemName: Pipe
   breakingEffect: {fileID: 4416296250504369472}
   spriteRenderer: {fileID: 5566145310454726962}
-  breakTime: 0.25
+  breakTime: 0.15
   BFSExplored: 0
   pipeSprites:
     none: {fileID: -1927436914, guid: 2093dfe47b3a5424b85621b52be2f17e, type: 3}

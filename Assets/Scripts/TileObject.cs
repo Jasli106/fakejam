@@ -200,6 +200,6 @@ public abstract class TileObject : MonoBehaviour
 
     public virtual void TileUpdate(TileObject neighborObject, Vector2 direction, bool neighborRemoved) { }
 
-    public virtual void ClickDown(MouseInteractor mouse) { }
+    public virtual void ClickDown(MouseInteractor mouse, bool firstClick = true) { }
     public virtual void ClickHeld(MouseInteractor mouse) { }
 }

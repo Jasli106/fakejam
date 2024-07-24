@@ -7,7 +7,7 @@ public class ItemSource : TileObject
 {
     public string resourceName;
 
-    public override void ClickDown(MouseInteractor mouse)
+    public override void ClickDown(MouseInteractor mouse, bool firstClick)
     {
         Inventory playerInventory = mouse.GetComponentInParent<PlayerInventory>().GetInventory();
         CollectItems(playerInventory);

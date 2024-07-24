@@ -14,24 +14,35 @@ public enum Edge
 
 public class MouseInteractor : MonoBehaviour
 {
+    TileObject objectInteracting = null;
     private void Update()
     {
-        if (InventoryManager.inventoryOpen) return;
+        var previousInteractable = objectInteracting;
+        if (InventoryManager.inventoryOpen)
+        {
+            objectInteracting = null;
+            return;
+        }
         bool clickDown = Input.GetMouseButtonDown(0);
         bool clickHeld = Input.GetMouseButton(0);
         if (clickDown || clickHeld)
         {
-            var interactable = CheckForInteractables();
-            if (interactable == null) return;
+            objectInteracting = CheckForInteractables();
+            if (objectInteracting == null) return;
             
-            if (clickDown)
+            if (clickDown || previousInteractable != objectInteracting)
             {
-                interactable.ClickDown(this);
+                objectInteracting.ClickDown(this, clickDown);
             }
+
             if (clickHeld)
             {
-                interactable.ClickHeld(this);
+                objectInteracting.ClickHeld(this);
             }
+        }
+        else
+        {
+            objectInteracting = null;
         }
     }
 
@@ -39,7 +50,7 @@ public class MouseInteractor : MonoBehaviour
     {
         return new Vector2(vector.x - Mathf.Floor(vector.x), vector.y - Mathf.Floor(vector.y));
     }
-    private Edge MouseOnTileEdge(float edgeCornerSize)
+    public Edge OnTileEdge(float edgeCornerSize)
     {
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector2 mouseWorldPosition = (Vector2)Camera.main.ScreenToWorldPoint(mouseScreenPosition);
