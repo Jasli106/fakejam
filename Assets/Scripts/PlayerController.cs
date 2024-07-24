@@ -73,11 +73,6 @@ public class PlayerController : MonoBehaviour
         if (IsPositionOnGround(newPos))
         {
             rb.position = newPos;
-            Debug.Log(newPos);
-        }
-        else
-        {
-            Debug.Log(newPos);
         }
 
         currentPosition = rb.position;
