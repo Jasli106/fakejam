@@ -22,6 +22,9 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
     public ProgressBar progressBar;
     public Animator gearsAnim;
 
+    public GameObject chestUI;
+    public InventoryUIController chestInventory;
+
     Machine currMachineOpen = null;
 
 
@@ -138,6 +141,13 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
         expandedInventory.SetActive(true);
     }
 
+    public void OpenChestInventory(Inventory inventory)
+    {
+        OpenInventory();
+        chestUI.SetActive(true);
+        chestInventory.RepresentInventory(inventory);
+    }
+
     public void OpenMachineInventory(Inventory input, Inventory output, Machine machine)
     {
         OpenInventory();
@@ -156,6 +166,7 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
         progressBar.SetProgressBar(0);
         machineUI.SetActive(false);
         currMachineOpen = null;
+        chestUI.SetActive(false);
     }
 
     public Item DisplayItem()
