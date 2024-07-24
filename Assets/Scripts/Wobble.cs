@@ -8,10 +8,14 @@ public class Wave
     public float amplitude = 0f;
     public float period = 1f;
     public float offset = 0f;
+    public AnimationCurve curve = new AnimationCurve(
+        new Keyframe(-1, -1, 1, 1),
+        new Keyframe(1, 1, 1, 1)
+    );
 
     public float Evaluate(float t)
     {
-        return amplitude * Mathf.Sin(2 * Mathf.PI * ((t + offset) / period));
+        return amplitude * curve.Evaluate(Mathf.Sin(2 * Mathf.PI * ((t + offset) / period)));
     }
 }
 public class Wobble : MonoBehaviour

@@ -86,7 +86,6 @@ public class BoundingBox // Centered around (0,0)
 
 public abstract class TileObject : MonoBehaviour
 {
-    [SerializeField] GameObject floorItem;
     [SerializeField] string itemName = "";
     [SerializeField] GameObject breakingEffect;
     public SpriteRenderer spriteRenderer;
@@ -175,7 +174,7 @@ public abstract class TileObject : MonoBehaviour
         Remove();
         if (itemName != "")
         {
-            GameObject drop = Instantiate(floorItem);
+            GameObject drop = Instantiate(FloorItemManager.Prefab());
             drop.transform.position = boundingBox.Center();
             drop.GetComponent<FloorItem>().SetItem(new Item(itemName, 1));
         }
