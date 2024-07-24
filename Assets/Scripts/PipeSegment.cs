@@ -123,6 +123,10 @@ public class PipeSystem
         }
     }
 
+    public override string ToString()
+    {
+        return $"{inputs.Count} inputs, {outputs.Count} outputs, {segments.Count} segments";
+    }
 }
 public class PipeSegment : TileObject
 {
@@ -145,9 +149,6 @@ public class PipeSegment : TileObject
     [SerializeField] GameObject extratorRight;
 
     [SerializeField] PipeSprites pipeSprites;
-
-    List<InputInventory> outputs = new List<InputInventory>();
-    List<OutputInventory> inputs = new List<OutputInventory>();
     public List<PipeSegment> PipeConnections()
     {
         List<PipeSegment> connections = new List<PipeSegment>();
@@ -159,12 +160,22 @@ public class PipeSegment : TileObject
     }
     public List<InputInventory> Outputs()
     {
-        return outputs;
+        List<InputInventory> connections = new List<InputInventory>();
+        if (upConnection == PipeConnection.Push && upTile is InputInventory upInv) connections.Add(upInv);
+        if (downConnection == PipeConnection.Push && downTile is InputInventory downInv) connections.Add(downInv);
+        if (leftConnection == PipeConnection.Push && leftTile is InputInventory leftInv) connections.Add(leftInv);
+        if (rightConnection == PipeConnection.Push && rightTile is InputInventory rightInv) connections.Add(rightInv);
+        return connections;
     }
 
     public List<OutputInventory> Inputs()
     {
-        return inputs;
+        List<OutputInventory> connections = new List<OutputInventory>();
+        if (upConnection == PipeConnection.Pull && upTile is OutputInventory upInv) connections.Add(upInv);
+        if (downConnection == PipeConnection.Pull && downTile is OutputInventory downInv) connections.Add(downInv);
+        if (leftConnection == PipeConnection.Pull && leftTile is OutputInventory leftInv) connections.Add(leftInv);
+        if (rightConnection == PipeConnection.Pull && rightTile is OutputInventory rightInv) connections.Add(rightInv);
+        return connections;
     }
 
     public void Awake()
@@ -325,12 +336,10 @@ public class PipeSegment : TileObject
         if (tile is InputInventory inInv)
         {
             SetDirectionConnection(direction, PipeConnection.Push);
-            outputs.Add(inInv);
         }
         else if (tile is OutputInventory outInv)
         {
             SetDirectionConnection(direction, PipeConnection.Pull);
-            inputs.Add(outInv);
         }
     }
 

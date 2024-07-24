@@ -19,6 +19,7 @@ public class PipeManager : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log($"transfering from {systems.Count} systems");
         foreach (PipeSystem system in systems)
         {
             system.Transfer();
