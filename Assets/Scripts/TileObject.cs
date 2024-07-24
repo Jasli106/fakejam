@@ -22,15 +22,20 @@ public class BoundingBox // Centered around (0,0)
 
     public BoundingBox(BoundingBox b, Vector2 translation)
     {
-        this.top = b.top + (int)translation.y;
-        this.left = b.left + (int)translation.x;
-        this.bottom = b.bottom + (int)translation.y;
-        this.right = b.right + (int)translation.x;
+        this.top = b.top + (int)Mathf.Round(translation.y);
+        this.left = b.left + (int)Mathf.Round(translation.x);
+        this.bottom = b.bottom + (int)Mathf.Round(translation.y);
+        this.right = b.right + (int)Mathf.Round(translation.x);
     }
 
     public Vector3 Center()
     {
         return new Vector3((left + right) / 2, (top + bottom) / 2, 0);
+    }
+
+    public override string ToString()
+    {
+        return $"y:{bottom} to {top},  x:{left} to {right}";
     }
 
     public List<Vector2> Positions()
@@ -146,7 +151,8 @@ public abstract class TileObject : MonoBehaviour
 
     public virtual void Place(Vector2 position)
     {
-        boundingBox = new BoundingBox(boundingBox, Round(transform.position));
+        transform.position = position;
+        boundingBox = new BoundingBox(boundingBox, position);
         foreach (Vector2 pos in boundingBox.Positions())
         {
             objectPositions[pos] = this;
@@ -200,6 +206,6 @@ public abstract class TileObject : MonoBehaviour
 
     public virtual void TileUpdate(TileObject neighborObject, Vector2 direction, bool neighborRemoved) { }
 
-    public virtual void ClickDown(MouseInteractor mouse) { }
+    public virtual void ClickDown(MouseInteractor mouse, bool firstClick = true) { }
     public virtual void ClickHeld(MouseInteractor mouse) { }
 }

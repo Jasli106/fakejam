@@ -132,8 +132,6 @@ public class PipeSegment : TileObject
         if (rightConnection == PipeConnection.OtherPipe && rightTile is PipeSegment rightPipe) connections.Add(rightPipe);
         return connections;
     }
-
-
     public List<InputInventory> Outputs()
     {
         return outputs;
@@ -202,6 +200,31 @@ public class PipeSegment : TileObject
         }
     }
 
+    public TileObject GetDirectionTile(Vector2 direction)
+    {
+        if (direction == Vector2.up)
+        {
+            return upTile;
+        }
+        else if (direction == Vector2.down)
+        {
+            return downTile;
+        }
+        else if (direction == Vector2.left)
+        {
+            return leftTile;
+        }
+        else if (direction == Vector2.right)
+        {
+            return rightTile;
+        }
+        else
+        {
+            Debug.LogError($"{direction} is not a valid direction.");
+            return null;
+        }
+    }
+
     public void SetDirectionConnection(Vector2 direction, PipeConnection state)
     {
         if (direction == Vector2.up)
@@ -225,6 +248,31 @@ public class PipeSegment : TileObject
             Debug.LogError($"{direction} is not a valid direction.");
         }
         UpdateSprite();
+    }
+
+    public PipeConnection GetDirectionConnection(Vector2 direction)
+    {
+        if (direction == Vector2.up)
+        {
+            return upConnection;
+        }
+        else if (direction == Vector2.down)
+        {
+            return downConnection;
+        }
+        else if (direction == Vector2.left)
+        {
+            return leftConnection;
+        }
+        else if (direction == Vector2.right)
+        {
+            return rightConnection;
+        }
+        else
+        {
+            Debug.LogError($"{direction} is not a valid direction.");
+            return PipeConnection.Disconnected;
+        }
     }
 
     public override void TileUpdate(TileObject tile, Vector2 direction, bool neighborRemoved)
@@ -270,5 +318,73 @@ public class PipeSegment : TileObject
         leftConnection = PipeConnection.Disconnected;
         rightConnection = PipeConnection.Disconnected;
         UpdateSystemRemoveConnection();
+    }
+
+    [SerializeField] float clickDownEdgeBuffer = 0.2f;
+    [SerializeField] float clickDragEdgeBuffer = 0.25f;
+    public override void ClickDown(MouseInteractor mouse, bool firstClick) {
+        if (!firstClick) return;
+        float edgeBuffer = firstClick ? clickDownEdgeBuffer : clickDragEdgeBuffer;
+        Edge edge = mouse.OnTileEdge(edgeBuffer);
+        if (edge == Edge.None) return;
+        else if (edge == Edge.Up) CycleEdge(Vector2.up);
+        else if (edge == Edge.Down) CycleEdge(Vector2.down);
+        else if (edge == Edge.Left) CycleEdge(Vector2.left);
+        else if (edge == Edge.Right) CycleEdge(Vector2.right);
+    }
+
+    public void CycleEdge(Vector2 direction)
+    {
+        PipeConnection connection = GetDirectionConnection(direction);
+        TileObject neighbor = GetDirectionTile(direction);
+        if (neighbor is PipeSegment pipe)
+        {
+            PipeConnection newConnection;
+            if (connection == PipeConnection.OtherPipe)
+            {
+                newConnection = PipeConnection.Disconnected;
+            }
+            else
+            {
+                newConnection = PipeConnection.OtherPipe;
+            }
+            SetDirectionConnection(direction, newConnection);
+            pipe.SetDirectionConnection(-direction, newConnection);
+        }
+        else if (connection == PipeConnection.Disconnected)
+        {
+            if (neighbor is InputInventory)
+            {
+                SetDirectionConnection(direction, PipeConnection.Push);
+            }
+            else if (neighbor is OutputInventory)
+            {
+                SetDirectionConnection(direction, PipeConnection.Pull);
+            }
+        }
+        else if (connection == PipeConnection.Push)
+        {
+            if (neighbor is OutputInventory)
+            {
+                SetDirectionConnection(direction, PipeConnection.Pull);
+            }
+            else
+            {
+                SetDirectionConnection(direction, PipeConnection.Disconnected);
+            }
+        }
+        else
+        {
+            SetDirectionConnection(direction, PipeConnection.Disconnected);
+        }
+
+        if (GetDirectionConnection(direction) == PipeConnection.Disconnected)
+        {
+            UpdateSystemRemoveConnection();
+        }
+        else
+        {
+            UpdateSystemNewConnection();
+        }
     }
 }
