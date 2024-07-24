@@ -23,7 +23,7 @@ public class Type
     };
     public static Dictionary<string, List<string>> replacements = new Dictionary<string, List<string>>()
     {
-        { "material", new List<string> { "Copper", "Iron" } }
+        { "metal", new List<string> { "Copper" } }
     };
 }
 
@@ -208,18 +208,186 @@ public class Recipe
     {
         List<Recipe> allRecipes = new List<Recipe>();
 
-        allRecipes.AddRange(Ingredient.Convert(
-            "Furnace",
-            3f,
-            0,
-            new List<Ingredient>() {
+        // Furnace
+        {
+            allRecipes.AddRange(Ingredient.Convert(
+                "Furnace",
+                3f,
+                0,
+                new List<Ingredient>() {
                 new Ingredient("<fuel>", 1),
                 new Ingredient("Wood", 5)
-            },
-            new List<Ingredient>() {
+                },
+                new List<Ingredient>() {
                 new Ingredient("Charcoal", 3)
-            }
-        ));
+                }
+            ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Furnace",
+                3f,
+                0,
+                new List<Ingredient>() {
+                new Ingredient("<fuel>", 1),
+                new Ingredient("Sand", 1)
+                },
+                new List<Ingredient>() {
+                new Ingredient("Glass", 1)
+                }
+            ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Furnace",
+                3f,
+                0,
+                new List<Ingredient>() {
+                new Ingredient("<fuel>", 1),
+                new Ingredient("Charcoal", 1),
+                new Ingredient("<metal> Grit", 1)
+                },
+                new List<Ingredient>() {
+                new Ingredient("<metal> Ingot", 1)
+                }
+            ));
+        }
+
+        // Crafter
+        {
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                3f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Bark", 2)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("String", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                3f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Bark", 1),
+                    new Ingredient("Wood", 1),
+                    new Ingredient("String", 1)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Primative Bellow", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                3f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Copper Ingot", 2),
+                    new Ingredient("Glass", 1)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Pipe", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                3f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Raw Copper Ore", 3),
+                    new Ingredient("Stone", 10)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Copper Grit", 1)
+                }
+             ));
+        }
+
+        // Crafter (Machine)
+        {
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                3f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Clay", 5),
+                    new Ingredient("Copper Ingot", 3)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Furnace", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                3f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Copper Ingot", 4),
+                    new Ingredient("String", 6)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Metal Press", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                3f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Copper Ingot", 3),
+                    new Ingredient("Copper Gear", 1)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Crafter", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                3f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Clay", 15),
+                    new Ingredient("Rock", 5),
+                    new Ingredient("Primative Bellow", 1)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Clay Furnace", 1)
+                }
+             ));
+        }
+
+        // Metal Press
+        {
+            allRecipes.AddRange(Ingredient.Convert(
+                "Metal Press",
+                3f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Raw <metal> Ore", 1)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("<metal> Grit", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Metal Press",
+                3f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("<metal> Ingot", 4)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("<metal> Gear", 1)
+                }
+             ));
+        }
 
         return allRecipes;
     }

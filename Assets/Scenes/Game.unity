@@ -50929,7 +50929,7 @@ PrefabInstance:
       objectReference: {fileID: 515517204}
     - target: {fileID: 2821155421388839015, guid: 0e3701804b5067248a3a04d0f75f0938, type: 3}
       propertyPath: possibleItems.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2821155421388839015, guid: 0e3701804b5067248a3a04d0f75f0938, type: 3}
       propertyPath: possibleItems.Array.data[0].weight
@@ -50961,7 +50961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2821155421388839015, guid: 0e3701804b5067248a3a04d0f75f0938, type: 3}
       propertyPath: possibleItems.Array.data[2].item.type
-      value: Stone
+      value: Sand
       objectReference: {fileID: 0}
     - target: {fileID: 2821155421388839015, guid: 0e3701804b5067248a3a04d0f75f0938, type: 3}
       propertyPath: possibleItems.Array.data[0].item.amount
