@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1312187331
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cdad2e45f9107d14a8ab56f0575fba3c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3673f8fa883a5624f9a0585d2ee85ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transformToWobble: {fileID: 0}
   xPos:
     amplitude: 0
     period: 1
@@ -146,6 +147,7 @@ GameObject:
   - component: {fileID: 2831920470414329374}
   - component: {fileID: 8181426872243063139}
   - component: {fileID: 12433269890909065}
+  - component: {fileID: 2557565719069128054}
   m_Layer: 0
   m_Name: Floor Item
   m_TagString: Untagged
@@ -184,6 +186,7 @@ MonoBehaviour:
   item:
     type: 
     amount: 0
+    locked: 0
   spriteRenderer: {fileID: 357070824286243101}
 --- !u!61 &12433269890909065
 BoxCollider2D:
@@ -231,3 +234,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2557565719069128054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8007161449975433671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe121551e53f9481999dc94c9005aa39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
