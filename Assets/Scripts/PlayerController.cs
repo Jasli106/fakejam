@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 2;
+    [SerializeField] LayerMask groundLayer;
     Rigidbody2D rb;
     AnimationController animController;
 
@@ -66,8 +67,25 @@ public class PlayerController : MonoBehaviour
         }
 
         movement.Normalize();
-        rb.velocity = speed * movement;
-        currentPosition = rb.position;
 
+        Vector2 newPos = rb.position + movement * speed * Time.deltaTime;
+
+        if (IsPositionOnGround(newPos))
+        {
+            rb.position = newPos;
+            Debug.Log(newPos);
+        }
+        else
+        {
+            Debug.Log(newPos);
+        }
+
+        currentPosition = rb.position;
+    }
+
+    private bool IsPositionOnGround(Vector2 position)
+    {
+        Collider2D hitCollider = Physics2D.OverlapPoint(position, groundLayer);
+        return hitCollider != null;
     }
 }
