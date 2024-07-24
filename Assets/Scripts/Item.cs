@@ -12,6 +12,7 @@ public class Item : ICloneable
 
     public string type = "";
     public int amount = 0;
+    public bool locked = false;
 
     public Item() { }
 
@@ -27,7 +28,7 @@ public class Item : ICloneable
         {
             return "Empty";
         }
-        return $"{amount} {type}";
+        return $"{amount} {type}" + (locked ? "(locked)" : "");
     }
 
     public Sprite LoadSprite()
@@ -47,11 +48,12 @@ public class Item : ICloneable
 
     public bool Empty()
     {
-        return amount == 0;
+        return (!locked && amount == 0) || (locked && type == "");
     }
 
     private int AddItems(int quantity)
     {
+        if (locked && type == "") return quantity;
         int amountAdded = Mathf.Min(maxAmount - amount, quantity);
         amount += amountAdded;
         int remainder = quantity - amountAdded;
@@ -62,7 +64,7 @@ public class Item : ICloneable
     {
         if (other.Empty()) return false;
         if (!Empty() && other.type != type) return false;
-        if (Empty())
+        if (Empty() && !locked)
         {
             SetType(other.type);
         }
@@ -72,16 +74,17 @@ public class Item : ICloneable
 
     public void Swap(Item other)
     {
+        if (locked && !other.Empty()) return;
         Item temp = (Item)other.Clone();
         other.type = type;
         other.amount = amount;
-        this.type = temp.type;
+        if (!locked) this.type = temp.type;
         this.amount = temp.amount;
     }
 
     public bool AddOneItem(Item other)
     {
-        if (other.Empty()) return false;
+        if (other.amount == 0) return false;
         if (!Empty() && other.type != type) return false;
         if (Empty())
         {

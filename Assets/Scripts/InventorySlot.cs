@@ -12,6 +12,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     [SerializeField] Image img;
     [SerializeField] ItemDisplayer itemDisplay;
+    [SerializeField] GameObject locked;
     [SerializeField] bool outputOnly = false;
 
     private bool hovered = false;
@@ -108,8 +109,15 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     void Update()
     {
-        if(hovered)
+        locked.SetActive(item.locked);
+        if (hovered)
         {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                // Lock item
+                if (item.Empty()) item.SetType("");
+                item.locked = !item.locked;
+            }
             if (Input.GetKeyDown(KeyCode.R))
             {
                 // Show recipes to create item
