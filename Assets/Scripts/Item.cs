@@ -12,7 +12,7 @@ public class Item : ICloneable
 
     public string type = "";
     public int amount = 0;
-    public bool locked = false;
+    [HideInInspector] public bool locked = false;
 
     public Item() { }
 
