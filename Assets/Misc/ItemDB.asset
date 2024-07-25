@@ -28,16 +28,16 @@ MonoBehaviour:
   - type: Furnace
     amount: 1
     locked: 0
-  - type: Gear
+  - type: Copper Gear
     amount: 1
     locked: 0
   - type: Glass
     amount: 1
     locked: 0
-  - type: Grit
+  - type: Copper Grit
     amount: 1
     locked: 0
-  - type: Ingot
+  - type: Copper Ingot
     amount: 1
     locked: 0
   - type: Metal Press
@@ -46,7 +46,7 @@ MonoBehaviour:
   - type: Pipe
     amount: 1
     locked: 0
-  - type: Raw Ore
+  - type: Copper Ore
     amount: 1
     locked: 0
   - type: Sand
@@ -62,5 +62,14 @@ MonoBehaviour:
     amount: 1
     locked: 0
   - type: Wood
+    amount: 1
+    locked: 0
+  - type: Bark
+    amount: 1
+    locked: 0
+  - type: Primative Bellow
+    amount: 1
+    locked: 0
+  - type: String
     amount: 1
     locked: 0

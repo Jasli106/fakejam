@@ -1,12 +1,6 @@
-using NUnit.Framework;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Unity.VisualScripting;
-using UnityEngine;
-using static UnityEditor.Rendering.FilterWindow;
 
 
 public class Type
@@ -297,7 +291,7 @@ public class Recipe
                 3f,
                 0,
                 new List<Ingredient>() {
-                    new Ingredient("Raw Copper Ore", 3),
+                    new Ingredient("Copper Ore", 3),
                     new Ingredient("Stone", 10)
                 },
                 new List<Ingredient>() {
@@ -353,7 +347,7 @@ public class Recipe
                 0,
                 new List<Ingredient>() {
                     new Ingredient("Clay", 15),
-                    new Ingredient("Rock", 5),
+                    new Ingredient("Stone", 5),
                     new Ingredient("Primative Bellow", 1)
                 },
                 new List<Ingredient>() {
