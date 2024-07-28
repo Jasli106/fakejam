@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ca2ada4ee7db64d2591948844bffbd29
+guid: 41bd808f7e04d9344abaa0f7115c531a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -46,8 +46,8 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0.25}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -97,22 +97,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Test Machine_0
+      name: Miner_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 20
+        width: 32
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.4}
+      pivot: {x: 0.25, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: dffd588083f0185d0800000000000000
-      internalID: -3062149538299650051
+      spriteID: 3d2ae42152bcd48dfbfa0b00db5f10f2
+      internalID: -1287407508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Miner_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.25, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e49b664bea0d4b5d8e79dce34f373ca
+      internalID: -481925805
       vertices: []
       indices: 
       edges: []
@@ -121,14 +142,15 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Test Machine_0: -3062149538299650051
+      Miner_0: -1287407508
+      Miner_1: -481925805
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

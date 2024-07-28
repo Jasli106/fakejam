@@ -147,6 +147,7 @@ public abstract class TileObject : MonoBehaviour
 
     public virtual void Place(Vector2 position)
     {
+        position = Round(position);
         transform.position = position;
         boundingBox = new BoundingBox(boundingBox, position);
         foreach (Vector2 pos in boundingBox.Positions())
@@ -204,4 +205,6 @@ public abstract class TileObject : MonoBehaviour
 
     public virtual void ClickDown(MouseInteractor mouse, bool firstClick = true) { }
     public virtual void ClickHeld(MouseInteractor mouse) { }
+
+    public virtual void UIClosed() { }
 }

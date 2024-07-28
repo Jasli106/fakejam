@@ -10306,6 +10306,7 @@ GameObject:
   - component: {fileID: 2821155421388839015}
   - component: {fileID: 2546595101492118802}
   - component: {fileID: 723036773873074331}
+  - component: {fileID: 379020185465652662}
   m_Layer: 6
   m_Name: Copper Ore Node
   m_TagString: Untagged
@@ -10347,11 +10348,27 @@ MonoBehaviour:
   breakingEffect: {fileID: 1188748060227203861}
   spriteRenderer: {fileID: 7077529496737750803}
   breakTime: Infinity
+  sourceType: Ore Node
   enableWhileUsing: {fileID: 2434987394749585984}
   possibleItems:
   - weight: 1
     item:
       type: Copper Ore
+      amount: 1
+      locked: 0
+  - weight: 1
+    item:
+      type: Stone
+      amount: 1
+      locked: 0
+  - weight: 1
+    item:
+      type: Sand
+      amount: 1
+      locked: 0
+  - weight: 1
+    item:
+      type: Clay
       amount: 1
       locked: 0
   delay: 1
@@ -10411,6 +10428,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe121551e53f9481999dc94c9005aa39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &379020185465652662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7603477812576842919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08911b5b7c400bd49801f7d61a8aef14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7775285873161330101

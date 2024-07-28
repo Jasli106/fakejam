@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResetTileDictionary : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
         TileObject.objectPositions = new Dictionary<Vector2, TileObject>();
     }

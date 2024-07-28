@@ -16,17 +16,9 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
 
     public GameObject expandedInventory;
 
-    public GameObject machineUI;
-    public InventoryUIController machineIn;
-    public InventoryUIController machineOut;
-    public ProgressBar progressBar;
-    public Animator gearsAnim;
-
-    public GameObject chestUI;
-    public InventoryUIController chestInventory;
-
-    Machine currMachineOpen = null;
-    Chest currChestOpen = null;
+    TileUI UIOpen = null;
+    public MachineUI machineUI;
+    public InventoryOnlyTileUI inventoryOnlyTileUI;
 
 
     [SerializeField] ItemDisplayer pickedUpItemDisplayer;
@@ -64,9 +56,9 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
         pickedUpItemDisplayer.gameObject.GetComponent<RectTransform>().localPosition = localPoint;
 
 
-        for(int i=0; i<9; ++i)
+        for (int i=0; i<9; ++i)
         {
-            if(Input.GetKeyDown(KeyCode.Alpha1 + i))
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
                 SelectSlot(i);
             }
@@ -90,18 +82,6 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
             }
         }
         HandleScrollInput();
-
-        if(currMachineOpen != null)
-        {
-            if (currMachineOpen.Progress() == 0)
-            {
-                gearsAnim.enabled = false;
-            } else
-            {
-                gearsAnim.enabled = true;
-            }
-            progressBar.SetProgressBar(currMachineOpen.Progress());
-        }
     }
     void HandleScrollInput()
     {
@@ -141,22 +121,18 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
         expandedInventory.SetActive(true);
     }
 
-    public void OpenChestInventory(Inventory inventory, Chest chest)
+    public void OpenInventoryOnlyTileUI(TileObject to)
     {
+        UIOpen = inventoryOnlyTileUI;
+        UIOpen.OpenTileUI(to);
         OpenInventory();
-        chestUI.SetActive(true);
-        chestInventory.RepresentInventory(inventory);
-        currChestOpen = chest;
-        chest.SetSpriteOpen(true);
     }
 
-    public void OpenMachineInventory(Inventory input, Inventory output, Machine machine)
+    public void OpenMachineInventory(TileObject machine)
     {
+        UIOpen = machineUI;
+        UIOpen.OpenTileUI(machine);
         OpenInventory();
-        machineUI.SetActive(true);
-        machineIn.RepresentInventory(input);
-        machineOut.RepresentInventory(output);
-        currMachineOpen = machine;
     }
 
     public void CloseInventory()
@@ -165,15 +141,11 @@ public class InventoryManager : MonoBehaviour, DisplayItemHolder
         pickedUpItemDisplayer.gameObject.SetActive(false);
         expandedInventory.SetActive(false);
 
-        gearsAnim.enabled = false;
-        progressBar.SetProgressBar(0);
-        machineUI.SetActive(false);
-        currMachineOpen = null;
-
-        chestUI.SetActive(false);
-        if (currChestOpen == null) return;
-        currChestOpen.SetSpriteOpen(false);
-        currChestOpen = null;
+        if (UIOpen != null)
+        {
+            UIOpen.CloseUI();
+            UIOpen = null;
+        }
     }
 
     public Item DisplayItem()

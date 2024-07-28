@@ -22,4 +22,12 @@ public class InventoryUIController : MonoBehaviour
             slots[slot].GetComponentInChildren<ItemDisplayer>().Display();
         }
     }
+
+    public void SetOutputOnly(bool value)
+    {
+        foreach (InventorySlot slot in slots)
+        {
+            slot.outputOnly = value;
+        }
+    }
 }

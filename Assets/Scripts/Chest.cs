@@ -2,24 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chest : TileObject, InputInventory, OutputInventory
+public class Chest : EnableableTileObject, InputInventory, OutputInventory
 {
-    [SerializeField] Sprite closed;
-    [SerializeField] Sprite open;
-    [SerializeField] SpriteRenderer sr;
 
     Inventory inventory = new Inventory(27);
 
     public override void ClickDown(MouseInteractor mouse, bool firstClick)
     {
         if (!firstClick) return;
-        InventoryManager.instance.OpenChestInventory(inventory, this);
-    }
-
-    public void SetSpriteOpen(bool isOpen)
-    {
-        if (isOpen) sr.sprite = open;
-        else sr.sprite = closed;
+        InventoryManager.instance.OpenInventoryOnlyTileUI(this);
     }
 
     public Inventory GetInputInventory()

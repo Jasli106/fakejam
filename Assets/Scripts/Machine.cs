@@ -10,8 +10,6 @@ public class MachineType
     public string type = "Untyped Machine";
     public int inputSlots = 9;
     public int outputSlots = 9;
-    public Sprite[] idle;
-    public Sprite[] working;
 }
 
 public interface InputInventory
@@ -25,20 +23,14 @@ public interface OutputInventory
 }
 
 
-public class Machine : TileObject, InputInventory, OutputInventory
+public class Machine : EnableableTileObject, InputInventory, OutputInventory
 {
-    public static readonly float fps = 8f;
     [SerializeField] MachineType type;
-    float timeOfStateChange = 0;
-    bool working = false;
     List<Recipe> recipes;
     Inventory input;
     Inventory output;
 
     Recipe currentRecipe = null;
-    float timeOfRecipeStart = 0f;
-
-    [SerializeField] GameObject[] enabledWhileWorking;
 
 
     private void Awake()
@@ -48,16 +40,6 @@ public class Machine : TileObject, InputInventory, OutputInventory
         recipes = Recipe.MachineRecipes(type);
     }
 
-    private void SetWorking(bool value)
-    {
-        if (working == value) return;
-        working = value;
-        timeOfStateChange = Time.time;
-        foreach (GameObject go in enabledWhileWorking)
-        {
-            go.SetActive(value);
-        }
-    }
 
     public float Progress()
     {
@@ -65,11 +47,11 @@ public class Machine : TileObject, InputInventory, OutputInventory
         {
             return 0;
         }
-        return (Time.time - timeOfRecipeStart) / currentRecipe.time;
+        return TimeSinceEnabled() / currentRecipe.time;
     }
 
 
-    private void Update()
+    public override void Update()
     {
         //TODO: Multiple recipes started and completed per frame using deltaTime
         if (Progress() >= 1) {
@@ -78,9 +60,9 @@ public class Machine : TileObject, InputInventory, OutputInventory
         CheckForInputs();
         if (currentRecipe == null)
         {
-            SetWorking(false);
+            SetEnabled(false);
         }
-        Animate();
+        base.Update();
     }
 
     public void CheckForInputs()
@@ -109,27 +91,12 @@ public class Machine : TileObject, InputInventory, OutputInventory
     {
         input.RemoveItems(recipe.inputs);
         currentRecipe = recipe;
-        timeOfRecipeStart = Time.time;
-        SetWorking(true);
+        SetEnabled(true);
     }
-    public void Animate()
-    {
-        float timeSinceStateChange = Time.time - timeOfStateChange;
-        int frame = (int)(timeSinceStateChange * fps);
-        if (!working)
-        {
-            spriteRenderer.sprite = type.idle[frame % type.idle.Length];
-        }
-        else
-        {
-            spriteRenderer.sprite = type.working[frame % type.working.Length];
-        }
-    }
-
     public override void ClickDown(MouseInteractor mouse, bool firstClick)
     {
         if (!firstClick) return;
-        InventoryManager.instance.OpenMachineInventory(input, output, this);
+        InventoryManager.instance.OpenMachineInventory(this);
     }
 
     public Inventory GetInputInventory()

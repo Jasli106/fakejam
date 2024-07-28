@@ -10,6 +10,7 @@ public class RandomItem
 }
 public class ItemSource : TileObject
 {
+    public string sourceType = "";
     [SerializeField] GameObject enableWhileUsing;
     public List<RandomItem> possibleItems = new List<RandomItem>();
     public float delay = 1f;
@@ -28,6 +29,7 @@ public class ItemSource : TileObject
         if (Time.time - timeLastUsed > 2 * Time.deltaTime)
         {
             enableWhileUsing.SetActive(false);
+            timer = 0;
         }
         else
         {
@@ -69,15 +71,20 @@ public class ItemSource : TileObject
 
     public override void ClickHeld(MouseInteractor mouse)
     {
-        timeLastUsed = Time.time;
         Inventory playerInventory = mouse.GetComponentInParent<PlayerInventory>().GetInventory();
+        Use(playerInventory);
+    }
+
+    public void Use(Inventory inv)
+    {
+        timeLastUsed = Time.time;
 
         timer += Time.deltaTime;
 
-        if(timer >= delay)
+        if (timer >= delay)
         {
-            CollectItems(playerInventory);
-            timer = 0;
+            CollectItems(inv);
+            timer -= delay;
         }
     }
 

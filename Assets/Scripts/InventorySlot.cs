@@ -13,7 +13,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] Image img;
     [SerializeField] ItemDisplayer itemDisplay;
     [SerializeField] GameObject locked;
-    [SerializeField] bool outputOnly = false;
+    public bool outputOnly = false;
 
     private bool hovered = false;
 
