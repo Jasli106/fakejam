@@ -12,7 +12,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     [SerializeField] Image img;
     [SerializeField] ItemDisplayer itemDisplay;
-    [SerializeField] GameObject locked;
+    [SerializeField] List<GameObject> locked;
     public bool outputOnly = false;
 
     private bool hovered = false;
@@ -88,13 +88,14 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        hovered = true;
         if (!InventoryManager.inventoryOpen) return;
         img.color = new Color(0.8f, 0.8f, 0.8f);
-        hovered = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        hovered = false;
         if (!InventoryManager.inventoryOpen) return;
         if (selected)
         {
@@ -104,12 +105,11 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             img.color = new Color(1, 1, 1);
         }
-        hovered = false;
     }
 
     void Update()
     {
-        locked.SetActive(item.locked);
+        locked.ForEach(go => go.SetActive(item.locked));
         if (hovered)
         {
             if (Input.GetKeyDown(KeyCode.Q))

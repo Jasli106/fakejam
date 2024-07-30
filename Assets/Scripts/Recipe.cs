@@ -10,7 +10,7 @@ public class Type
         {
             "fuel", new List<List<Ingredient>>
             {
-                new List<Ingredient> { new Ingredient("Wood", 10) },
+                new List<Ingredient> { new Ingredient("Wood", 8),  new Ingredient("Bark", 3)},
                 new List<Ingredient> { new Ingredient("Charcoal", 1) }
             }
         }
@@ -206,14 +206,16 @@ public class Recipe
         {
             allRecipes.AddRange(Ingredient.Convert(
                 "Furnace",
-                3f,
+                2f,
                 0,
                 new List<Ingredient>() {
                 new Ingredient("<fuel>", 1),
+                new Ingredient("Sand", 3),
                 new Ingredient("Wood", 5)
                 },
                 new List<Ingredient>() {
-                new Ingredient("Charcoal", 3)
+                new Ingredient("Charcoal", 3),
+                new Ingredient("Sand", 2)
                 }
             ));
 
@@ -223,10 +225,12 @@ public class Recipe
                 0,
                 new List<Ingredient>() {
                 new Ingredient("<fuel>", 1),
+                new Ingredient("Blank Mold", 1),
                 new Ingredient("Sand", 1)
                 },
                 new List<Ingredient>() {
-                new Ingredient("Glass", 1)
+                new Ingredient("Glass", 1),
+                new Ingredient("Blank Mold", 1)
                 }
             ));
 
@@ -243,25 +247,41 @@ public class Recipe
                 new Ingredient("<metal> Ingot", 1)
                 }
             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Furnace",
+                5f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("<fuel>", 1),
+                    new Ingredient("Sand", 5),
+                    new Ingredient("Clay", 3)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Blank Mold", 1)
+                }
+             ));
         }
 
         // Crafter
         {
             allRecipes.AddRange(Ingredient.Convert(
                 "Crafter",
-                3f,
+                4f,
                 0,
                 new List<Ingredient>() {
-                    new Ingredient("Bark", 2)
+                    new Ingredient("Bark", 2),
+                    new Ingredient("Stone", 1)
                 },
                 new List<Ingredient>() {
-                    new Ingredient("String", 1)
+                    new Ingredient("String", 1),
+                    new Ingredient("Stone", 1)
                 }
              ));
 
             allRecipes.AddRange(Ingredient.Convert(
                 "Crafter",
-                3f,
+                4f,
                 0,
                 new List<Ingredient>() {
                     new Ingredient("Bark", 1),
@@ -275,14 +295,54 @@ public class Recipe
 
             allRecipes.AddRange(Ingredient.Convert(
                 "Crafter",
-                3f,
+                2f,
                 0,
                 new List<Ingredient>() {
                     new Ingredient("Copper Ingot", 2),
                     new Ingredient("Glass", 1)
                 },
                 new List<Ingredient>() {
-                    new Ingredient("Pipe", 1)
+                    new Ingredient("Pipe", 8)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                6f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Stone", 1),
+                    new Ingredient("String", 1),
+                    new Ingredient("Wood", 1)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Primative Hammer", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                20f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Copper Ore", 5),
+                    new Ingredient("Primative Hammer", 1)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Copper Grit", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                2f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Blank Mold", 1),
+                    new Ingredient("Wood", 1)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Rod Mold", 1)
                 }
              ));
 
@@ -291,11 +351,23 @@ public class Recipe
                 3f,
                 0,
                 new List<Ingredient>() {
-                    new Ingredient("Copper Ore", 3),
-                    new Ingredient("Stone", 10)
+                    new Ingredient("Rod Mold", 2)
                 },
                 new List<Ingredient>() {
-                    new Ingredient("Copper Grit", 1)
+                    new Ingredient("Gear Mold", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                3f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Copper Rod", 2),
+                    new Ingredient("Copper Ingot", 1)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Copper Pickaxe", 1)
                 }
              ));
         }
@@ -304,7 +376,7 @@ public class Recipe
         {
             allRecipes.AddRange(Ingredient.Convert(
                 "Crafter",
-                3f,
+                10f,
                 0,
                 new List<Ingredient>() {
                     new Ingredient("Clay", 5),
@@ -317,11 +389,12 @@ public class Recipe
 
             allRecipes.AddRange(Ingredient.Convert(
                 "Crafter",
-                3f,
+                15f,
                 0,
                 new List<Ingredient>() {
                     new Ingredient("Copper Ingot", 4),
-                    new Ingredient("String", 6)
+                    new Ingredient("String", 6),
+                    new Ingredient("Primative Hammer", 2)
                 },
                 new List<Ingredient>() {
                     new Ingredient("Metal Press", 1)
@@ -330,7 +403,7 @@ public class Recipe
 
             allRecipes.AddRange(Ingredient.Convert(
                 "Crafter",
-                3f,
+                8f,
                 0,
                 new List<Ingredient>() {
                     new Ingredient("Copper Ingot", 3),
@@ -343,15 +416,58 @@ public class Recipe
 
             allRecipes.AddRange(Ingredient.Convert(
                 "Crafter",
-                3f,
+                10f,
                 0,
                 new List<Ingredient>() {
                     new Ingredient("Clay", 15),
                     new Ingredient("Stone", 5),
-                    new Ingredient("Primative Bellow", 1)
+                    new Ingredient("Primative Bellow", 2)
                 },
                 new List<Ingredient>() {
                     new Ingredient("Clay Furnace", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                5f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Copper Ingot", 1),
+                    new Ingredient("Wood", 10)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Chest", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                25f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Copper Pickaxe", 1),
+                    new Ingredient("Copper Gear", 3),
+                    new Ingredient("Copper Ingot", 3),
+                    new Ingredient("Copper Rod", 5),
+                    new Ingredient("Chest", 1)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Auto Pickaxe", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                18f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Copper Gear", 20),
+                    new Ingredient("Copper Rod", 20),
+                    new Ingredient("Copper Ingot", 20)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Steam Engine", 1)
                 }
              ));
         }
@@ -360,10 +476,10 @@ public class Recipe
         {
             allRecipes.AddRange(Ingredient.Convert(
                 "Metal Press",
-                3f,
+                1f,
                 0,
                 new List<Ingredient>() {
-                    new Ingredient("Raw <metal> Ore", 1)
+                    new Ingredient("<metal> Ore", 1)
                 },
                 new List<Ingredient>() {
                     new Ingredient("<metal> Grit", 1)
@@ -375,10 +491,26 @@ public class Recipe
                 3f,
                 0,
                 new List<Ingredient>() {
-                    new Ingredient("<metal> Ingot", 4)
+                    new Ingredient("<metal> Ingot", 4),
+                    new Ingredient("Gear Mold", 1)
                 },
                 new List<Ingredient>() {
-                    new Ingredient("<metal> Gear", 1)
+                    new Ingredient("<metal> Gear", 1),
+                    new Ingredient("Gear Mold", 1)
+                }
+             ));
+
+            allRecipes.AddRange(Ingredient.Convert(
+                "Metal Press",
+                3f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("<metal> Ingot", 2),
+                    new Ingredient("Rod Mold", 1)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("<metal> Rod", 1),
+                    new Ingredient("Rod Mold", 1)
                 }
              ));
         }

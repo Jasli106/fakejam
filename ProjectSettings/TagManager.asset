@@ -41,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Objects
+  - name: Object
     uniqueID: 1312187331
+    locked: 0
+  - name: Effect
+    uniqueID: 3085360195
+    locked: 0
+  - name: Overlay
+    uniqueID: 601926531
     locked: 0

@@ -1,13 +1,25 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
+[System.Serializable]
 public class BoundingBox // Centered around (0,0)
 {
     public int top;
     public int left;
     public int bottom;
     public int right;
-    public static readonly BoundingBox singleTile = new BoundingBox(0, 0, 0, 0);
+
+    public BoundingBox()
+    {
+        this.top = 0;
+        this.left = 0;
+        this.bottom = 0;
+        this.right = 0;
+    }
 
     public BoundingBox(int top, int left, int bottom, int right)
     {
@@ -33,6 +45,36 @@ public class BoundingBox // Centered around (0,0)
     public override string ToString()
     {
         return $"y:{bottom} to {top},  x:{left} to {right}";
+    }
+
+    public static TileBase GetTileAtWorldPosition(Vector3 worldPosition, Tilemap tilemap)
+    {
+        // Convert the world position to the tilemap cell position
+        Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
+
+        // Retrieve the tile at the cell position
+        TileBase tile = tilemap.GetTile(cellPosition);
+
+        return tile;
+    }
+
+    public bool Grounded(Tilemap map)
+    {
+        foreach (var pos in Positions())
+        {
+            TileBase tile = GetTileAtWorldPosition(pos, map);
+            TileBase tileBelow = GetTileAtWorldPosition(pos + Vector2.down, map);
+            if (!Ground(tile) || tileBelow == null)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static bool Ground(TileBase tile)
+    {
+        return !(tile == null || tile.name.Contains("Water"));
     }
 
     public List<Vector2> Positions()
@@ -81,14 +123,27 @@ public class BoundingBox // Centered around (0,0)
     }
 }
 
+
+public abstract class Toggleable : MonoBehaviour
+{
+    //public bool startActive = true;
+    protected bool active = true;
+    public abstract void SetActive(bool value);
+
+    /*public virtual void Start()
+    {
+        SetActive(startActive);
+    }*/
+}
+
 public abstract class TileObject : MonoBehaviour
 {
     [SerializeField] string itemName = "";
-    [SerializeField] GameObject breakingEffect;
+    [SerializeField] List<Toggleable> breakingEffects = new List<Toggleable>();
     public SpriteRenderer spriteRenderer;
 
     public static Dictionary<Vector2, TileObject> objectPositions = new Dictionary <Vector2, TileObject>();
-    BoundingBox boundingBox = BoundingBox.singleTile;
+    [SerializeField] BoundingBox boundingBox = new BoundingBox();
     public float breakTime = 1f;
     public BoundingBox GetBoundingBox()
     {
@@ -109,6 +164,11 @@ public abstract class TileObject : MonoBehaviour
     public static Vector3 Round(Vector3 value)
     {
         return new Vector3(Mathf.Round(value.x), Mathf.Round(value.y), Mathf.Round(value.z));
+    }
+
+    public virtual void Start()
+    {
+        SetBreaking(false);
     }
 
     public static bool PositionEmpty(Vector2 position)
@@ -197,8 +257,7 @@ public abstract class TileObject : MonoBehaviour
 
     public void SetBreaking(bool breaking)
     {
-        if (breakingEffect == null) return;
-        breakingEffect.SetActive(breaking);
+        breakingEffects.ForEach(effect => effect.SetActive(breaking));
     }
 
     public virtual void TileUpdate(TileObject neighborObject, Vector2 direction, bool neighborRemoved) { }

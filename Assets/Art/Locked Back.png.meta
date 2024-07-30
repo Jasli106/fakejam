@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: e6a02314e92e5fe449faf80658375f5b
+guid: 32a2be038ea7e234bb98f70159f66f9c
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 7520750212182053696
+    second: Locked Back_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Test Machine_0
+      name: Locked Back_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 22
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dffd588083f0185d0800000000000000
-      internalID: -3062149538299650051
+      spriteID: 0431e89a8721f5860800000000000000
+      internalID: 7520750212182053696
       vertices: []
       indices: 
       edges: []
@@ -128,7 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Test Machine_0: -3062149538299650051
+      Locked Back_0: 7520750212182053696
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -13,25 +13,28 @@ MonoBehaviour:
   m_Name: ItemDB
   m_EditorClassIdentifier: 
   items:
+  - type: Auto Pickaxe
+    amount: 1
+    locked: 0
+  - type: Bark
+    amount: 1
+    locked: 0
+  - type: Blank Mold
+    amount: 1
+    locked: 0
   - type: Charcoal
     amount: 1
     locked: 0
-  - type: Clay
+  - type: Chest
     amount: 1
     locked: 0
   - type: Clay Furnace
     amount: 1
     locked: 0
-  - type: Crafter
-    amount: 1
-    locked: 0
-  - type: Furnace
+  - type: Clay
     amount: 1
     locked: 0
   - type: Copper Gear
-    amount: 1
-    locked: 0
-  - type: Glass
     amount: 1
     locked: 0
   - type: Copper Grit
@@ -40,13 +43,40 @@ MonoBehaviour:
   - type: Copper Ingot
     amount: 1
     locked: 0
+  - type: Copper Ore
+    amount: 1
+    locked: 0
+  - type: Copper Pickaxe
+    amount: 1
+    locked: 0
+  - type: Copper Rod
+    amount: 1
+    locked: 0
+  - type: Crafter
+    amount: 1
+    locked: 0
+  - type: Furnace
+    amount: 1
+    locked: 0
+  - type: Gear Mold
+    amount: 1
+    locked: 0
+  - type: Glass
+    amount: 1
+    locked: 0
   - type: Metal Press
     amount: 1
     locked: 0
   - type: Pipe
     amount: 1
     locked: 0
-  - type: Copper Ore
+  - type: Primative Bellow
+    amount: 1
+    locked: 0
+  - type: Primative Hammer
+    amount: 1
+    locked: 0
+  - type: Rod Mold
     amount: 1
     locked: 0
   - type: Sand
@@ -58,18 +88,12 @@ MonoBehaviour:
   - type: Stone
     amount: 1
     locked: 0
+  - type: String
+    amount: 1
+    locked: 0
   - type: Water
     amount: 1
     locked: 0
   - type: Wood
-    amount: 1
-    locked: 0
-  - type: Bark
-    amount: 1
-    locked: 0
-  - type: Primative Bellow
-    amount: 1
-    locked: 0
-  - type: String
     amount: 1
     locked: 0

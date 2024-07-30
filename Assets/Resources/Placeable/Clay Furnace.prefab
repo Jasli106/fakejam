@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 407648532511046046}
   - component: {fileID: 113074548173251124}
   - component: {fileID: 1332981411862065936}
+  - component: {fileID: 5429232701055075150}
   m_Layer: 0
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &407648532511046046
 Transform:
   m_ObjectHideFlags: 0
@@ -4799,8 +4800,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1209607101
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -4834,6 +4835,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5429232701055075150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5408794257684661867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b09c3dfb237aa41be41e9c2ec19114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6034711485301122163
 GameObject:
   m_ObjectHideFlags: 0
@@ -4930,20 +4943,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Clay Furnace
-  breakingEffect: {fileID: 8453510720727511552}
+  breakingEffects:
+  - {fileID: 7038412994396772144}
+  - {fileID: 281060916323750420}
   spriteRenderer: {fileID: 1106677969550727954}
+  boundingBox:
+    top: 1
+    left: 0
+    bottom: 0
+    right: 1
   breakTime: 1.5
+  fps: 8
+  disabledSprites: []
+  enabledSprites: []
+  enabledWhileWorking: []
+  enableTogglesWhileWorking:
+  - {fileID: 5429232701055075150}
   type:
     type: Furnace
     inputSlots: 9
     outputSlots: 9
-    idle:
-    - {fileID: 21300000, guid: ca0461e2d3fbc0f45bab8262eb53a18c, type: 3}
-    working:
-    - {fileID: 21300000, guid: c3ad09dce75bdbc42a62a9822e83e282, type: 3}
-    - {fileID: 21300000, guid: 586032368c1fbe44188fe491752937a1, type: 3}
-  enabledWhileWorking:
-  - {fileID: 5408794257684661867}
+    speedMultiplier: 0.25
 --- !u!114 &4107146688826823597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4956,6 +4976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe121551e53f9481999dc94c9005aa39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: 0
 --- !u!1 &7736032289901203016
 GameObject:
   m_ObjectHideFlags: 0
@@ -5055,13 +5076,14 @@ GameObject:
   - component: {fileID: 8134543708630899308}
   - component: {fileID: 6620067963812756024}
   - component: {fileID: 7038412994396772144}
+  - component: {fileID: 281060916323750420}
   m_Layer: 6
   m_Name: Breaking Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &962637447933091
 Transform:
   m_ObjectHideFlags: 0
@@ -9841,8 +9863,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1209607101
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -10157,3 +10179,16 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  stopTime: 0.1
+--- !u!114 &281060916323750420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8453510720727511552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b09c3dfb237aa41be41e9c2ec19114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

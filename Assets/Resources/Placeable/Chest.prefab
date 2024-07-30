@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe121551e53f9481999dc94c9005aa39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: 0
 --- !u!114 &3313802710823648830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,9 +108,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Chest
-  breakingEffect: {fileID: 8453510720727511552}
+  breakingEffects:
+  - {fileID: 7038412994396772144}
+  - {fileID: 380728905238595850}
   spriteRenderer: {fileID: 1106677969550727954}
   breakTime: 0.5
+  fps: 8
   disabledSprites:
   - {fileID: -6834524911116659543, guid: cd6006e5ee4f6f74a98357f327898287, type: 3}
   enabledSprites:
@@ -214,13 +218,14 @@ GameObject:
   - component: {fileID: 8134543708630899308}
   - component: {fileID: 6620067963812756024}
   - component: {fileID: 7038412994396772144}
+  - component: {fileID: 380728905238595850}
   m_Layer: 6
   m_Name: Breaking Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &962637447933091
 Transform:
   m_ObjectHideFlags: 0
@@ -5316,3 +5321,16 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  stopTime: 0.1
+--- !u!114 &380728905238595850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8453510720727511552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b09c3dfb237aa41be41e9c2ec19114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

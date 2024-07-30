@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class ObjectPlacer : MonoBehaviour
 {
+    [SerializeField] Tilemap placementMap;
+    [SerializeField] Transform player;
     [SerializeField] float range = 5;
     [SerializeField] GameObject ghostRender;
     [SerializeField] PlayerController playerController;
     [SerializeField] LayerMask groundLayer;
     SpriteRenderer ghostPlacementRenderer;
-    BoundingBox bounds = BoundingBox.singleTile;
+    BoundingBox bounds = new BoundingBox();
     GameObject currentPrefab = null;
     GameObject instantiation = null;
     [SerializeField] Color canPlace = new Color(1f, 1f, 1f, 0.6f);
@@ -20,12 +23,32 @@ public class ObjectPlacer : MonoBehaviour
         ghostPlacementRenderer = ghostRender.GetComponent<SpriteRenderer>();
     }
 
+    public TileBase GetTileAtWorldPosition(Vector3 worldPosition)
+    {
+        // Convert the world position to the tilemap cell position
+        Vector3Int cellPosition = placementMap.WorldToCell(worldPosition);
+
+        // Retrieve the tile at the cell position
+        TileBase tile = placementMap.GetTile(cellPosition);
+
+        return tile;
+    }
+
     Vector3 PlacementPosition()
     {
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-        mouseWorldPosition.z = 0;
-        return TileObject.Round(mouseWorldPosition);
+
+        Vector3 placementPosition = mouseWorldPosition;
+        placementPosition.z = 0;
+        placementPosition -= player.position;
+        float distanceToPlayer = placementPosition.magnitude;
+        float distanceToPlacement = Mathf.Min(distanceToPlayer, range);
+        placementPosition = distanceToPlacement * placementPosition.normalized;
+        placementPosition += player.position;
+
+
+        return TileObject.Round(placementPosition);
         //float x = Mathf.Round(mouseWorldPosition.x);
         //float y = Mathf.Round(mouseWorldPosition.y);
         //return new Vector3(x, y, 0);
@@ -77,9 +100,9 @@ public class ObjectPlacer : MonoBehaviour
 
     public bool Placeable(Vector3 position)
     {
-        bool canPlace = TileObject.BoxEmpty(new BoundingBox(bounds, position))
-            && (Physics2D.OverlapPoint(position, groundLayer) != null)
-            && (Vector2.Distance(position, playerController.currentPosition) <= range);
+        BoundingBox placementBB = new BoundingBox(bounds, position);
+        bool canPlace = TileObject.BoxEmpty(placementBB)
+            && placementBB.Grounded(placementMap);
         return canPlace;
     }
 

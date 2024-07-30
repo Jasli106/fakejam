@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class YSort : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer[] spriteRenderers;
+    public static readonly int granularity = 100;
+    [SerializeField] int offset = 0;
 
     void Awake()
     {
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
     }
 
     void Update()
     {
-        spriteRenderer.sortingOrder = Mathf.RoundToInt(transform.position.y * -100);
+        foreach (var renderer in spriteRenderers)
+        {
+            renderer.sortingOrder = Mathf.RoundToInt(transform.position.y * -granularity + offset);
+        }
     }
 }

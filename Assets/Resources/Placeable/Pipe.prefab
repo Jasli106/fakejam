@@ -105,9 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37d0b8ad51c5404790903b0abb8d739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorItem: {fileID: 8007161449975433671, guid: 3103611f8d9156144a456f82a2b905be, type: 3}
   itemName: Pipe
-  breakingEffect: {fileID: 4416296250504369472}
+  breakingEffects:
+  - {fileID: 5654164110544419916}
   spriteRenderer: {fileID: 5566145310454726962}
   breakTime: 0.15
   BFSExplored: 0
@@ -192,13 +192,14 @@ GameObject:
   - component: {fileID: 8303752754181544400}
   - component: {fileID: 5485904331268372148}
   - component: {fileID: 7815741507706778682}
+  - component: {fileID: 5654164110544419916}
   m_Layer: 6
   m_Name: Breaking Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &546789039470453944
 Transform:
   m_ObjectHideFlags: 0
@@ -5029,6 +5030,18 @@ MonoBehaviour:
   ps: {fileID: 8303752754181544400}
   darkenFactorStart: 0.9
   darkenFactorEnd: 0.2
+--- !u!114 &5654164110544419916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416296250504369472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b09c3dfb237aa41be41e9c2ec19114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4946010823687782798
 GameObject:
   m_ObjectHideFlags: 0

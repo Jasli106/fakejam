@@ -146,6 +146,7 @@ public class RecipeBook : MonoBehaviour
             if (outSlotIdx >= 9) return;
             outputSlots[outSlotIdx].item = item;
             outputSlots[outSlotIdx].Display();
+            ++outSlotIdx;
         }
 
         // Display machine

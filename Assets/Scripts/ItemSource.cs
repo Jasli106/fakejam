@@ -8,10 +8,9 @@ public class RandomItem
     public float weight;
     public Item item;
 }
-public class ItemSource : TileObject
+public class ItemSource : EnableableTileObject
 {
     public string sourceType = "";
-    [SerializeField] GameObject enableWhileUsing;
     public List<RandomItem> possibleItems = new List<RandomItem>();
     public float delay = 1f;
 
@@ -24,16 +23,17 @@ public class ItemSource : TileObject
         timer = 0;
     }
 
-    private void Update()
+    public override void Update()
     {
+        base.Update();
         if (Time.time - timeLastUsed > 2 * Time.deltaTime)
         {
-            enableWhileUsing.SetActive(false);
+            SetEnabled(false);
             timer = 0;
         }
         else
         {
-            enableWhileUsing.SetActive(true);
+            SetEnabled(true);
         }
     }
 
@@ -72,14 +72,27 @@ public class ItemSource : TileObject
     public override void ClickHeld(MouseInteractor mouse)
     {
         Inventory playerInventory = mouse.GetComponentInParent<PlayerInventory>().GetInventory();
-        Use(playerInventory);
+        Use(playerInventory, true);
     }
 
-    public void Use(Inventory inv)
+    public void Use(Inventory inv, bool player = false)
     {
         timeLastUsed = Time.time;
 
-        timer += Time.deltaTime;
+        float multiplier = 1f;
+        if (player && !InventoryManager.itemSelected.Empty())
+        {
+            if (InventoryManager.itemSelected.type == "Primative Hammer")
+            {
+                multiplier = 1.3f;
+            }
+            else if (InventoryManager.itemSelected.type == "Copper Pickaxe")
+            {
+                multiplier = 2f;
+            }
+        }
+
+        timer += Time.deltaTime * multiplier;
 
         if (timer >= delay)
         {

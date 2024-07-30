@@ -10,6 +10,7 @@ public class MachineType
     public string type = "Untyped Machine";
     public int inputSlots = 9;
     public int outputSlots = 9;
+    public float speedMultiplier = 1f;
 }
 
 public interface InputInventory
@@ -29,6 +30,7 @@ public class Machine : EnableableTileObject, InputInventory, OutputInventory
     List<Recipe> recipes;
     Inventory input;
     Inventory output;
+    float timeRecipeStart = Mathf.Infinity;
 
     Recipe currentRecipe = null;
 
@@ -47,7 +49,7 @@ public class Machine : EnableableTileObject, InputInventory, OutputInventory
         {
             return 0;
         }
-        return TimeSinceEnabled() / currentRecipe.time;
+        return (Time.time - timeRecipeStart) * type.speedMultiplier / currentRecipe.time;
     }
 
 
@@ -92,6 +94,7 @@ public class Machine : EnableableTileObject, InputInventory, OutputInventory
         input.RemoveItems(recipe.inputs);
         currentRecipe = recipe;
         SetEnabled(true);
+        timeRecipeStart = Time.time;
     }
     public override void ClickDown(MouseInteractor mouse, bool firstClick)
     {

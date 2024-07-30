@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe121551e53f9481999dc94c9005aa39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: 1
 --- !u!114 &7478512878450034570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,7 +108,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Auto Pickaxe
-  breakingEffect: {fileID: 6100019122056633796}
+  breakingEffects:
+  - {fileID: 9142254395312530600}
+  - {fileID: 792350406806278992}
   spriteRenderer: {fileID: 6649493276079339245}
   breakTime: 1
   fps: 2
@@ -119,6 +122,8 @@ MonoBehaviour:
   enabledWhileWorking: []
   validSources:
   - Ore Node
+  - Sand Pile
+  - Tree
 --- !u!1 &2233840052916412277
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,13 +223,14 @@ GameObject:
   - component: {fileID: 5767716298606829724}
   - component: {fileID: 160570566976719390}
   - component: {fileID: 9142254395312530600}
+  - component: {fileID: 792350406806278992}
   m_Layer: 6
   m_Name: Breaking Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5926453437040852314
 Transform:
   m_ObjectHideFlags: 0
@@ -5320,3 +5326,16 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  stopTime: 0.1
+--- !u!114 &792350406806278992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6100019122056633796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b09c3dfb237aa41be41e9c2ec19114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

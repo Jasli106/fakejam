@@ -4929,24 +4929,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314692ccaaa89124bba74f6b2888ed98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorItem: {fileID: 8007161449975433671, guid: 3103611f8d9156144a456f82a2b905be, type: 3}
   itemName: Steam Engine
-  breakingEffect: {fileID: 8453510720727511552}
+  breakingEffects:
+  - {fileID: 7038412994396772144}
+  - {fileID: 6633567912753937328}
   spriteRenderer: {fileID: 1106677969550727954}
+  boundingBox:
+    top: 0
+    left: 0
+    bottom: 0
+    right: 1
   breakTime: 1.5
+  fps: 8
+  disabledSprites: []
+  enabledSprites: []
+  enabledWhileWorking:
+  - {fileID: 5408794257684661867}
+  enableTogglesWhileWorking: []
   type:
     type: Steam Engine
     inputSlots: 9
     outputSlots: 9
-    idle:
-    - {fileID: -309893098, guid: 63f91e854c5588f439c9319e5880cfef, type: 3}
-    working:
-    - {fileID: -309893098, guid: 63f91e854c5588f439c9319e5880cfef, type: 3}
-    - {fileID: 419322138, guid: 63f91e854c5588f439c9319e5880cfef, type: 3}
-    - {fileID: -879292092, guid: 63f91e854c5588f439c9319e5880cfef, type: 3}
-    - {fileID: 1231004605, guid: 63f91e854c5588f439c9319e5880cfef, type: 3}
-  enabledWhileWorking:
-  - {fileID: 5408794257684661867}
 --- !u!114 &4107146688826823597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4959,6 +4962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe121551e53f9481999dc94c9005aa39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: 0
 --- !u!1 &7736032289901203016
 GameObject:
   m_ObjectHideFlags: 0
@@ -5058,13 +5062,14 @@ GameObject:
   - component: {fileID: 8134543708630899308}
   - component: {fileID: 6620067963812756024}
   - component: {fileID: 7038412994396772144}
+  - component: {fileID: 6633567912753937328}
   m_Layer: 6
   m_Name: Breaking Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &962637447933091
 Transform:
   m_ObjectHideFlags: 0
@@ -9912,35 +9917,264 @@ MonoBehaviour:
     amplitude: 0.007
     period: 0.12
     offset: 0
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: -1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   yPos:
     amplitude: 0.008
     period: 0.16
     offset: 1
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: -1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   zPos:
     amplitude: 0
     period: 1
     offset: 0
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: -1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   xRot:
     amplitude: 0
     period: 1
     offset: 0
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: -1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   yRot:
     amplitude: 0
     period: 1
     offset: 0
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: -1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   zRot:
     amplitude: 1
     period: 0.2
     offset: 0
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: -1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   xScale:
     amplitude: 0
     period: 1
     offset: 0
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: -1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   yScale:
     amplitude: 0
     period: 1
     offset: 0
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: -1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   zScale:
     amplitude: 0
     period: 1
     offset: 0
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: -1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  stopTime: 0.1
+--- !u!114 &6633567912753937328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8453510720727511552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b09c3dfb237aa41be41e9c2ec19114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

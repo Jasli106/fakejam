@@ -68,14 +68,15 @@ public class PlayerController : MonoBehaviour
 
         movement.Normalize();
 
-        Vector2 newPos = rb.position + movement * speed * Time.deltaTime;
+        /*Vector2 newPos = rb.position + movement * speed * Time.deltaTime;
 
         if (IsPositionOnGround(newPos))
         {
             rb.position = newPos;
         }
 
-        currentPosition = rb.position;
+        currentPosition = rb.position;*/
+        rb.velocity = movement * speed;
     }
 
     private bool IsPositionOnGround(Vector2 position)

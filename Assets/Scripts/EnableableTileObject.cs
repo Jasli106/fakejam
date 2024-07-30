@@ -9,7 +9,8 @@ public class EnableableTileObject : TileObject
     [SerializeField] float fps = 8f;
     [SerializeField] Sprite[] disabledSprites;
     [SerializeField] Sprite[] enabledSprites;
-    [SerializeField] GameObject[] enabledWhileWorking;
+    [SerializeField] List<GameObject> enabledWhileWorking;
+    [SerializeField] List<Toggleable> enableTogglesWhileWorking;
     protected bool turnedOn = false;
     float timeOfStateChange = 0;
 
@@ -28,10 +29,14 @@ public class EnableableTileObject : TileObject
         if (turnedOn == value) return;
         turnedOn = value;
         timeOfStateChange = Time.time;
-        foreach (GameObject go in enabledWhileWorking)
-        {
-            go.SetActive(value);
-        }
+        enabledWhileWorking.ForEach(go => go.SetActive(value));
+        enableTogglesWhileWorking.ForEach(to => to.SetActive(value));
+    }
+
+    public override void Start()
+    {
+        base.Start();
+        enableTogglesWhileWorking.ForEach(to => to.SetActive(false));
     }
     public virtual void Update()
     {

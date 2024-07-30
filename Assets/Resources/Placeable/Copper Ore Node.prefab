@@ -13,13 +13,14 @@ GameObject:
   - component: {fileID: 5464622293377284061}
   - component: {fileID: 1032711617400824597}
   - component: {fileID: 7844244528283224207}
+  - component: {fileID: 7836438169257052266}
   m_Layer: 6
   m_Name: Breaking Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2351855812788384998
 Transform:
   m_ObjectHideFlags: 0
@@ -5115,6 +5116,19 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  stopTime: 0.1
+--- !u!114 &7836438169257052266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188748060227203861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b09c3dfb237aa41be41e9c2ec19114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2434987394749585984
 GameObject:
   m_ObjectHideFlags: 0
@@ -5432,6 +5446,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  stopTime: 0.5
 --- !u!198 &2776364326498583552
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -10345,7 +10360,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Copper Ore Node
-  breakingEffect: {fileID: 1188748060227203861}
+  breakingEffects:
+  - {fileID: 7844244528283224207}
+  - {fileID: 7836438169257052266}
   spriteRenderer: {fileID: 7077529496737750803}
   breakTime: Infinity
   sourceType: Ore Node
@@ -10430,6 +10447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe121551e53f9481999dc94c9005aa39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: 0
 --- !u!114 &379020185465652662
 MonoBehaviour:
   m_ObjectHideFlags: 0
