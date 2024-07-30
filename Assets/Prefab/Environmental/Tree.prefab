@@ -69,15 +69,20 @@ MonoBehaviour:
   - {fileID: 8258808762994769472}
   sourceType: Tree
   possibleItems:
-  - weight: 10
+  - weight: 2
+    item:
+      type: Wood
+      amount: 2
+      locked: 0
+  - weight: 8
     item:
       type: Wood
       amount: 1
       locked: 0
-  - weight: 1
+  - weight: 6
     item:
       type: Bark
-      amount: 4
+      amount: 1
       locked: 0
   delay: 1
 --- !u!61 &1594114790984065061

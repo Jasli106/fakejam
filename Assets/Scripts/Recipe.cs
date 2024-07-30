@@ -364,7 +364,8 @@ public class Recipe
                 0,
                 new List<Ingredient>() {
                     new Ingredient("Copper Rod", 2),
-                    new Ingredient("Copper Ingot", 1)
+                    new Ingredient("Copper Ingot", 1),
+                    new Ingredient("String", 1)
                 },
                 new List<Ingredient>() {
                     new Ingredient("Copper Pickaxe", 1)
@@ -380,7 +381,8 @@ public class Recipe
                 0,
                 new List<Ingredient>() {
                     new Ingredient("Clay", 5),
-                    new Ingredient("Copper Ingot", 3)
+                    new Ingredient("Copper Ingot", 3),
+                    new Ingredient("Primative Bellow", 1)
                 },
                 new List<Ingredient>() {
                     new Ingredient("Furnace", 1)
@@ -407,6 +409,7 @@ public class Recipe
                 0,
                 new List<Ingredient>() {
                     new Ingredient("Copper Ingot", 3),
+                    new Ingredient("String", 3),
                     new Ingredient("Copper Gear", 1)
                 },
                 new List<Ingredient>() {
@@ -462,9 +465,10 @@ public class Recipe
                 18f,
                 0,
                 new List<Ingredient>() {
-                    new Ingredient("Copper Gear", 20),
+                    new Ingredient("Copper Gear", 15),
                     new Ingredient("Copper Rod", 20),
-                    new Ingredient("Copper Ingot", 20)
+                    new Ingredient("Copper Ingot", 25),
+                    new Ingredient("Pipe", 30)
                 },
                 new List<Ingredient>() {
                     new Ingredient("Steam Engine", 1)

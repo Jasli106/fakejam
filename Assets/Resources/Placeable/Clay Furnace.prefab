@@ -4954,8 +4954,11 @@ MonoBehaviour:
     right: 1
   breakTime: 1.5
   fps: 8
-  disabledSprites: []
-  enabledSprites: []
+  disabledSprites:
+  - {fileID: 21300000, guid: ca0461e2d3fbc0f45bab8262eb53a18c, type: 3}
+  enabledSprites:
+  - {fileID: 21300000, guid: c3ad09dce75bdbc42a62a9822e83e282, type: 3}
+  - {fileID: 21300000, guid: 586032368c1fbe44188fe491752937a1, type: 3}
   enabledWhileWorking: []
   enableTogglesWhileWorking:
   - {fileID: 5429232701055075150}
