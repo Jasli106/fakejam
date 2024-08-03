@@ -13,6 +13,7 @@ public class ItemDisplaySlot : MonoBehaviour, IPointerEnterHandler, IPointerExit
     [SerializeField] Image img;
     [SerializeField] Image itemDisplay;
     [SerializeField] TextMeshProUGUI quantityDisplay = null;
+    [SerializeField] Tooltip tooltip;
 
     public void LeftClick() // Also for r
     {
@@ -33,7 +34,8 @@ public class ItemDisplaySlot : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     private void Update()
     {
-        if(selected)
+        tooltip.HideTooltip();
+        if (selected)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -42,6 +44,10 @@ public class ItemDisplaySlot : MonoBehaviour, IPointerEnterHandler, IPointerExit
             if (Input.GetKeyDown(KeyCode.U))
             {
                 RightClick();
+            }
+            if (!item.Empty())
+            {
+                tooltip.ShowTooltip(item.type);
             }
         }
         
@@ -98,6 +104,7 @@ public class ItemDisplaySlot : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void ClearDisplay()
     {
+        item = new Item();
         itemDisplay.color = new Color(1, 1, 1, 0);
         if (quantityDisplay != null)
         {

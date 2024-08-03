@@ -84,11 +84,11 @@ public class ItemSource : EnableableTileObject
         {
             if (InventoryManager.itemSelected.type == "Primative Hammer")
             {
-                multiplier = 1.3f;
+                multiplier = 1.5f;
             }
             else if (InventoryManager.itemSelected.type == "Copper Pickaxe")
             {
-                multiplier = 2f;
+                multiplier = 2.5f;
             }
         }
 

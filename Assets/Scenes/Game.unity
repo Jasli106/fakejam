@@ -42566,7 +42566,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &516628852
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42632,12 +42632,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1326904892}
         m_TargetAssemblyTypeName: RecipeBook, Assembly-CSharp
-        m_MethodName: DisplayPreviousRecipe
-        m_Mode: 1
+        m_MethodName: ChangeRecipe
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -44226,7 +44226,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -45050,7 +45050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &767777145
 RectTransform:
   m_ObjectHideFlags: 0
@@ -45116,12 +45116,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1326904892}
         m_TargetAssemblyTypeName: RecipeBook, Assembly-CSharp
-        m_MethodName: DisplayNextRecipe
-        m_Mode: 1
+        m_MethodName: ChangeRecipe
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -49097,7 +49097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1233039445
 RectTransform:
   m_ObjectHideFlags: 0
@@ -49160,7 +49160,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1233039447}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1326904892}
+        m_TargetAssemblyTypeName: RecipeBook, Assembly-CSharp
+        m_MethodName: ChangeMachine
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1233039447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50868,7 +50880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1325169801
 RectTransform:
   m_ObjectHideFlags: 0
@@ -50931,7 +50943,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1325169803}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1326904892}
+        m_TargetAssemblyTypeName: RecipeBook, Assembly-CSharp
+        m_MethodName: ChangeMachine
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1325169803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51066,6 +51090,12 @@ MonoBehaviour:
   disablePlayer: {fileID: 1032565224}
   disablePlayerAction: {fileID: 1230386886}
   hotbar: {fileID: 75518045}
+  machineArrows:
+  - {fileID: 1325169800}
+  - {fileID: 1233039444}
+  recipeArrows:
+  - {fileID: 516628851}
+  - {fileID: 767777144}
 --- !u!1001 &1333974464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52950,7 +52980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1576636544
 RectTransform:
   m_ObjectHideFlags: 0

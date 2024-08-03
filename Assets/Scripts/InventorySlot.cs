@@ -13,6 +13,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] Image img;
     [SerializeField] ItemDisplayer itemDisplay;
     [SerializeField] List<GameObject> locked;
+    [SerializeField] Tooltip tooltip;
     public bool outputOnly = false;
 
     private bool hovered = false;
@@ -109,9 +110,14 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     void Update()
     {
+        tooltip.HideTooltip();
         locked.ForEach(go => go.SetActive(item.locked));
         if (hovered)
         {
+            if (!item.Empty())
+            {
+                tooltip.ShowTooltip(item.type);
+            }
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 // Lock item

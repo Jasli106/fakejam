@@ -35,6 +35,9 @@ public class RecipeBook : MonoBehaviour
     [SerializeField]
     private GameObject hotbar;
 
+    [SerializeField] List<GameObject> machineArrows;
+    [SerializeField] List<GameObject> recipeArrows;
+
     public static RecipeBook instance = null;
 
     private List<(string, List<Recipe>)> currDisplayedRecipes = new List<(string, List<Recipe>)> ();
@@ -119,12 +122,30 @@ public class RecipeBook : MonoBehaviour
 
     public void DisplayRecipes(List<(string, List<Recipe>)> recipes)
     {
+        if (recipes.Count <= 0)
+        {
+            SetEmptyRecipe();
+            currDisplayedRecipes = null;
+            return;
+        }
         currDisplayedRecipes = recipes;
-        // Put in UI
-        if (recipes.Count <= 0) return;
-        DisplayRecipe(recipes[0].Item2[0]);
-        currRecipeIdx = 0;
 
+        // Put in UI
+        SetRecipeIndices(0, 0);
+    }
+
+    public void SetRecipeIndices(int machine, int recipe)
+    {
+        currMachineIdx = machine;
+        currRecipeIdx = recipe;
+
+        bool machineArrowsActive = currDisplayedRecipes.Count > 1;
+        machineArrows.ForEach(arrow => arrow.SetActive(machineArrowsActive));
+
+        bool recipeArrowsActive = currDisplayedRecipes[machine].Item2.Count > 1;
+        recipeArrows.ForEach(arrow => arrow.SetActive(recipeArrowsActive));
+
+        DisplayRecipe(currDisplayedRecipes[currMachineIdx].Item2[currRecipeIdx]);
     }
 
     private void DisplayRecipe(Recipe recipe)
@@ -158,6 +179,13 @@ public class RecipeBook : MonoBehaviour
         energyLabel.text = recipe.costs.ToString();
     }
 
+    private void SetEmptyRecipe()
+    {
+        ClearRecipeDisplay();
+        machineArrows.ForEach(arrow => arrow.SetActive(false));
+        recipeArrows.ForEach(arrow => arrow.SetActive(false));
+    }
+
     private void ClearRecipeDisplay()
     {
         // Clear inputs and outputs
@@ -178,60 +206,34 @@ public class RecipeBook : MonoBehaviour
         energyLabel.text = "0";
     }
 
-    public void DisplayNextRecipe()
+    public int MathMod(int a, int b)
     {
-        if (currDisplayedRecipes.Count <= 0) return;
-        currRecipeIdx++;
-        if(currRecipeIdx >= currDisplayedRecipes[currMachineIdx].Item2.Count)
-        {
-            currMachineIdx++;
-            if (currMachineIdx >= currDisplayedRecipes.Count)
-            {
-                currMachineIdx = 0;
-            }
-            currRecipeIdx = 0;
-        }
-        DisplayRecipe(currDisplayedRecipes[currMachineIdx].Item2[currRecipeIdx]);
+        return ((a % b) + b) % b;
     }
 
-    public void DisplayPreviousRecipe()
+    public void ChangeMachine(int amount)
     {
-        if (currDisplayedRecipes.Count <= 0) return;
-        currRecipeIdx--;
-        if (currRecipeIdx <= 0)
-        {
-            currMachineIdx--;
-            if (currMachineIdx <= 0)
-            {
-                currMachineIdx = currDisplayedRecipes.Count - 1;
-            }
-            currRecipeIdx = currDisplayedRecipes[currMachineIdx].Item2.Count - 1;
-        }
-        DisplayRecipe(currDisplayedRecipes[currMachineIdx].Item2[currRecipeIdx]);
+        currMachineIdx += amount;
+        currMachineIdx = MathMod(currMachineIdx, currDisplayedRecipes.Count);
+        currRecipeIdx = 0;
+        SetRecipeIndices(currMachineIdx, currRecipeIdx);
+    }
+
+    public void ChangeRecipe(int amount)
+    {
+        currRecipeIdx += amount;
+        currRecipeIdx = MathMod(currRecipeIdx, currDisplayedRecipes[currMachineIdx].Item2.Count);
+        SetRecipeIndices(currMachineIdx, currRecipeIdx);
     }
 
     public void DisplayNextMachine()
     {
-        if (currDisplayedRecipes.Count <= 0) return;
-        currMachineIdx++;
-        if (currMachineIdx >= currDisplayedRecipes.Count)
-        {
-            currMachineIdx = 0;
-        }
-        currRecipeIdx = 0;
-        DisplayRecipe(currDisplayedRecipes[currMachineIdx].Item2[currRecipeIdx]);
+        ChangeMachine(1);
     }
 
     public void DisplayPreviousMachine()
     {
-        if (currDisplayedRecipes.Count <= 0) return;
-        currMachineIdx--;
-        if (currMachineIdx <= 0)
-        {
-            currMachineIdx = currDisplayedRecipes.Count - 1;
-        }
-        currRecipeIdx = currDisplayedRecipes[currMachineIdx].Item2.Count - 1;
-        DisplayRecipe(currDisplayedRecipes[currMachineIdx].Item2[currRecipeIdx]);
+        ChangeMachine(-1);
     }
 
     public void ToggleRecipeBook()
@@ -246,7 +248,7 @@ public class RecipeBook : MonoBehaviour
         } else
         {
             bookButton.sprite = closedBook;
-            ClearRecipeDisplay();
+            SetEmptyRecipe();
             currDisplayedRecipes.Clear();
         }
     }

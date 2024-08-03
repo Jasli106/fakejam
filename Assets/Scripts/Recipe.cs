@@ -519,6 +519,21 @@ public class Recipe
              ));
         }
 
+        // Temp
+        {
+            allRecipes.AddRange(Ingredient.Convert(
+                "Crafter",
+                20f,
+                0,
+                new List<Ingredient>() {
+                    new Ingredient("Steam Engine", 5)
+                },
+                new List<Ingredient>() {
+                    new Ingredient("Cthulhu", 1)
+                }
+             ));
+        }
+
         return allRecipes;
     }
 

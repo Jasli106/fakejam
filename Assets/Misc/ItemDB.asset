@@ -55,6 +55,9 @@ MonoBehaviour:
   - type: Crafter
     amount: 1
     locked: 0
+  - type: Cthulhu
+    amount: 1
+    locked: 0
   - type: Furnace
     amount: 1
     locked: 0
