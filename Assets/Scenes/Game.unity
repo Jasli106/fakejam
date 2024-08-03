@@ -49007,7 +49007,15 @@ PrefabInstance:
       value: Pipe
       objectReference: {fileID: 0}
     - target: {fileID: 6693492882806417161, guid: 8336627123fa0cb438fb3d345e54c5a5, type: 3}
+      propertyPath: startingItems.Array.data[2].type
+      value: Furnace
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693492882806417161, guid: 8336627123fa0cb438fb3d345e54c5a5, type: 3}
       propertyPath: startingItems.Array.data[1].amount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693492882806417161, guid: 8336627123fa0cb438fb3d345e54c5a5, type: 3}
+      propertyPath: startingItems.Array.data[2].amount
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7274361874153437375, guid: 8336627123fa0cb438fb3d345e54c5a5, type: 3}

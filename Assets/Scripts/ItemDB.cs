@@ -1,12 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using TriInspector;
-using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ItemDB", menuName = "ScriptableObjects/ItemDB", order = 1)]
-[ExecuteInEditMode]
 public class ItemDB : ScriptableObject
 {
     public List<Item> items;
@@ -16,18 +12,23 @@ public class ItemDB : ScriptableObject
     {
         items.Clear();
 
-        string folderPath = "Assets/Resources/Items";
-        string[] filePaths = Directory.GetFiles(folderPath);
+        // Load all textures in the Resources/Items folder
+        Object[] loadedItems = Resources.LoadAll("Items", typeof(Texture2D));
 
-        foreach (string filePath in filePaths)
+        foreach (Object obj in loadedItems)
         {
-            if (!Path.GetExtension(filePath).Equals(".png")) continue;
-            string itemName = Path.GetFileNameWithoutExtension(filePath);
-            Item newItem = new Item(itemName, 1);
+            Texture2D texture = obj as Texture2D;
+            if (texture == null) continue;
+
+            string itemName = texture.name;
+            Item newItem = new Item(itemName, 1); // Assuming itemName and quantity 1
             items.Add(newItem);
         }
 
         Debug.Log("Items created from folder.");
-        EditorUtility.SetDirty(this); // Mark the object as dirty to save the changes
+        // Mark the object as dirty to save the changes
+#if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(this);
+#endif
     }
 }

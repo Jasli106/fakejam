@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEditor.Rendering.CameraUI;
-using UnityEngine.Windows;
 
 public abstract class TileUI : MonoBehaviour
 {

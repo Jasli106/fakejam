@@ -289,7 +289,7 @@ public class Recipe
                     new Ingredient("String", 1)
                 },
                 new List<Ingredient>() {
-                    new Ingredient("Primative Bellow", 1)
+                    new Ingredient("Primitive Bellow", 1)
                 }
              ));
 
@@ -316,7 +316,7 @@ public class Recipe
                     new Ingredient("Wood", 1)
                 },
                 new List<Ingredient>() {
-                    new Ingredient("Primative Hammer", 1)
+                    new Ingredient("Primitive Hammer", 1)
                 }
              ));
 
@@ -326,7 +326,7 @@ public class Recipe
                 0,
                 new List<Ingredient>() {
                     new Ingredient("Copper Ore", 5),
-                    new Ingredient("Primative Hammer", 1)
+                    new Ingredient("Primitive Hammer", 1)
                 },
                 new List<Ingredient>() {
                     new Ingredient("Copper Grit", 1)
@@ -382,7 +382,7 @@ public class Recipe
                 new List<Ingredient>() {
                     new Ingredient("Clay", 5),
                     new Ingredient("Copper Ingot", 3),
-                    new Ingredient("Primative Bellow", 1)
+                    new Ingredient("Primitive Bellow", 1)
                 },
                 new List<Ingredient>() {
                     new Ingredient("Furnace", 1)
@@ -396,7 +396,7 @@ public class Recipe
                 new List<Ingredient>() {
                     new Ingredient("Copper Ingot", 4),
                     new Ingredient("String", 6),
-                    new Ingredient("Primative Hammer", 2)
+                    new Ingredient("Primitive Hammer", 2)
                 },
                 new List<Ingredient>() {
                     new Ingredient("Metal Press", 1)
@@ -424,7 +424,7 @@ public class Recipe
                 new List<Ingredient>() {
                     new Ingredient("Clay", 15),
                     new Ingredient("Stone", 5),
-                    new Ingredient("Primative Bellow", 2)
+                    new Ingredient("Primitive Bellow", 2)
                 },
                 new List<Ingredient>() {
                     new Ingredient("Clay Furnace", 1)

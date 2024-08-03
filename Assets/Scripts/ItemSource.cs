@@ -82,7 +82,7 @@ public class ItemSource : EnableableTileObject
         float multiplier = 1f;
         if (player && !InventoryManager.itemSelected.Empty())
         {
-            if (InventoryManager.itemSelected.type == "Primative Hammer")
+            if (InventoryManager.itemSelected.type == "Primitive Hammer")
             {
                 multiplier = 1.5f;
             }

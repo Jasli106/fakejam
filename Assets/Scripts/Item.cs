@@ -101,7 +101,7 @@ public class Item : ICloneable
 
     public GameObject Placement() 
     {
-        if (Empty()) return null;
+        if (Empty() || amount == 0) return null;
         return Resources.Load<GameObject>(placementFolder + type);
     }
 }
